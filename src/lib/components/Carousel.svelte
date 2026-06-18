@@ -1,0 +1,156 @@
+<script lang="ts">
+  import { base } from '$app/paths';
+  import type { CityView } from '$lib/state/derive';
+
+  interface Props {
+    city: CityView;
+    onClose: () => void;
+  }
+
+  let { city, onClose }: Props = $props();
+
+  let index = $state(0);
+  let dialogEl = $state<HTMLElement | null>(null);
+  let touchStartX = 0;
+
+  const count = $derived(city.photos.length);
+  const photo = $derived(city.photos[index]);
+
+  function go(delta: number) {
+    index = (index + delta + count) % count;
+  }
+
+  function onKeydown(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      onClose();
+    } else if (event.key === 'ArrowRight') {
+      go(1);
+    } else if (event.key === 'ArrowLeft') {
+      go(-1);
+    } else if (event.key === 'Tab') {
+      trapFocus(event);
+    }
+  }
+
+  function trapFocus(event: KeyboardEvent) {
+    if (!dialogEl) return;
+    const focusable = dialogEl.querySelectorAll<HTMLElement>(
+      'button, [href], [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+
+  function onTouchStart(event: TouchEvent) {
+    touchStartX = event.changedTouches[0].clientX;
+  }
+
+  function onTouchEnd(event: TouchEvent) {
+    const dx = event.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+  }
+
+  $effect(() => {
+    dialogEl?.focus();
+  });
+</script>
+
+<svelte:window onkeydown={onKeydown} />
+
+<!-- Backdrop: click outside closes -->
+<div
+  class="fixed inset-0 z-50 flex items-end justify-center bg-ink/60 sm:items-center"
+  role="presentation"
+  onclick={(e) => {
+    if (e.target === e.currentTarget) onClose();
+  }}
+>
+  <div
+    bind:this={dialogEl}
+    class="flex max-h-[92vh] w-full flex-col overflow-hidden rounded-t-2xl bg-paper shadow-xl outline-none sm:max-h-[88vh] sm:max-w-lg sm:rounded-2xl"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Photos from {city.name}"
+    tabindex="-1"
+  >
+    <header class="flex items-center justify-between border-b border-paper-line px-4 py-3">
+      <div>
+        <h2 class="font-display text-2xl leading-none tracking-wide text-ink">{city.name}</h2>
+        <p class="mt-1 text-sm text-ink/60">{index + 1} / {count}</p>
+      </div>
+      <button
+        type="button"
+        class="grid h-9 w-9 place-items-center rounded-full text-2xl leading-none text-ink/70 transition-colors hover:bg-paper-line hover:text-ink"
+        aria-label="Close"
+        onclick={onClose}>×</button
+      >
+    </header>
+
+    <div
+      class="relative flex min-h-0 flex-1 items-center justify-center bg-ink/5"
+      role="group"
+      aria-label="Photo viewer. Swipe left or right to navigate."
+      ontouchstart={onTouchStart}
+      ontouchend={onTouchEnd}
+    >
+      <img
+        src="{base}/{photo.src}"
+        alt={photo.note ?? `Lightmile photo in ${city.name} by ${photo.author}`}
+        loading="lazy"
+        class="max-h-[60vh] w-full object-contain"
+      />
+
+      {#if count > 1}
+        <button
+          type="button"
+          class="absolute left-2 top-1/2 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-paper/85 text-xl text-ink shadow-sm transition-colors hover:bg-paper"
+          aria-label="Previous photo"
+          onclick={() => go(-1)}>‹</button
+        >
+        <button
+          type="button"
+          class="absolute right-2 top-1/2 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-paper/85 text-xl text-ink shadow-sm transition-colors hover:bg-paper"
+          aria-label="Next photo"
+          onclick={() => go(1)}>›</button
+        >
+      {/if}
+    </div>
+
+    <footer class="px-4 py-3">
+      <div class="flex items-center gap-2">
+        <span class="rounded-full bg-blue px-2.5 py-1 text-sm font-semibold text-paper">{photo.author}</span>
+        {#if photo.date}
+          <span class="text-xs text-ink/50">{photo.date}</span>
+        {/if}
+      </div>
+      {#if photo.note}
+        <p class="mt-2 text-sm text-ink/80">{photo.note}</p>
+      {/if}
+
+      {#if count > 1}
+        <div class="mt-3 flex justify-center gap-1.5" role="tablist" aria-label="Choose photo">
+          {#each city.photos as _, i (i)}
+            <button
+              type="button"
+              class="h-2 rounded-full transition-all {i === index
+                ? 'w-5 bg-blue'
+                : 'w-2 bg-ink/25 hover:bg-ink/40'}"
+              role="tab"
+              aria-selected={i === index}
+              aria-label="Go to photo {i + 1}"
+              onclick={() => (index = i)}
+            ></button>
+          {/each}
+        </div>
+      {/if}
+    </footer>
+  </div>
+</div>
