@@ -64,5 +64,10 @@
     "city": "tandil",
     "src": "photos/tandil/tandil-01.jpeg",
     "author": "@checho289"
+  },
+  {
+    "city": "manchester",
+    "src": "photos/manchester/manchester.jpeg",
+    "author": "@ana.ligthart"
   }
 ]

@@ -47,5 +47,12 @@
     "country": "AR",
     "lat": -37.3217,
     "lng": -59.1332
+  },
+  {
+    "id": "manchester",
+    "name": "Manchester",
+    "country": "GB",
+    "lat": 53.4808,
+    "lng": -2.2426
   }
 ]
