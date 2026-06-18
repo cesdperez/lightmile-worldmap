@@ -145,5 +145,12 @@
     "country": "NL",
     "lat": 52.2,
     "lng": 5.8
+  },
+  {
+    "id": "reykjavik",
+    "name": "Reykjavik",
+    "country": "IS",
+    "lat": 64.1355,
+    "lng": -21.8954
   }
 ]
