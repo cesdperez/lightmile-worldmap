@@ -56,7 +56,7 @@
     if (!ready || !svgEl) return;
 
     const zb = zoom<SVGSVGElement, unknown>()
-      .scaleExtent([1, 14])
+      .scaleExtent([1, 100])
       .on('zoom', (event) => {
         transform = event.transform;
       });
@@ -148,13 +148,13 @@
       type="button"
       class="grid h-10 w-10 place-items-center rounded-full border border-ink/15 bg-paper/90 text-xl font-bold text-ink shadow-sm backdrop-blur transition-colors hover:bg-paper active:bg-paper-line"
       aria-label="Zoom in"
-      onclick={() => zoomBy(1.6)}>+</button
+      onclick={() => zoomBy(1.4)}>+</button
     >
     <button
       type="button"
       class="grid h-10 w-10 place-items-center rounded-full border border-ink/15 bg-paper/90 text-xl font-bold text-ink shadow-sm backdrop-blur transition-colors hover:bg-paper active:bg-paper-line"
       aria-label="Zoom out"
-      onclick={() => zoomBy(1 / 1.6)}>−</button
+      onclick={() => zoomBy(1 / 1.4)}>−</button
     >
   </div>
 </div>
