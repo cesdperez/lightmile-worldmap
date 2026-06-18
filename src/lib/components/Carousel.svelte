@@ -81,21 +81,23 @@
     aria-label="Photos from {city.name}"
     tabindex="-1"
   >
-    <header class="flex items-center justify-between border-b border-paper-line px-4 py-3">
-      <div>
-        <h2 class="font-display text-2xl leading-none tracking-wide text-ink">{city.name}</h2>
-        <p class="mt-1 text-sm text-ink/60">{index + 1} / {count}</p>
+    <header class="flex items-center justify-between gap-3 px-5 py-4">
+      <div class="flex min-w-0 items-baseline gap-3">
+        <h2 class="truncate font-display text-2xl leading-none tracking-wide text-ink">{city.name}</h2>
+        {#if count > 1}
+          <span class="shrink-0 text-sm font-medium tabular-nums text-ink/50">{index + 1} / {count}</span>
+        {/if}
       </div>
       <button
         type="button"
-        class="grid h-9 w-9 place-items-center rounded-full text-2xl leading-none text-ink/70 transition-colors hover:bg-paper-line hover:text-ink"
+        class="-mr-1.5 grid h-9 w-9 shrink-0 place-items-center rounded-full text-2xl leading-none text-ink/60 transition-colors hover:bg-paper-line hover:text-ink"
         aria-label="Close"
         onclick={onClose}>×</button
       >
     </header>
 
     <div
-      class="relative flex min-h-0 flex-1 items-center justify-center bg-ink/5"
+      class="relative flex min-h-0 flex-1 items-center justify-center bg-paper"
       role="group"
       aria-label="Photo viewer. Swipe left or right to navigate."
       ontouchstart={onTouchStart}
@@ -111,38 +113,38 @@
       {#if count > 1}
         <button
           type="button"
-          class="absolute left-2 top-1/2 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-paper/85 text-xl text-ink shadow-sm transition-colors hover:bg-paper"
+          class="absolute left-3 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-ink/10 text-xl text-ink backdrop-blur-sm transition-colors hover:bg-ink/20"
           aria-label="Previous photo"
           onclick={() => go(-1)}>‹</button
         >
         <button
           type="button"
-          class="absolute right-2 top-1/2 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-paper/85 text-xl text-ink shadow-sm transition-colors hover:bg-paper"
+          class="absolute right-3 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-ink/10 text-xl text-ink backdrop-blur-sm transition-colors hover:bg-ink/20"
           aria-label="Next photo"
           onclick={() => go(1)}>›</button
         >
       {/if}
     </div>
 
-    <footer class="px-4 py-3">
-      <div class="flex items-center gap-2">
+    <footer class="px-5 py-4">
+      <div class="flex flex-wrap items-center gap-x-2.5 gap-y-1">
         <span class="rounded-full bg-blue px-2.5 py-1 text-sm font-semibold text-white">{photo.author}</span>
         {#if photo.date}
-          <span class="text-xs text-ink/50">{photo.date}</span>
+          <span class="text-xs tabular-nums text-ink/50">{photo.date}</span>
         {/if}
       </div>
       {#if photo.note}
-        <p class="mt-2 text-sm text-ink/80">{photo.note}</p>
+        <p class="mt-2.5 text-sm leading-relaxed text-ink/80">{photo.note}</p>
       {/if}
 
       {#if count > 1}
-        <div class="mt-3 flex justify-center gap-1.5" role="tablist" aria-label="Choose photo">
+        <div class="mt-4 flex justify-center gap-1.5" role="tablist" aria-label="Choose photo">
           {#each city.photos as _, i (i)}
             <button
               type="button"
               class="h-2 rounded-full transition-all {i === index
-                ? 'w-5 bg-blue'
-                : 'w-2 bg-ink/25 hover:bg-ink/40'}"
+                ? 'w-6 bg-blue'
+                : 'w-2 bg-ink/20 hover:bg-ink/40'}"
               role="tab"
               aria-selected={i === index}
               aria-label="Go to photo {i + 1}"
