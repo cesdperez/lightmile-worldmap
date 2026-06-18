@@ -173,5 +173,10 @@
     "city": "veluwe",
     "src": "photos/veluwe/veluwe-01.jpeg",
     "author": "@ana.ligthart"
+  },
+  {
+    "city": "reykjavik",
+    "src": "photos/reykjavik/reykjavik-01.jpeg",
+    "author": "@oliverdor"
   }
 ]
