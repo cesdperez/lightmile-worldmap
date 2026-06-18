@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+/* Dark mode is driven by a `.dark` class on <html> (see app.html + theme.svelte.ts),
+   not the OS media query, so point Tailwind's `dark:` variant at that class. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Brand fonts (Anton + Inter) are loaded via <link> in app.html. */
 
 @theme {
