@@ -139,7 +139,8 @@
     </g>
   </svg>
 
-  <div class="absolute right-3 top-3 flex flex-col gap-2">
+  <!-- top-16 leaves room for the theme toggle, which sits at top-3 (see +page.svelte). -->
+  <div class="absolute right-3 top-16 flex flex-col gap-2">
     <button
       type="button"
       class="grid h-10 w-10 place-items-center rounded-full border border-ink/15 bg-paper/90 text-xl font-bold text-ink shadow-sm backdrop-blur transition-colors hover:bg-paper active:bg-paper-line"

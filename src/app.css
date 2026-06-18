@@ -17,6 +17,20 @@
   --font-sans: 'Inter', system-ui, sans-serif;
 }
 
+/* Dark mode: every surface is a token, so we only re-point the tokens. The
+   `.dark` class is set on <html> by an inline script in app.html before paint
+   (no flash) and toggled at runtime by src/lib/state/theme.svelte.ts. */
+:root.dark {
+  --color-blue: #6c5bff;
+  --color-blue-deep: #5343d6;
+  --color-paper: #1b1813;
+  --color-paper-line: #34302a;
+  --color-ink: #ece7da;
+
+  --color-land: #2a261f;
+  --color-land-line: #4a4537;
+}
+
 html,
 body {
   height: 100%;
@@ -38,6 +52,16 @@ body {
     0 0,
     1px 2px;
   -webkit-font-smoothing: antialiased;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* In dark mode the grain dots must be light to stay faintly visible. */
+:root.dark body {
+  background-image:
+    radial-gradient(rgba(236, 231, 218, 0.03) 1px, transparent 1px),
+    radial-gradient(rgba(236, 231, 218, 0.025) 1px, transparent 1px);
 }
 
 @media (prefers-reduced-motion: reduce) {
