@@ -28,5 +28,32 @@
     "city": "lisbon",
     "src": "photos/lisbon/ponte-01.svg",
     "author": "@mariana"
+  },
+  {
+    "city": "barcelona",
+    "src": "photos/barcelona/barcelona-01.jpeg",
+    "author": "@checho289",
+    "date": "2026-06-16"
+  },
+  {
+    "city": "andorra",
+    "src": "photos/andorra/andorra-01.jpeg",
+    "author": "@checho289",
+    "note": "UTMB Andorra weekend",
+    "date": "2026-06-13"
+  },
+  {
+    "city": "andorra",
+    "src": "photos/andorra/andorra-02.jpeg",
+    "author": "@checho289",
+    "note": "UTMB Andorra weekend",
+    "date": "2026-06-13"
+  },
+  {
+    "city": "andorra",
+    "src": "photos/andorra/andorra-03.jpeg",
+    "author": "@checho289",
+    "note": "UTMB Andorra weekend",
+    "date": "2026-06-13"
   }
 ]

@@ -1,7 +1,7 @@
 import { geoNaturalEarth1, geoPath, type GeoProjection, type GeoPath } from 'd3-geo';
 import { feature } from 'topojson-client';
 import type { Feature, Geometry } from 'geojson';
-import topology from 'world-atlas/countries-110m.json';
+import topology from 'world-atlas/countries-50m.json';
 
 export interface CountryFeature extends Feature<Geometry> {
   id: string;
