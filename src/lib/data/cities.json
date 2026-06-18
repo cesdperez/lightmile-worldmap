@@ -12,5 +12,40 @@
     "country": "AD",
     "lat": 42.5063,
     "lng": 1.5218
+  },
+  {
+    "id": "berlin",
+    "name": "Berlin",
+    "country": "DE",
+    "lat": 52.52,
+    "lng": 13.405
+  },
+  {
+    "id": "bilzen",
+    "name": "Bilzen",
+    "country": "BE",
+    "lat": 50.8736,
+    "lng": 5.5181
+  },
+  {
+    "id": "el-calafate",
+    "name": "El Calafate",
+    "country": "AR",
+    "lat": -50.3379,
+    "lng": -72.2648
+  },
+  {
+    "id": "pula",
+    "name": "Pula",
+    "country": "HR",
+    "lat": 44.8666,
+    "lng": 13.8496
+  },
+  {
+    "id": "tandil",
+    "name": "Tandil",
+    "country": "AR",
+    "lat": -37.3217,
+    "lng": -59.1332
   }
 ]

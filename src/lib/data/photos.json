@@ -25,5 +25,44 @@
     "author": "@checho289",
     "note": "UTMB Andorra weekend",
     "date": "2026-06-13"
+  },
+  {
+    "city": "andorra",
+    "src": "photos/andorra/andorra-04.jpeg",
+    "author": "@checho289",
+    "note": "UTMB Andorra weekend",
+    "date": "2026-06-13"
+  },
+  {
+    "city": "andorra",
+    "src": "photos/andorra/andorra-05.jpeg",
+    "author": "@checho289",
+    "note": "UTMB Andorra weekend",
+    "date": "2026-06-13"
+  },
+  {
+    "city": "berlin",
+    "src": "photos/berlin/berlin-01.jpeg",
+    "author": "@checho289"
+  },
+  {
+    "city": "bilzen",
+    "src": "photos/bilzen/bilzen-01.jpeg",
+    "author": "@checho289"
+  },
+  {
+    "city": "el-calafate",
+    "src": "photos/el-calafate/el-calafate-01.jpeg",
+    "author": "@gabi.gabo.gualdesi"
+  },
+  {
+    "city": "pula",
+    "src": "photos/pula/pula-01.jpeg",
+    "author": "@kosfietje"
+  },
+  {
+    "city": "tandil",
+    "src": "photos/tandil/tandil-01.jpeg",
+    "author": "@checho289"
   }
 ]
