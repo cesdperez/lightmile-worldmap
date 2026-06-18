@@ -32,7 +32,7 @@
 <main class="relative h-[100dvh] w-full overflow-hidden">
   <Header />
 
-  <div class="absolute right-3 top-3 z-20">
+  <div class="absolute right-3 top-[max(0.75rem,env(safe-area-inset-top))] z-20">
     <ThemeToggle />
   </div>
 

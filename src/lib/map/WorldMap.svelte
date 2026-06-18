@@ -49,6 +49,8 @@
   const pinRadius = $derived(7 / k);
   const pinStroke = $derived(2 / k);
   const borderWidth = $derived(0.7 / k);
+  // Invisible hit area so pins meet the ~44px mobile tap-target minimum.
+  const pinHitRadius = $derived(22 / k);
 
   $effect(() => {
     if (!ready || !svgEl) return;
@@ -125,6 +127,7 @@
             }
           }}
         >
+          <circle cx={pin.x} cy={pin.y} r={pinHitRadius} fill="transparent" />
           <circle
             cx={pin.x}
             cy={pin.y}
@@ -139,8 +142,8 @@
     </g>
   </svg>
 
-  <!-- top-16 leaves room for the theme toggle, which sits at top-3 (see +page.svelte). -->
-  <div class="absolute right-3 top-16 flex flex-col gap-2">
+  <!-- Sits below the theme toggle (top-3 + safe-area inset; see +page.svelte). -->
+  <div class="absolute right-3 top-[calc(4rem+env(safe-area-inset-top))] flex flex-col gap-2">
     <button
       type="button"
       class="grid h-10 w-10 place-items-center rounded-full border border-ink/15 bg-paper/90 text-xl font-bold text-ink shadow-sm backdrop-blur transition-colors hover:bg-paper active:bg-paper-line"
