@@ -99,5 +99,79 @@
     "city": "chamonix",
     "src": "photos/chamonix/chamonix-02.jpeg",
     "author": "@kosfietje"
+  },
+  {
+    "city": "barcelona",
+    "src": "photos/barcelona/barcelona-02.jpeg",
+    "author": "@kosfietje"
+  },
+  {
+    "city": "athens",
+    "src": "photos/athens/athens-01.jpeg",
+    "author": "@yanniskoutsomitis"
+  },
+  {
+    "city": "breda",
+    "src": "photos/breda/breda-01.jpeg"
+  },
+  {
+    "city": "cologne",
+    "src": "photos/cologne/cologne-01.jpeg"
+  },
+  {
+    "city": "cologne",
+    "src": "photos/cologne/cologne-02.jpeg"
+  },
+  {
+    "city": "kap-kamenjak",
+    "src": "photos/kap-kamenjak/kap-kamenjak-01.jpeg",
+    "author": "@kosfietje"
+  },
+  {
+    "city": "paris",
+    "src": "photos/paris/paris-01.jpeg",
+    "author": "@enrique_mateoo"
+  },
+  {
+    "city": "paris",
+    "src": "photos/paris/paris-02.jpeg",
+    "author": "@enrique_mateoo"
+  },
+  {
+    "city": "porto",
+    "src": "photos/porto/porto-01.jpeg",
+    "author": "@bartbuijs"
+  },
+  {
+    "city": "porto",
+    "src": "photos/porto/porto-02.jpeg",
+    "author": "@bartbuijs"
+  },
+  {
+    "city": "porto",
+    "src": "photos/porto/porto-03.jpeg",
+    "author": "@bartbuijs"
+  },
+  {
+    "city": "rimini",
+    "src": "photos/rimini/rimini-01.jpeg",
+    "author": "@alessioamic1"
+  },
+  {
+    "city": "haarlemmermeer",
+    "src": "photos/haarlemmermeer/schiphol-01.jpeg"
+  },
+  {
+    "city": "utrecht",
+    "src": "photos/utrecht/utrecht-01.jpeg"
+  },
+  {
+    "city": "utrecht",
+    "src": "photos/utrecht/utrecht-02.jpeg"
+  },
+  {
+    "city": "veluwe",
+    "src": "photos/veluwe/veluwe-01.jpeg",
+    "author": "@ana.ligthart"
   }
 ]
