@@ -67,7 +67,7 @@
 
 <!-- Backdrop: click outside closes -->
 <div
-  class="fixed inset-0 z-50 flex items-end justify-center bg-black/60 sm:items-center"
+  class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
   role="presentation"
   onclick={(e) => {
     if (e.target === e.currentTarget) onClose();
@@ -75,7 +75,7 @@
 >
   <div
     bind:this={dialogEl}
-    class="flex max-h-[92vh] w-full flex-col overflow-hidden rounded-t-2xl bg-paper shadow-xl outline-none sm:max-h-[88vh] sm:max-w-lg sm:rounded-2xl"
+    class="flex max-h-[92vh] w-full flex-col overflow-hidden rounded-2xl bg-paper shadow-xl outline-none sm:max-h-[88vh] sm:max-w-lg"
     role="dialog"
     aria-modal="true"
     aria-label="Photos from {city.name}"
