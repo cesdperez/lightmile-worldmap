@@ -1,35 +1,5 @@
 [
   {
-    "city": "eindhoven",
-    "src": "photos/eindhoven/strijp-s-01.svg",
-    "author": "@cesar",
-    "note": "Logo sticker on the canal bridge",
-    "date": "2026-06-14"
-  },
-  {
-    "city": "eindhoven",
-    "src": "photos/eindhoven/stadhuisplein-01.svg",
-    "author": "@lotte",
-    "note": "Club tee after the Tuesday run"
-  },
-  {
-    "city": "eindhoven",
-    "src": "photos/eindhoven/dommel-01.svg",
-    "author": "@sven"
-  },
-  {
-    "city": "lisbon",
-    "src": "photos/lisbon/alfama-01.svg",
-    "author": "@cesar",
-    "note": "Flag at the miradouro",
-    "date": "2026-05-02"
-  },
-  {
-    "city": "lisbon",
-    "src": "photos/lisbon/ponte-01.svg",
-    "author": "@mariana"
-  },
-  {
     "city": "barcelona",
     "src": "photos/barcelona/barcelona-01.jpeg",
     "author": "@checho289",
