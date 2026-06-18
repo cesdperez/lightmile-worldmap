@@ -48,7 +48,7 @@
   const k = $derived(transform.k);
   const pinRadius = $derived(7 / k);
   const pinStroke = $derived(2 / k);
-  const borderWidth = $derived(0.5 / k);
+  const borderWidth = $derived(0.7 / k);
 
   $effect(() => {
     if (!ready || !svgEl) return;
@@ -100,8 +100,8 @@
       {#each countryPaths as country, i (i)}
         <path
           d={country.d}
-          fill={country.conquered ? 'var(--color-blue)' : 'var(--color-paper)'}
-          stroke="var(--color-paper-line)"
+          fill={country.conquered ? 'var(--color-blue)' : 'var(--color-land)'}
+          stroke="var(--color-land-line)"
           stroke-width={borderWidth}
           stroke-linejoin="round"
         >

@@ -9,6 +9,10 @@
   --color-paper-line: #d9d3c4;
   --color-ink: #14110e;
 
+  /* Map landmass: distinct from the paper background so countries read clearly. */
+  --color-land: #ddd5c2;
+  --color-land-line: #b3a98f;
+
   --font-display: 'Anton', system-ui, sans-serif;
   --font-sans: 'Inter', system-ui, sans-serif;
 }
