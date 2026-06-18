@@ -67,7 +67,7 @@
 
 <!-- Backdrop: click outside closes -->
 <div
-  class="fixed inset-0 z-50 flex items-end justify-center bg-ink/60 sm:items-center"
+  class="fixed inset-0 z-50 flex items-end justify-center bg-black/60 sm:items-center"
   role="presentation"
   onclick={(e) => {
     if (e.target === e.currentTarget) onClose();
@@ -126,7 +126,7 @@
 
     <footer class="px-4 py-3">
       <div class="flex items-center gap-2">
-        <span class="rounded-full bg-blue px-2.5 py-1 text-sm font-semibold text-paper">{photo.author}</span>
+        <span class="rounded-full bg-blue px-2.5 py-1 text-sm font-semibold text-white">{photo.author}</span>
         {#if photo.date}
           <span class="text-xs text-ink/50">{photo.date}</span>
         {/if}

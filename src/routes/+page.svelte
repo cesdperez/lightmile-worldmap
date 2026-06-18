@@ -1,5 +1,6 @@
 <script lang="ts">
   import Header from '$lib/components/Header.svelte';
+  import ThemeToggle from '$lib/components/ThemeToggle.svelte';
   import ProgressBar from '$lib/components/ProgressBar.svelte';
   import Carousel from '$lib/components/Carousel.svelte';
   import WorldMap from '$lib/map/WorldMap.svelte';
@@ -30,6 +31,10 @@
 
 <main class="relative h-[100dvh] w-full overflow-hidden">
   <Header />
+
+  <div class="absolute right-3 top-3 z-20">
+    <ThemeToggle />
+  </div>
 
   <WorldMap
     cities={mapData.cities}
