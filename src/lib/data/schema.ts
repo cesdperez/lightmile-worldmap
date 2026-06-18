@@ -15,7 +15,7 @@ export const citySchema = z.object({
 export const photoSchema = z.object({
   city: z.string().min(1),
   src: z.string().min(1),
-  author: z.string().min(1),
+  author: z.string().min(1).optional(),
   note: z.string().optional(),
   date: z.string().optional()
 });

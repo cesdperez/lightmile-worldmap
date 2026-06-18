@@ -105,7 +105,7 @@
     >
       <img
         src="{base}/{photo.src}"
-        alt={photo.note ?? `Lightmile photo in ${city.name} by ${photo.author}`}
+        alt={photo.note ?? (photo.author ? `Lightmile photo in ${city.name} by ${photo.author}` : `Lightmile photo in ${city.name}`)}
         loading="lazy"
         class="max-h-[60vh] w-full object-contain"
       />
@@ -128,7 +128,9 @@
 
     <footer class="px-5 py-4">
       <div class="flex flex-wrap items-center gap-x-2.5 gap-y-1">
-        <span class="rounded-full bg-blue px-2.5 py-1 text-sm font-semibold text-white">{photo.author}</span>
+        {#if photo.author}
+          <span class="rounded-full bg-blue px-2.5 py-1 text-sm font-semibold text-white">{photo.author}</span>
+        {/if}
         {#if photo.date}
           <span class="text-xs tabular-nums text-ink/50">{photo.date}</span>
         {/if}
