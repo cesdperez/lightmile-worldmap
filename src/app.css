@@ -1,0 +1,48 @@
+@import 'tailwindcss';
+
+/* Brand fonts (Anton + Inter) are loaded via <link> in app.html. */
+
+@theme {
+  --color-blue: #3d2bff;
+  --color-blue-deep: #2a1fb8;
+  --color-paper: #f2eee4;
+  --color-paper-line: #d9d3c4;
+  --color-ink: #14110e;
+
+  --font-display: 'Anton', system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background-color: var(--color-paper);
+  /* Subtle paper grain: two faint dot layers, kept light so contrast holds. */
+  background-image:
+    radial-gradient(rgba(20, 17, 14, 0.025) 1px, transparent 1px),
+    radial-gradient(rgba(20, 17, 14, 0.02) 1px, transparent 1px);
+  background-size:
+    3px 3px,
+    7px 7px;
+  background-position:
+    0 0,
+    1px 2px;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

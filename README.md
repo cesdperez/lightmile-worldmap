@@ -26,6 +26,35 @@ place. Each photo shows a small **author tag** (e.g. `@cesar`) and an optional n
 - The admin adds them to the site by committing image files + a data entry, then pushing.
 - The site is a **static** site hosted free on **Cloudflare Pages**.
 
+## Develop
+
+```bash
+npm install
+npm run dev        # local dev server
+npm run check      # type-check (svelte-check)
+npm run build      # static site -> build/
+npm run preview    # serve the production build locally
+```
+
+The map, pins, country fills, carousel, and progress bar are all **derived from**
+`src/lib/data/cities.json` + `src/lib/data/photos.json`. Adding content is just editing
+those two files and dropping images under `static/photos/<city-id>/` — see
+[docs/DATA-MODEL.md](docs/DATA-MODEL.md). Data is validated with Zod at build time
+(`src/lib/data/schema.ts`), so a bad city reference, country code, or coordinate **fails
+the build** instead of shipping broken.
+
+## Deploy (Cloudflare Pages)
+
+The site is fully static (`@sveltejs/adapter-static`). To deploy on the free tier:
+
+1. Push this repo to GitHub/GitLab.
+2. In Cloudflare Pages, create a project from the repo with:
+   - **Build command:** `npm run build`
+   - **Build output directory:** `build`
+   - (Framework preset: SvelteKit, or "None" with the settings above.)
+3. Every push auto-builds and deploys to `<project>.pages.dev`. A custom domain can be
+   added later via Cloudflare DNS (free).
+
 ## Docs
 
 | Doc | What's in it |
@@ -38,4 +67,7 @@ place. Each photo shows a small **author tag** (e.g. `@cesar`) and an optional n
 
 ## Status
 
-Pre-build. These docs capture the plan before any code is written.
+**V1 built.** SvelteKit static site with the vector world map, derived country fills,
+city pins, photo carousel, and progress bar — seeded with sample data (Eindhoven,
+Lisbon) and placeholder images, ready to deploy to Cloudflare Pages. Brand colors/fonts
+are approximated from [docs/DESIGN.md](docs/DESIGN.md) pending the real logo assets.
