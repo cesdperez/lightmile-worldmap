@@ -54,5 +54,26 @@
     "country": "GB",
     "lat": 53.4808,
     "lng": -2.2426
+  },
+  {
+    "id": "gerold",
+    "name": "Gerold",
+    "country": "AT",
+    "lat": 47.3274,
+    "lng": 10.0843
+  },
+  {
+    "id": "malaga",
+    "name": "Málaga",
+    "country": "ES",
+    "lat": 36.7213,
+    "lng": -4.4214
+  },
+  {
+    "id": "chamonix",
+    "name": "Chamonix-Mont-Blanc",
+    "country": "FR",
+    "lat": 45.9237,
+    "lng": 6.8694
   }
 ]
