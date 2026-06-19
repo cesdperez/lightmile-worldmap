@@ -132,7 +132,7 @@
             cx={pin.x}
             cy={pin.y}
             r={pinRadius}
-            fill="var(--color-blue)"
+            fill="var(--color-ink)"
             stroke="var(--color-paper)"
             stroke-width={pinStroke}
           />
