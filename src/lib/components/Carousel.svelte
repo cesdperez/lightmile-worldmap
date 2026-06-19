@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { base } from '$app/paths';
+  import { PHOTOS_BASE_URL } from '$lib/config';
   import type { CityView } from '$lib/state/derive';
 
   interface Props {
@@ -104,7 +104,7 @@
       ontouchend={onTouchEnd}
     >
       <img
-        src="{base}/{photo.src}"
+        src="{PHOTOS_BASE_URL}/{photo.src}"
         alt={photo.note ?? (photo.author ? `Lightmile photo in ${city.name} by ${photo.author}` : `Lightmile photo in ${city.name}`)}
         loading="lazy"
         class="max-h-[60vh] w-full object-contain"
