@@ -36,9 +36,12 @@ Data files use friendly ISO 3166-1 **alpha-2** codes (`"NL"`). The `world-atlas`
 
 ## Adding content (the primary task)
 
-1. Drop compressed images under `static/photos/<city-id>/`.
+Photos are hosted in a public Cloudflare R2 bucket (`lightmile-worldmap-photos`), not committed to the repo. They are served via the bucket's r2.dev URL, set in `src/lib/config.ts` (`PHOTOS_BASE_URL`). `photos.json` `src` values are the R2 object keys (`photos/<city-id>/<file>`).
+
+1. Upload the compressed image to R2 (requires `wrangler login` once):
+   `wrangler r2 object put lightmile-worldmap-photos/photos/<city-id>/<file> --file=<localpath> --remote --content-type=image/jpeg --cache-control="public, max-age=31536000, immutable"`
 2. If the city is new, add one entry to `src/lib/data/cities.json` (`id`, `name`, alpha-2 `country`, `lat`, `lng`).
-3. Add one entry per photo to `src/lib/data/photos.json` (`city` = city id, `src` path under static/, `author`, optional `note`/`date`).
+3. Add one entry per photo to `src/lib/data/photos.json` (`city` = city id, `src` = R2 key `photos/<city-id>/<file>`, `author`, optional `note`/`date`).
 4. `npm run build` to confirm validation passes, then commit + push.
 
 `schema.ts` enforces: valid alpha-2 country code, coordinate ranges, no duplicate city ids, and that every photo references an existing city. (Note: the docs mention validating that the image `src` file exists, but `schema.ts` does not currently check this.)
