@@ -36,7 +36,7 @@ country by **ISO 3166-1 code** (so they join to the TopoJSON country shapes).
 [
   {
     "city": "eindhoven",            // -> cities[].id
-    "src": "photos/eindhoven/strijp-s-01.webp",  // under static/
+    "src": "photos/eindhoven/strijp-s-01.webp",  // R2 object key (see "Where photos live")
     "author": "@cesar",
     "note": "Logo sticker on the canal bridge",  // optional
     "date": "2026-06-14"            // optional
@@ -55,15 +55,49 @@ country by **ISO 3166-1 code** (so they join to the TopoJSON country shapes).
 > We keep a small lookup (alpha-2 ↔ numeric) so the data can use friendly `"NL"` while
 > the map joins on numeric ids.
 
+## Where photos live (Cloudflare R2)
+
+Images are **not** committed to the repo. They live in the public Cloudflare R2 bucket
+`lightmile-worldmap-photos` and are served from its r2.dev URL, set as
+`PHOTOS_BASE_URL` in `src/lib/config.ts`. Each `photos.json` `src` is the R2 **object
+key** (`photos/<city-id>/<file>`); the app builds the final URL as
+`${PHOTOS_BASE_URL}/${src}`.
+
+### One-time setup
+
+```bash
+wrangler login   # opens a browser; approve the default scopes (include R2)
+```
+
+### Upload an image
+
+Run this once per file. Keep the key as `photos/<city-id>/<file>` so it matches the
+`src` you put in `photos.json`.
+
+```bash
+wrangler r2 object put \
+  lightmile-worldmap-photos/photos/<city-id>/<file> \
+  --file=<local-path-to-image> \
+  --remote \
+  --content-type=image/jpeg \
+  --cache-control="public, max-age=31536000, immutable"
+```
+
+- `--content-type`: use `image/jpeg`, `image/png`, or `image/webp` to match the file.
+- `--remote`: required, writes to the real bucket (not the local dev cache).
+- Verify it is live: `curl -I "$PHOTOS_BASE_URL/photos/<city-id>/<file>"` → `200`.
+
 ## Admin workflow: "add photos from a new run"
 
 1. Receive photos over WhatsApp; pick the ones with a visible Lightmile logo.
-2. Resize/compress them (build script can do this; or manual export ~1600px WebP).
-3. Drop the files into `static/photos/<city-id>/`.
+2. Resize/compress them (manual export ~1600px JPEG/WebP).
+3. Upload each file to R2 with the `wrangler r2 object put ...` command above.
 4. In `data/cities.json`: if the city is new, add one entry (name, country code,
    lat/lng). Look up coordinates once (e.g. from any maps search).
-5. In `data/photos.json`: add one entry per photo (city id, src path, author, optional note).
-6. `git commit` + `git push`. Cloudflare Pages auto-builds and deploys.
+5. In `data/photos.json`: add one entry per photo — `city` id, `src` = the R2 key
+   `photos/<city-id>/<file>`, `author`, optional `note`/`date`.
+6. `npm run build` to confirm validation passes, then `git commit` + `git push`.
+   Cloudflare Pages auto-builds and deploys.
 
 That's it. New countries turn blue automatically; pins, carousels, counters, and the
 progress bar all update from the data.
@@ -73,9 +107,11 @@ progress bar all update from the data.
 To keep the data honest, the build should fail (or warn loudly) if:
 
 - a photo references a `city` id that doesn't exist,
-- an image `src` file is missing,
 - a city has an unknown/invalid country code,
 - coordinates are out of range.
+
+(The `src` is an R2 key, not a local file, so the build does not check that the image
+exists. Use the `curl -I` check above to confirm an upload before referencing it.)
 
 ## Open question
 
