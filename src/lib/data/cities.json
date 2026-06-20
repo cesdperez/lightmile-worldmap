@@ -152,5 +152,12 @@
     "country": "IS",
     "lat": 64.1355,
     "lng": -21.8954
+  },
+  {
+    "id": "mumbai",
+    "name": "Mumbai",
+    "country": "IN",
+    "lat": 19.076,
+    "lng": 72.8777
   }
 ]
