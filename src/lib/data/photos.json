@@ -178,5 +178,15 @@
     "city": "reykjavik",
     "src": "photos/reykjavik/reykjavik-01.jpeg",
     "author": "@oliverdor"
+  },
+  {
+    "city": "chamonix",
+    "src": "photos/chamonix/chamonix-03.jpeg",
+    "author": "@sherrymyc"
+  },
+  {
+    "city": "mumbai",
+    "src": "photos/mumbai/mumbai-01.jpeg",
+    "author": "@_travelost"
   }
 ]
