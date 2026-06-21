@@ -188,5 +188,10 @@
     "city": "mumbai",
     "src": "photos/mumbai/mumbai-01.jpeg",
     "author": "@_travelost"
+  },
+  {
+    "city": "new-york",
+    "src": "photos/new-york/new-york-01.jpeg",
+    "author": "@julia_timko"
   }
 ]
