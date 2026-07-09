@@ -4,14 +4,15 @@
   import { zoom, zoomIdentity, type ZoomBehavior, type ZoomTransform } from 'd3-zoom';
   import { countries, buildProjection } from './world';
   import type { CityView } from '$lib/state/derive';
+  import { clusterPins, separateClusters, type Cluster } from '$lib/state/cluster';
 
   interface Props {
     cities: CityView[];
     conqueredCountryIds: Set<string>;
-    onSelectCity: (city: CityView) => void;
+    onSelectCluster: (cluster: Cluster) => void;
   }
 
-  let { cities, conqueredCountryIds, onSelectCity }: Props = $props();
+  let { cities, conqueredCountryIds, onSelectCluster }: Props = $props();
 
   let width = $state(0);
   let height = $state(0);
@@ -44,13 +45,34 @@
       : []
   );
 
+  // Screen distance under which pins merge into one cluster (see cluster.ts).
+  const PIN_MERGE_PX = 34;
+  // Min screen gap between rendered pins; > the 22px hit radius so each centre
+  // stays individually tappable even where different-country pins collide.
+  const PIN_SEPARATION_PX = 26;
+  const clusters = $derived(
+    separateClusters(clusterPins(pins, transform.k, PIN_MERGE_PX), transform.k, PIN_SEPARATION_PX)
+  );
+
   // Keep pin + border sizes visually constant as the map scales.
   const k = $derived(transform.k);
-  const pinRadius = $derived(7 / k);
   const pinStroke = $derived(2 / k);
   const borderWidth = $derived(0.7 / k);
+
+  // Merged pins get a larger dot; size hints at how much is bundled together.
+  function pinRadius(count: number) {
+    return (7 + Math.min(count - 1, 5) * 2.2) / k;
+  }
   // Invisible hit area so pins meet the ~44px mobile tap-target minimum.
-  const pinHitRadius = $derived(22 / k);
+  function pinHitRadius(count: number) {
+    return Math.max(22 / k, pinRadius(count) * 1.6);
+  }
+
+  function clusterLabel(cluster: Cluster) {
+    const places = cluster.cities.map((c) => c.name).join(', ');
+    const photos = `${cluster.photoCount} photo${cluster.photoCount === 1 ? '' : 's'}`;
+    return `${places}: ${photos}. Open carousel.`;
+  }
 
   $effect(() => {
     if (!ready || !svgEl) return;
@@ -111,32 +133,32 @@
         </path>
       {/each}
 
-      {#each pins as pin (pin.city.id)}
+      {#each clusters as cluster (cluster.id)}
+        {@const r = pinRadius(cluster.cities.length)}
         <g
           class="cursor-pointer outline-none"
           role="button"
           tabindex="0"
-          aria-label="{pin.city.name}: {pin.city.photos.length} photo{pin.city.photos.length === 1
-            ? ''
-            : 's'}. Open carousel."
-          onclick={() => onSelectCity(pin.city)}
+          aria-label={clusterLabel(cluster)}
+          onclick={() => onSelectCluster(cluster)}
           onkeydown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
-              onSelectCity(pin.city);
+              onSelectCluster(cluster);
             }
           }}
         >
-          <circle cx={pin.x} cy={pin.y} r={pinHitRadius} fill="transparent" />
+          <title>{cluster.cities.map((c) => c.name).join(', ')}</title>
+          <circle cx={cluster.x} cy={cluster.y} r={pinHitRadius(cluster.cities.length)} fill="transparent" />
           <circle
-            cx={pin.x}
-            cy={pin.y}
-            r={pinRadius}
+            cx={cluster.x}
+            cy={cluster.y}
+            r={r}
             fill="var(--color-ink)"
             stroke="var(--color-paper)"
             stroke-width={pinStroke}
           />
-          <circle cx={pin.x} cy={pin.y} r={pinRadius * 0.4} fill="var(--color-paper)" />
+          <circle cx={cluster.x} cy={cluster.y} r={r * 0.4} fill="var(--color-paper)" />
         </g>
       {/each}
     </g>
