@@ -5,14 +5,15 @@
   import Carousel from '$lib/components/Carousel.svelte';
   import WorldMap from '$lib/map/WorldMap.svelte';
   import { totalCountries } from '$lib/map/world';
-  import { buildMapData, computeProgress, type CityView } from '$lib/state/derive';
+  import { buildMapData, computeProgress } from '$lib/state/derive';
+  import type { Cluster } from '$lib/state/cluster';
 
   let { data } = $props();
 
   const mapData = $derived(buildMapData(data.cities, data.photos));
   const progress = $derived(computeProgress(mapData.conqueredCountryCount, totalCountries));
 
-  let selectedCity = $state<CityView | null>(null);
+  let selectedCluster = $state<Cluster | null>(null);
 
   const title = 'Lightmile World Map';
   const description =
@@ -39,12 +40,12 @@
   <WorldMap
     cities={mapData.cities}
     conqueredCountryIds={mapData.conqueredCountryIds}
-    onSelectCity={(city) => (selectedCity = city)}
+    onSelectCluster={(cluster) => (selectedCluster = cluster)}
   />
 
   <ProgressBar {progress} cityCount={mapData.conqueredCityCount} />
 
-  {#if selectedCity}
-    <Carousel city={selectedCity} onClose={() => (selectedCity = null)} />
+  {#if selectedCluster}
+    <Carousel cluster={selectedCluster} onClose={() => (selectedCluster = null)} />
   {/if}
 </main>

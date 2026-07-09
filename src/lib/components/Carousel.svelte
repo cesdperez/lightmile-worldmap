@@ -1,20 +1,37 @@
 <script lang="ts">
   import { PHOTOS_BASE_URL } from '$lib/config';
-  import type { CityView } from '$lib/state/derive';
+  import type { Cluster } from '$lib/state/cluster';
 
   interface Props {
-    city: CityView;
+    cluster: Cluster;
     onClose: () => void;
   }
 
-  let { city, onClose }: Props = $props();
+  let { cluster, onClose }: Props = $props();
 
   let index = $state(0);
   let dialogEl = $state<HTMLElement | null>(null);
   let touchStartX = 0;
 
-  const count = $derived(city.photos.length);
-  const photo = $derived(city.photos[index]);
+  // Photos across all merged cities, kept grouped by city.
+  const items = $derived(
+    cluster.cities.flatMap((c) => c.photos.map((photo) => ({ photo, cityName: c.name })))
+  );
+  const count = $derived(items.length);
+  const photo = $derived(items[index].photo);
+  const cityName = $derived(items[index].cityName);
+
+  // Pagination dots grouped by city, so a merged cluster reads as distinct places.
+  const cityGroups = $derived(
+    (() => {
+      let start = 0;
+      return cluster.cities.map((c) => {
+        const indices = c.photos.map((_, j) => start + j);
+        start += c.photos.length;
+        return { name: c.name, indices };
+      });
+    })()
+  );
 
   function go(delta: number) {
     index = (index + delta + count) % count;
@@ -78,12 +95,12 @@
     class="flex max-h-[92vh] w-full flex-col overflow-hidden rounded-2xl bg-paper shadow-xl outline-none sm:max-h-[88vh] sm:max-w-lg"
     role="dialog"
     aria-modal="true"
-    aria-label="Photos from {city.name}"
+    aria-label="Photos from {cluster.cities.map((c) => c.name).join(', ')}"
     tabindex="-1"
   >
     <header class="flex items-center justify-between gap-3 px-5 py-4">
       <div class="flex min-w-0 items-baseline gap-3">
-        <h2 class="truncate font-display text-2xl leading-none tracking-wide text-ink">{city.name}</h2>
+        <h2 class="truncate font-display text-2xl leading-none tracking-wide text-ink">{cityName}</h2>
         {#if count > 1}
           <span class="shrink-0 text-sm font-medium tabular-nums text-ink/50">{index + 1} / {count}</span>
         {/if}
@@ -105,7 +122,7 @@
     >
       <img
         src="{PHOTOS_BASE_URL}/{photo.src}"
-        alt={photo.note ?? (photo.author ? `Lightmile photo in ${city.name} by ${photo.author}` : `Lightmile photo in ${city.name}`)}
+        alt={photo.note ?? (photo.author ? `Lightmile photo in ${cityName} by ${photo.author}` : `Lightmile photo in ${cityName}`)}
         loading="lazy"
         class="max-h-[60vh] w-full object-contain"
       />
@@ -140,18 +157,22 @@
       {/if}
 
       {#if count > 1}
-        <div class="mt-4 flex justify-center gap-1.5" role="tablist" aria-label="Choose photo">
-          {#each city.photos as _, i (i)}
-            <button
-              type="button"
-              class="h-2 rounded-full transition-all {i === index
-                ? 'w-6 bg-blue'
-                : 'w-2 bg-ink/20 hover:bg-ink/40'}"
-              role="tab"
-              aria-selected={i === index}
-              aria-label="Go to photo {i + 1}"
-              onclick={() => (index = i)}
-            ></button>
+        <div class="mt-4 flex flex-wrap justify-center gap-x-3 gap-y-2" role="tablist" aria-label="Choose photo">
+          {#each cityGroups as group (group.name)}
+            <div class="flex gap-1.5">
+              {#each group.indices as i (i)}
+                <button
+                  type="button"
+                  class="h-2 rounded-full transition-all {i === index
+                    ? 'w-6 bg-blue'
+                    : 'w-2 bg-ink/20 hover:bg-ink/40'}"
+                  role="tab"
+                  aria-selected={i === index}
+                  aria-label="Go to photo {i + 1} ({group.name})"
+                  onclick={() => (index = i)}
+                ></button>
+              {/each}
+            </div>
           {/each}
         </div>
       {/if}
