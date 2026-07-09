@@ -193,5 +193,35 @@
     "city": "new-york",
     "src": "photos/new-york/new-york-01.jpeg",
     "author": "@julia_timko"
+  },
+  {
+    "city": "thasos",
+    "src": "photos/thasos/thasos-01.jpeg",
+    "author": "@martojurov"
+  },
+  {
+    "city": "colmar",
+    "src": "photos/colmar/colmar-01.jpeg",
+    "author": "@kosfietje"
+  },
+  {
+    "city": "colmar",
+    "src": "photos/colmar/colmar-02.jpeg",
+    "author": "@checho289"
+  },
+  {
+    "city": "colmar",
+    "src": "photos/colmar/colmar-03.jpeg",
+    "author": "@kosfietje"
+  },
+  {
+    "city": "colmar",
+    "src": "photos/colmar/colmar-04.jpeg",
+    "author": "@checho289"
+  },
+  {
+    "city": "colmar",
+    "src": "photos/colmar/colmar-05.jpeg",
+    "author": "@checho289"
   }
 ]
