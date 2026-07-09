@@ -4,7 +4,7 @@
   import { zoom, zoomIdentity, type ZoomBehavior, type ZoomTransform } from 'd3-zoom';
   import { countries, buildProjection } from './world';
   import type { CityView } from '$lib/state/derive';
-  import { clusterPins, separateClusters, type Cluster } from '$lib/state/cluster';
+  import { buildClusters, type Cluster } from '$lib/state/cluster';
 
   interface Props {
     cities: CityView[];
@@ -45,6 +45,9 @@
       : []
   );
 
+  // Below this zoom, dots merge by continent into one marker per continent so a
+  // fully zoomed-out map shows a handful of regional dots, not a European knot.
+  const CONTINENT_ZOOM_MAX = 2;
   // Screen distance under which pins merge into one cluster (see cluster.ts).
   const PIN_MERGE_PX = 34;
   // Min screen gap between rendered pins; > the 22px hit radius so each centre
@@ -54,12 +57,12 @@
   // scatters crammed pins onto the wrong countries (see separateClusters).
   const PIN_MAX_SHIFT_PX = 14;
   const clusters = $derived(
-    separateClusters(
-      clusterPins(pins, transform.k, PIN_MERGE_PX),
-      transform.k,
-      PIN_SEPARATION_PX,
-      PIN_MAX_SHIFT_PX
-    )
+    buildClusters(pins, transform.k, {
+      continentZoomMax: CONTINENT_ZOOM_MAX,
+      mergePx: PIN_MERGE_PX,
+      separationPx: PIN_SEPARATION_PX,
+      maxShiftPx: PIN_MAX_SHIFT_PX
+    })
   );
 
   // Keep pin + border sizes visually constant as the map scales.
@@ -77,9 +80,55 @@
   }
 
   function clusterLabel(cluster: Cluster) {
-    const places = cluster.cities.map((c) => c.name).join(', ');
     const photos = `${cluster.photoCount} photo${cluster.photoCount === 1 ? '' : 's'}`;
+    if (cluster.tier === 'continent') {
+      const cityCount = cluster.cities.length;
+      const places = `${cityCount} ${cityCount === 1 ? 'city' : 'cities'}`;
+      return `${cluster.name}: ${photos} across ${places}. Zoom in.`;
+    }
+    const places = cluster.cities.map((c) => c.name).join(', ');
     return `${places}: ${photos}. Open carousel.`;
+  }
+
+  function onClusterActivate(cluster: Cluster) {
+    if (cluster.tier === 'continent') {
+      zoomToCities(cluster.cities);
+    } else {
+      onSelectCluster(cluster);
+    }
+  }
+
+  // Animate the viewport to fit a set of cities, revealing the finer place tier.
+  function zoomToCities(regionCities: CityView[]) {
+    if (!projection || !zoomBehavior || !svgEl) return;
+    const pts = regionCities
+      .map((c) => projection.projection([c.lng, c.lat]))
+      .filter((p): p is [number, number] => p !== null);
+    if (pts.length === 0) return;
+
+    const xs = pts.map((p) => p[0]);
+    const ys = pts.map((p) => p[1]);
+    const minX = Math.min(...xs);
+    const maxX = Math.max(...xs);
+    const minY = Math.min(...ys);
+    const maxY = Math.max(...ys);
+
+    // Smaller inset on narrow screens so a fitted region isn't dwarfed by margin.
+    const pad = Math.min(80, width * 0.12);
+    const spanX = Math.max(maxX - minX, 1);
+    const spanY = Math.max(maxY - minY, 1);
+    const fit = Math.min((width - pad * 2) / spanX, (height - pad * 2) / spanY);
+    // Clamp above the continent threshold so we always land on the place tier,
+    // and below a ceiling so a single-city region doesn't rocket to max zoom.
+    const scale = Math.max(CONTINENT_ZOOM_MAX + 0.5, Math.min(fit, 12));
+    const cx = (minX + maxX) / 2;
+    const cy = (minY + maxY) / 2;
+
+    const target = zoomIdentity
+      .translate(width / 2, height / 2)
+      .scale(scale)
+      .translate(-cx, -cy);
+    select(svgEl).transition().duration(600).call(zoomBehavior.transform, target);
   }
 
   $effect(() => {
@@ -148,15 +197,19 @@
           role="button"
           tabindex="0"
           aria-label={clusterLabel(cluster)}
-          onclick={() => onSelectCluster(cluster)}
+          onclick={() => onClusterActivate(cluster)}
           onkeydown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
-              onSelectCluster(cluster);
+              onClusterActivate(cluster);
             }
           }}
         >
-          <title>{cluster.cities.map((c) => c.name).join(', ')}</title>
+          <title
+            >{cluster.tier === 'continent'
+              ? cluster.name
+              : cluster.cities.map((c) => c.name).join(', ')}</title
+          >
           <circle cx={cluster.x} cy={cluster.y} r={pinHitRadius(cluster.cities.length)} fill="transparent" />
           <circle
             cx={cluster.x}

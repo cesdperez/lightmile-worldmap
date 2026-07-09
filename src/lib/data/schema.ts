@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { isValidAlpha2 } from './countryCodes';
+import { hasContinent } from './continents';
 
 export const citySchema = z.object({
   id: z.string().min(1),
@@ -7,7 +8,8 @@ export const citySchema = z.object({
   country: z
     .string()
     .length(2)
-    .refine((c) => isValidAlpha2(c), { message: 'unknown ISO 3166-1 alpha-2 country code' }),
+    .refine((c) => isValidAlpha2(c), { message: 'unknown ISO 3166-1 alpha-2 country code' })
+    .refine((c) => hasContinent(c), { message: 'country has no continent mapping (continents.ts)' }),
   lat: z.number().min(-90).max(90),
   lng: z.number().min(-180).max(180)
 });

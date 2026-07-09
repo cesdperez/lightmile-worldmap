@@ -1,4 +1,5 @@
 import type { CityView } from './derive';
+import { continentOf, CONTINENT_NAMES } from '$lib/data/continents';
 
 export interface ProjectedPin {
   city: CityView;
@@ -7,13 +8,72 @@ export interface ProjectedPin {
 }
 
 export interface Cluster {
-  /** Stable key: sorted member city ids joined. */
+  /** Stable key: sorted member city ids joined (or `continent:XX`). */
   id: string;
   /** Centroid of member pins, in projection (pre-transform) space. */
   x: number;
   y: number;
   cities: CityView[];
   photoCount: number;
+  /**
+   * `continent` = coarse tier shown when zoomed far out; one dot per continent,
+   * clicking zooms into the region. `place` = the normal per-country/city dot
+   * whose click opens the carousel.
+   */
+  tier: 'continent' | 'place';
+  /** Continent name for `continent` tier; empty for `place`. */
+  name: string;
+}
+
+export interface ClusterOptions {
+  /** Below this zoom k, the continent tier takes over from the place tier. */
+  continentZoomMax: number;
+  mergePx: number;
+  separationPx: number;
+  maxShiftPx: number;
+}
+
+/**
+ * Pick the clustering tier by zoom. Far out, collapse each continent to a single
+ * dot (avoids the European knot); once zoomed in past `continentZoomMax`, fall
+ * back to the per-country dots that de-overlap and open carousels.
+ */
+export function buildClusters(pins: ProjectedPin[], k: number, opts: ClusterOptions): Cluster[] {
+  if (k < opts.continentZoomMax) {
+    return clusterByContinent(pins);
+  }
+  return separateClusters(
+    clusterPins(pins, k, opts.mergePx),
+    k,
+    opts.separationPx,
+    opts.maxShiftPx
+  );
+}
+
+/** One marker per continent, centred on its member pins. */
+function clusterByContinent(pins: ProjectedPin[]): Cluster[] {
+  const byContinent = new Map<string, ProjectedPin[]>();
+  for (const pin of pins) {
+    const key = continentOf(pin.city.country) ?? pin.city.numeric;
+    const list = byContinent.get(key) ?? [];
+    list.push(pin);
+    byContinent.set(key, list);
+  }
+
+  return [...byContinent].map(([key, group]) => {
+    const sumX = group.reduce((s, p) => s + p.x, 0);
+    const sumY = group.reduce((s, p) => s + p.y, 0);
+    const cities = group.map((p) => p.city);
+    return {
+      id: `continent:${key}`,
+      x: sumX / group.length,
+      y: sumY / group.length,
+      cities,
+      photoCount: cities.reduce((sum, c) => sum + c.photos.length, 0),
+      tier: 'continent' as const,
+      name: CONTINENT_NAMES[key as keyof typeof CONTINENT_NAMES] ?? ''
+    };
+  });
 }
 
 /**
@@ -164,6 +224,8 @@ function clusterGroup(pins: ProjectedPin[], threshold: number): Cluster[] {
     x: c.x,
     y: c.y,
     cities: c.cities,
-    photoCount: c.cities.reduce((sum, city) => sum + city.photos.length, 0)
+    photoCount: c.cities.reduce((sum, city) => sum + city.photos.length, 0),
+    tier: 'place' as const,
+    name: ''
   }));
 }
