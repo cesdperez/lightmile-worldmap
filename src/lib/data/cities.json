@@ -166,5 +166,19 @@
     "country": "US",
     "lat": 40.7128,
     "lng": -74.006
+  },
+  {
+    "id": "thasos",
+    "name": "Thasos",
+    "country": "GR",
+    "lat": 40.6833,
+    "lng": 24.6667
+  },
+  {
+    "id": "colmar",
+    "name": "Colmar",
+    "country": "FR",
+    "lat": 48.0794,
+    "lng": 7.3585
   }
 ]
