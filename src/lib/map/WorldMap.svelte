@@ -50,8 +50,16 @@
   // Min screen gap between rendered pins; > the 22px hit radius so each centre
   // stays individually tappable even where different-country pins collide.
   const PIN_SEPARATION_PX = 26;
+  // Cap on how far a pin may be nudged from its true spot, so far zoom-out never
+  // scatters crammed pins onto the wrong countries (see separateClusters).
+  const PIN_MAX_SHIFT_PX = 14;
   const clusters = $derived(
-    separateClusters(clusterPins(pins, transform.k, PIN_MERGE_PX), transform.k, PIN_SEPARATION_PX)
+    separateClusters(
+      clusterPins(pins, transform.k, PIN_MERGE_PX),
+      transform.k,
+      PIN_SEPARATION_PX,
+      PIN_MAX_SHIFT_PX
+    )
   );
 
   // Keep pin + border sizes visually constant as the map scales.

@@ -44,10 +44,21 @@ export function clusterPins(pins: ProjectedPin[], k: number, thresholdPx: number
  * any overlapping pins apart until every centre is at least `separationPx` from
  * the next, so each remains individually clickable without changing what merged.
  * Distances only depend on `k` (not pan), so the layout is stable while panning.
+ *
+ * Each pin stays within `maxShiftPx` of its true position. Without this cap, at
+ * far zoom-out a dozen crammed European country-pins would relax into a blob and
+ * land on the wrong countries; the cap keeps every pin geographically honest,
+ * accepting some residual overlap in the worst crush instead of scattering.
  */
-export function separateClusters(clusters: Cluster[], k: number, separationPx: number): Cluster[] {
+export function separateClusters(
+  clusters: Cluster[],
+  k: number,
+  separationPx: number,
+  maxShiftPx: number
+): Cluster[] {
   const minDist = separationPx / k;
-  const laid = clusters.map((c) => ({ ...c }));
+  const maxShift = maxShiftPx / k;
+  const laid = clusters.map((c) => ({ ...c, ox: c.x, oy: c.y }));
 
   for (let iter = 0; iter < 60; iter++) {
     let moved = false;
@@ -74,13 +85,26 @@ export function separateClusters(clusters: Cluster[], k: number, separationPx: n
         a.y -= uy * push;
         b.x += ux * push;
         b.y += uy * push;
+        clampShift(a, maxShift);
+        clampShift(b, maxShift);
         moved = true;
       }
     }
     if (!moved) break;
   }
 
-  return laid;
+  return laid.map(({ ox: _ox, oy: _oy, ...c }) => c);
+}
+
+/** Pull a pin back so it never strays more than `maxShift` from its origin. */
+function clampShift(p: { x: number; y: number; ox: number; oy: number }, maxShift: number): void {
+  const dx = p.x - p.ox;
+  const dy = p.y - p.oy;
+  const dist = Math.hypot(dx, dy);
+  if (dist <= maxShift) return;
+  const scale = maxShift / dist;
+  p.x = p.ox + dx * scale;
+  p.y = p.oy + dy * scale;
 }
 
 interface WorkingCluster {
