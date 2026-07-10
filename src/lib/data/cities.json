@@ -168,6 +168,13 @@
     "lng": -74.006
   },
   {
+    "id": "sofia",
+    "name": "Sofia",
+    "country": "BG",
+    "lat": 42.6977,
+    "lng": 23.3219
+  },
+  {
     "id": "thasos",
     "name": "Thasos",
     "country": "GR",
