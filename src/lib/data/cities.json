@@ -187,5 +187,12 @@
     "country": "FR",
     "lat": 48.0794,
     "lng": 7.3585
+  },
+  {
+    "id": "dusseldorf",
+    "name": "Düsseldorf",
+    "country": "DE",
+    "lat": 51.2277,
+    "lng": 6.7735
   }
 ]

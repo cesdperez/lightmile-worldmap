@@ -228,5 +228,10 @@
     "city": "colmar",
     "src": "photos/colmar/colmar-05.jpeg",
     "author": "@checho289"
+  },
+  {
+    "city": "dusseldorf",
+    "src": "photos/dusseldorf/dusseldorf-01.jpeg",
+    "author": "Xin Ying"
   }
 ]
