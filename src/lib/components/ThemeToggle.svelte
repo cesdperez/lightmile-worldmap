@@ -59,9 +59,11 @@
      the 1px border then sits outside and can't skew the knob. */
   .theme-toggle {
     --track-w: calc(2.5rem - 2px); /* 40px outer incl. border, matches zoom */
-    --track-h: 4rem;
     --pad: 0.25rem;
     --knob: calc(var(--track-w) - 2 * var(--pad));
+    /* two square cells stacked: each state sits centred in its own half so the
+       knob never crosses the midline. */
+    --track-h: calc(2 * (var(--knob) + 2 * var(--pad)));
     --travel: calc(var(--track-h) - var(--knob) - 2 * var(--pad));
     box-sizing: content-box;
     position: relative;
