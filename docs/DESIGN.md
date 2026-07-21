@@ -43,8 +43,10 @@ instrument-panel voice a runner reads.
 
 ### Shape
 
-Square corners, hairline borders (`border-ink/15`), no soft shadows. Floating controls (theme
-toggle, zoom `+/−`) are square with a translucent paper fill and a hairline. This honours the
+Square corners, hairline borders (`border-ink/15`), no soft shadows. Floating controls (zoom `+/−`)
+are square with a translucent paper fill and a hairline. The theme toggle is the sliding switch
+shared with the landing: a square cobalt knob travels a translucent, blurred groove, sun by day and
+moon at night, spring easing that collapses under `prefers-reduced-motion`. This honours the
 landing's no-pill / no-shadow rule; nothing here is rounded or drop-shadowed.
 
 ### Dark mode
@@ -64,7 +66,7 @@ tokens exactly.
 ```
 ┌───────────────────────────────┐
 │ LIGHTMILE  WORLD MAP 51.44°N…  │  ← wordmark (blue / white) + mono label & coordinate
-│                        ☾  + −  │  ← square theme toggle + zoom, top-right
+│                     [◐]  + −  │  ← sliding theme switch + zoom, top-right
 │         [ world map ]          │  ← fills the screen; pan + pinch-zoom
 │      blue = conquered          │     ink bullseye pins on conquered cities
 │                                │
