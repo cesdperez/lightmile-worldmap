@@ -6,7 +6,7 @@ Goal: a public, mobile-friendly map that shows photos, conquered countries, and
 progress. Visitors only view. Admin adds photos by committing to the repo.
 
 - [ ] SvelteKit + adapter-static project, deployed to Cloudflare Pages (`*.pages.dev`).
-- [ ] Brand theme: colors, fonts, paper texture, header with logo.
+- [x] Brand theme: ✅ converged onto the landing's design system (shared fonts, palette, and "night run" dark mode with a sliding theme switch); see `docs/DESIGN.md`.
 - [ ] Vector world map (D3-geo + TopoJSON), pan + pinch-zoom, mobile-smooth.
 - [ ] Country fill: blue when conquered (derived from data).
 - [ ] City pins from data; tap → photo carousel (image, author tag, optional note).
