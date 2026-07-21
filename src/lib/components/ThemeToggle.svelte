@@ -56,9 +56,9 @@
 
 <style>
   .theme-toggle {
-    --track-w: 3.5rem;
+    --track-w: 3.75rem;
     --track-h: 1.9rem;
-    --pad: 0.22rem;
+    --pad: 0.25rem;
     --knob: calc(var(--track-h) - 2 * var(--pad));
     --travel: calc(var(--track-w) - var(--knob) - 2 * var(--pad));
     position: relative;
@@ -78,20 +78,23 @@
     outline: 2px solid var(--color-blue);
     outline-offset: 2px;
   }
+  /* Each hint sits in the exact footprint the knob rests on, so the faint
+     destination icon and the knob's active icon share one grid — symmetric
+     about the track centre. */
   .hint {
     position: absolute;
-    top: 0;
+    top: var(--pad);
     display: grid;
     place-items: center;
-    width: 50%;
-    height: 100%;
+    width: var(--knob);
+    height: var(--knob);
     color: color-mix(in srgb, var(--color-ink) 40%, transparent);
   }
   .hint.sun {
-    left: 0;
+    left: var(--pad);
   }
   .hint.moon {
-    right: 0;
+    left: calc(var(--pad) + var(--travel));
   }
   .hint svg {
     width: 0.95rem;
