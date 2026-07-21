@@ -3,7 +3,7 @@ import { browser } from '$app/environment';
 export type Theme = 'light' | 'dark';
 
 const STORAGE_KEY = 'theme';
-const THEME_COLOR = { light: '#3D2BFF', dark: '#1b1813' } as const;
+const THEME_COLOR = { light: '#f4f3ef', dark: '#0e0e10' } as const;
 
 function resolveInitial(): Theme {
   if (!browser) return 'light';

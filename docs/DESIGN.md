@@ -1,85 +1,121 @@
 # Design & UX
 
-## Brand cues (from the logo)
+## Source of truth
 
-The Lightmile logo is a **heavy italic sans-serif** wordmark in **electric
-indigo-blue** on a **textured cream / paper** background. The feel is sporty, bold,
-energetic, slightly zine/print. The map should feel like that poster, not like Google
-Maps.
+The **Lightmile landing page** (`lightmile.nl` — see `lightmile/docs/DESIGN.md`) is the design
+source of truth. The world map does not invent its own look: it inherits the landing's palette,
+fonts, and disciplines and applies them to an interactive map. The map should feel like the
+landing page's world-map section made real — the same premium, restrained, editorial system — and
+never like Google Maps.
 
-### Color palette (starting point — tune against the real logo file)
+Everything here is committed, not provisional. Earlier drafts of this file hedged the palette and
+fonts "pending real logo assets"; those are now settled by inheriting the landing page.
 
-| Token | Hex (approx) | Use |
-| --- | --- | --- |
-| `blue` (brand) | `#3D2BFF` | Conquered countries, pins, progress bar, accents, links |
-| `paper` | `#F2EEE4` | Background, unconquered countries (with subtle paper texture) |
-| `ink` | `#14110E` | Text, borders |
-| `blue-deep` | `#2A1FB8` | Hover/active states, pin centers |
-| `paper-line` | `#D9D3C4` | Country borders, dividers |
+## Foundations (inherited from the landing page)
 
-Use a **subtle paper/grain texture** behind the map to echo the logo background.
-Keep it light so it never hurts contrast or photo legibility.
+### Colour
+
+Tokens are Tailwind v4 `@theme` custom properties, re-pointed under `:root.dark`. The core palette
+values are identical to the landing page so the two sites are unmistakably one brand; the map adds
+two map-only landmass tokens.
+
+| Token                | Light     | Dark      | Use                                                              |
+| -------------------- | --------- | --------- | ---------------------------------------------------------------- |
+| `--color-paper`      | `#F4F3EF` | `#0E0E10` | Background / the "ocean".                                        |
+| `--color-ink`        | `#0A0A0A` | `#F4F3EF` | Text and pins.                                                   |
+| `--color-blue`       | `#2438D6` | `#5B6EF2` | Conquered countries, progress fill, the percentage.             |
+| `--color-blue-deep`  | `#1B2BA8` | `#4A5CE0` | Hover / active states.                                           |
+| `--color-paper-line` | `#E4E3DE` | `#26262A` | Progress track, dividers.                                        |
+| `--color-land`       | `#E4E1D7` | `#1A1A1D` | Unconquered landmass (map-only).                                 |
+| `--color-land-line`  | `#CBC7BA` | `#34343A` | Country borders (map-only).                                      |
+
+Map-only rationale: `--color-land` is a hair off `--color-paper` so unconquered countries read as
+land against the paper "ocean"; conquered countries fill with brand blue — lifted in dark so
+conquered territory glows on the near-black ground. Borders are subtle cartographic hairlines.
 
 ### Typography
 
-Match the logo's heavy expanded italic for headings; clean neutral sans for body.
+**Archivo** (display + body) + **Geist Mono** (data), self-hosted under `static/fonts/` — the same
+four `woff2` files as the landing page. No Google Fonts CDN, no Anton, no Inter. Display headings
+are Archivo 900, uppercase, tight tracking. All map **data** — percentages, counts, coordinates,
+`@handles`, dates — is set in Geist Mono, uppercase, wide tracking, `tabular-nums`: the
+instrument-panel voice a runner reads.
 
-- **Display / headings:** a free heavy condensed/expanded italic. Candidates:
-  **Archivo (Black, italic)** or **Anton** (Google Fonts, free). Pick whichever sits
-  closest to the wordmark.
-- **Body / UI:** **Inter** (free, highly legible on mobile).
-- Confirm the actual logo font later; for now we approximate with the closest free face.
+### Shape
 
-## The map screen (V1 layout, mobile-first)
+Square corners, hairline borders (`border-ink/15`), no soft shadows. Floating controls (theme
+toggle, zoom `+/−`) are square with a translucent paper fill and a hairline. This honours the
+landing's no-pill / no-shadow rule; nothing here is rounded or drop-shadowed.
+
+### Dark mode
+
+Shared **verbatim** with the landing page — "the night run" (see the landing's `DESIGN.md` for the
+concept and the fixed-vs-flipping token split). A `.dark` class on `<html>` is set before first
+paint by an inline script in `app.html` (no CSP here, so inline is fine) and toggled at runtime by
+`src/lib/state/theme.svelte.ts` via the shared `ThemeToggle`. State persists in
+`localStorage['theme']` and defaults to the OS `prefers-color-scheme`; `<meta name="theme-color">`
+and `color-scheme` follow. Because every surface is a token, only `:root.dark` re-points them:
+conquered countries glow in the lifted cobalt, land sits just above the near-black ocean, and the
+ink-bullseye pins flip to a light dot with a dark ring. The dark values equal the landing's dark
+tokens exactly.
+
+## The map screen (layout, mobile-first)
 
 ```
 ┌───────────────────────────────┐
-│  LIGHTMILE  · logo            │  ← compact header
-├───────────────────────────────┤
-│                               │
-│        [ world map ]          │  ← fills the screen; pan + pinch-zoom
-│     blue = conquered          │     pins on conquered cities
-│                               │
-├───────────────────────────────┤
-│ ▓▓▓▓▓▓░░░░░░  12/195 countries │  ← progress bar + counters
-│ 12 countries · 34 cities      │     (overlay, not a separate page)
+│ LIGHTMILE  WORLD MAP 51.44°N…  │  ← wordmark (blue / white) + mono label & coordinate
+│                        ☾  + −  │  ← square theme toggle + zoom, top-right
+│         [ world map ]          │  ← fills the screen; pan + pinch-zoom
+│      blue = conquered          │     ink bullseye pins on conquered cities
+│                                │
+│  CONQUER THE WORLD        7%   │  ← square, hairline progress overlay
+│  17/241 COUNTRIES · 28 CITIES  │     (bottom on mobile, pinned card on desktop)
 └───────────────────────────────┘
 ```
 
-- **Map dominates.** Progress bar + counters as a slim overlay (bottom on mobile,
-  corner on desktop). No multi-page nav for V1.
-- **Pins:** small Lightmile-blue dots/markers. Cluster or scale gracefully when zoomed
-  out so dense regions (e.g. NL) stay readable.
-- **Country fills:** conquered = brand blue; unconquered = paper. Subtle border between.
-- **Tap a pin → carousel.** A bottom sheet (mobile) / centered modal (desktop) with:
-  the photo, author tag chip (`@handle`), optional note, swipe/arrow nav, dot
-  indicators, close button.
-- **Empty/first-run state:** even with one photo the map should feel intentional, e.g.
-  start zoomed on Europe / Eindhoven.
+- **Map dominates.** The progress overlay is a slim square, hairline, translucent panel: full-width
+  at the bottom on mobile, a pinned card bottom-right on desktop. No multi-page nav.
+- **Header.** The blue `LIGHTMILE` wordmark (white in dark), a Geist-Mono `WORLD MAP` label, and an
+  Eindhoven coordinate tick (`51.44°N 5.48°E`) that echoes the landing's wayfinding signature. The
+  label and coordinate hide on the narrowest screens; the wordmark always stays.
+- **Pins: an ink "bullseye"** (ink dot, paper ring, paper centre), **not** blue. It reads on both
+  blue conquered fills and unconquered land, and it reserves blue for the fill (accent restraint).
+  Pins flip with the theme and cluster by continent when zoomed out so dense regions stay readable.
+- **Country fills:** conquered = `--color-blue`; unconquered = `--color-land`; subtle
+  `--color-land-line` border.
+- **Tap a pin → carousel.** A square modal with a hairline border and no shadow: the photo, the
+  author as a hairline Geist-Mono tag (`@handle`), an optional note, arrow/swipe navigation, square
+  dot ticks grouped by city, and a close button. Keyboard navigable, focus-trapped, `Esc` to close,
+  alt text per photo.
+- **Empty / first-run:** start zoomed on Europe (around Eindhoven) so even one photo feels
+  intentional.
 
 ## Progress metric
 
-V1 keeps it simple and legible: **count of conquered countries / total countries**
-shown as a bar plus `N/Total`. (Total = the country set in the TopoJSON; decide whether
-to count tiny states/territories. Pick one total and stick to it so the number is
-stable.) A landmass-weighted "% of the world" is a possible later refinement; a plain
-count is more motivating and easier to reason about for V1.
+Count of conquered countries / total, shown as a slim square bar plus `N/Total` and a city count.
+The heading `Conquer the world` is Archivo; every number is Geist Mono. (Total = the country set in
+the TopoJSON; keep one total so the number is stable.) A landmass-weighted "% of the world" is a
+possible later refinement; a plain count is more motivating for V1.
 
 ## Motion
 
-- Smooth zoom-to-country and a quick "fill" animation when relevant.
-- A subtle celebratory touch when the bar moves is nice-to-have, not V1-critical.
-- Respect `prefers-reduced-motion`.
+- Smooth zoom-to-region and a width transition on the progress bar.
+- Respect `prefers-reduced-motion` (handled in `app.css`).
 
 ## Accessibility
 
-- Brand blue on paper must hit WCAG AA for text; if not, use `ink` for text and reserve
-  blue for fills/accents.
-- Carousel: keyboard navigable, focus-trapped, `Esc` to close, alt text per photo.
-- Pins reachable by keyboard / have accessible labels (city name + photo count).
+- **AA in both themes**, verified with **axe-core (WCAG 2.1 A/AA)** at desktop and mobile, light and
+  dark, with **zero violations**. Muted Geist-Mono text is kept at ≥ `ink/60` so small type clears
+  AA on paper.
+- The map is `role="application"` with a descriptive label; each pin cluster is a keyboard-focusable
+  button with an `aria-label` (place + photo count). The carousel is focus-trapped, `Esc`-closable,
+  with alt text per photo.
+- Country borders and hairlines are decorative and exempt from non-text contrast.
 
-## Assets needed from the club
+## Assets
 
-- The logo in **SVG** (or high-res PNG) + any brand guide.
-- Confirmation of the **exact blue** and the **logo font**.
-- A favicon / social share image.
+- **Logo:** `static/logos/lightmile.svg`, tinted via CSS mask (brand blue in light, light foreground
+  in dark).
+- **Fonts:** self-hosted `archivo-*` + `geistmono-*` `woff2` under `static/fonts/`, the same files as
+  the landing page. Keep them in sync when the landing updates them.
+- **Favicon / social share image:** `static/favicon.svg`, `static/og-image.svg`.
