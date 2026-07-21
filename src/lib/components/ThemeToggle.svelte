@@ -35,9 +35,9 @@
   </svg>
 {/snippet}
 
-<!-- Sliding switch: a cobalt knob travels a hairline groove, carrying the
-     active icon while the destination mode shows faintly on the far side.
-     Square knob + track honour the no-pill rule; shared with the landing. -->
+<!-- Vertical sliding switch: a square cobalt knob travels a hairline groove
+     (sun on top, moon at the bottom), sized to sit atop the +/- zoom column as
+     one aligned control. Shares the landing switch's mechanics, turned 90deg. -->
 <button
   type="button"
   class="theme-toggle"
@@ -55,12 +55,15 @@
 </button>
 
 <style>
+  /* content-box so --track-w/-h are the inner size the geometry is derived from;
+     the 1px border then sits outside and can't skew the knob. */
   .theme-toggle {
-    --track-w: 3.75rem;
-    --track-h: 1.9rem;
+    --track-w: calc(2.5rem - 2px); /* 40px outer incl. border, matches zoom */
+    --track-h: 4rem;
     --pad: 0.25rem;
-    --knob: calc(var(--track-h) - 2 * var(--pad));
-    --travel: calc(var(--track-w) - var(--knob) - 2 * var(--pad));
+    --knob: calc(var(--track-w) - 2 * var(--pad));
+    --travel: calc(var(--track-h) - var(--knob) - 2 * var(--pad));
+    box-sizing: content-box;
     position: relative;
     width: var(--track-w);
     height: var(--track-h);
@@ -79,11 +82,10 @@
     outline-offset: 2px;
   }
   /* Each hint sits in the exact footprint the knob rests on, so the faint
-     destination icon and the knob's active icon share one grid — symmetric
-     about the track centre. */
+     destination icon and the knob's active icon share one grid. */
   .hint {
     position: absolute;
-    top: var(--pad);
+    left: var(--pad);
     display: grid;
     place-items: center;
     width: var(--knob);
@@ -91,14 +93,14 @@
     color: color-mix(in srgb, var(--color-ink) 40%, transparent);
   }
   .hint.sun {
-    left: var(--pad);
+    top: var(--pad);
   }
   .hint.moon {
-    left: calc(var(--pad) + var(--travel));
+    top: calc(var(--pad) + var(--travel));
   }
   .hint svg {
-    width: 0.95rem;
-    height: 0.95rem;
+    width: 1.05rem;
+    height: 1.05rem;
   }
   .knob {
     position: absolute;
@@ -110,25 +112,27 @@
     background: var(--color-blue);
     transition: transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
+  /* --color-paper flips opposite the knob's blue, so the icon stays legible in
+     both themes (white on the deep day blue, ink on the lifted night blue). */
   .face {
     grid-area: 1 / 1;
     display: grid;
     place-items: center;
-    color: #f4f3ef;
+    color: var(--color-paper);
     transition:
       opacity 0.28s ease,
       transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
   .face svg {
-    width: 0.95rem;
-    height: 0.95rem;
+    width: 1.05rem;
+    height: 1.05rem;
   }
   .face.moon {
     opacity: 0;
     transform: rotate(-90deg) scale(0.4);
   }
   .theme-toggle[aria-checked='true'] .knob {
-    transform: translateX(var(--travel));
+    transform: translateY(var(--travel));
   }
   .theme-toggle[aria-checked='true'] .face.sun {
     opacity: 0;
