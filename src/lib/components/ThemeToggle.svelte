@@ -6,7 +6,7 @@
 
 <button
   type="button"
-  class="grid h-10 w-10 place-items-center rounded-full border border-ink/15 bg-paper/90 text-ink shadow-sm backdrop-blur transition-colors hover:bg-paper active:bg-paper-line"
+  class="grid h-10 w-10 place-items-center border border-ink/15 bg-paper/90 text-ink backdrop-blur transition-colors hover:bg-paper active:bg-paper-line"
   aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
   aria-pressed={isDark}
   onclick={() => theme.toggle()}

@@ -10,8 +10,14 @@
            mask: url('/logos/lightmile.svg') no-repeat center / contain;"
   ></span>
   <span
-    class="pointer-events-auto mt-1 hidden whitespace-nowrap text-sm font-semibold uppercase tracking-widest text-ink/60 sm:inline"
+    class="pointer-events-auto mt-1 hidden whitespace-nowrap font-mono text-xs uppercase tracking-[0.14em] text-ink/70 sm:inline"
   >
     World Map
+  </span>
+  <!-- Eindhoven coordinate — echoes the landing page's wayfinding tick. -->
+  <span
+    class="pointer-events-auto mt-1 hidden whitespace-nowrap font-mono text-[0.7rem] uppercase tracking-[0.14em] text-ink/60 md:inline"
+  >
+    51.44°N 5.48°E
   </span>
 </header>

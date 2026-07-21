@@ -92,7 +92,7 @@
 >
   <div
     bind:this={dialogEl}
-    class="flex max-h-[92vh] w-full flex-col overflow-hidden rounded-2xl bg-paper shadow-xl outline-none sm:max-h-[88vh] sm:max-w-lg"
+    class="flex max-h-[92vh] w-full flex-col overflow-hidden border border-ink/15 bg-paper outline-none sm:max-h-[88vh] sm:max-w-lg"
     role="dialog"
     aria-modal="true"
     aria-label="Photos from {cluster.cities.map((c) => c.name).join(', ')}"
@@ -100,14 +100,16 @@
   >
     <header class="flex items-center justify-between gap-3 px-5 py-4">
       <div class="flex min-w-0 items-baseline gap-3">
-        <h2 class="truncate font-display text-2xl leading-none tracking-wide text-ink">{cityName}</h2>
+        <h2 class="truncate font-display text-2xl font-black uppercase leading-none tracking-tight text-ink">
+          {cityName}
+        </h2>
         {#if count > 1}
-          <span class="shrink-0 text-sm font-medium tabular-nums text-ink/50">{index + 1} / {count}</span>
+          <span class="shrink-0 font-mono text-sm tabular-nums text-ink/60">{index + 1} / {count}</span>
         {/if}
       </div>
       <button
         type="button"
-        class="-mr-1.5 grid h-9 w-9 shrink-0 place-items-center rounded-full text-2xl leading-none text-ink/60 transition-colors hover:bg-paper-line hover:text-ink"
+        class="-mr-1.5 grid h-9 w-9 shrink-0 place-items-center text-2xl leading-none text-ink/60 transition-colors hover:bg-paper-line hover:text-ink"
         aria-label="Close"
         onclick={onClose}>×</button
       >
@@ -130,13 +132,13 @@
       {#if count > 1}
         <button
           type="button"
-          class="absolute left-3 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-ink/10 text-xl text-ink backdrop-blur-sm transition-colors hover:bg-ink/20"
+          class="absolute left-3 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center border border-ink/15 bg-paper/80 text-xl text-ink backdrop-blur-sm transition-colors hover:bg-paper"
           aria-label="Previous photo"
           onclick={() => go(-1)}>‹</button
         >
         <button
           type="button"
-          class="absolute right-3 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-ink/10 text-xl text-ink backdrop-blur-sm transition-colors hover:bg-ink/20"
+          class="absolute right-3 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center border border-ink/15 bg-paper/80 text-xl text-ink backdrop-blur-sm transition-colors hover:bg-paper"
           aria-label="Next photo"
           onclick={() => go(1)}>›</button
         >
@@ -146,10 +148,12 @@
     <footer class="px-5 py-4">
       <div class="flex flex-wrap items-center gap-x-2.5 gap-y-1">
         {#if photo.author}
-          <span class="rounded-full bg-blue px-2.5 py-1 text-sm font-semibold text-white">{photo.author}</span>
+          <span class="border border-ink/25 px-2 py-0.5 font-mono text-xs uppercase tracking-wide text-ink"
+            >{photo.author}</span
+          >
         {/if}
         {#if photo.date}
-          <span class="text-xs tabular-nums text-ink/50">{photo.date}</span>
+          <span class="font-mono text-xs tabular-nums text-ink/60">{photo.date}</span>
         {/if}
       </div>
       {#if photo.note}
@@ -163,9 +167,9 @@
               {#each group.indices as i (i)}
                 <button
                   type="button"
-                  class="h-2 rounded-full transition-all {i === index
+                  class="h-1.5 transition-all {i === index
                     ? 'w-6 bg-blue'
-                    : 'w-2 bg-ink/20 hover:bg-ink/40'}"
+                    : 'w-2 bg-ink/25 hover:bg-ink/40'}"
                   role="tab"
                   aria-selected={i === index}
                   aria-label="Go to photo {i + 1} ({group.name})"

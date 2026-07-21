@@ -229,13 +229,13 @@
   <div class="absolute right-3 top-[calc(4rem+env(safe-area-inset-top))] flex flex-col gap-2">
     <button
       type="button"
-      class="grid h-10 w-10 place-items-center rounded-full border border-ink/15 bg-paper/90 text-xl font-bold text-ink shadow-sm backdrop-blur transition-colors hover:bg-paper active:bg-paper-line"
+      class="grid h-10 w-10 place-items-center border border-ink/15 bg-paper/90 text-xl font-bold text-ink backdrop-blur transition-colors hover:bg-paper active:bg-paper-line"
       aria-label="Zoom in"
       onclick={() => zoomBy(1.4)}>+</button
     >
     <button
       type="button"
-      class="grid h-10 w-10 place-items-center rounded-full border border-ink/15 bg-paper/90 text-xl font-bold text-ink shadow-sm backdrop-blur transition-colors hover:bg-paper active:bg-paper-line"
+      class="grid h-10 w-10 place-items-center border border-ink/15 bg-paper/90 text-xl font-bold text-ink backdrop-blur transition-colors hover:bg-paper active:bg-paper-line"
       aria-label="Zoom out"
       onclick={() => zoomBy(1 / 1.4)}>−</button
     >

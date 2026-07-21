@@ -4,35 +4,86 @@
    not the OS media query, so point Tailwind's `dark:` variant at that class. */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Brand fonts (Anton + Inter) are loaded via <link> in app.html. */
-
-@theme {
-  --color-blue: #3d2bff;
-  --color-blue-deep: #2a1fb8;
-  --color-paper: #f2eee4;
-  --color-paper-line: #d9d3c4;
-  --color-ink: #14110e;
-
-  /* Map landmass: distinct from the paper background so countries read clearly. */
-  --color-land: #ddd5c2;
-  --color-land-line: #b3a98f;
-
-  --font-display: 'Anton', system-ui, sans-serif;
-  --font-sans: 'Inter', system-ui, sans-serif;
+/* Brand fonts, self-hosted to match the landing page and drop the third-party
+   Google Fonts CDN. Archivo (display + body) + Geist Mono (data, eyebrows,
+   coordinates). Variable weight; latin + latin-ext split for Dutch coverage. */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/archivo-latin.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF,
+    U+FFFD;
+}
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/archivo-latin-ext.woff2') format('woff2');
+  unicode-range:
+    U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113,
+    U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/geistmono-latin.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF,
+    U+FFFD;
+}
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/geistmono-latin-ext.woff2') format('woff2');
+  unicode-range:
+    U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113,
+    U+2C60-2C7F, U+A720-A7FF;
 }
 
-/* Dark mode: every surface is a token, so we only re-point the tokens. The
-   `.dark` class is set on <html> by an inline script in app.html before paint
-   (no flash) and toggled at runtime by src/lib/state/theme.svelte.ts. */
-:root.dark {
-  --color-blue: #6c5bff;
-  --color-blue-deep: #5343d6;
-  --color-paper: #1b1813;
-  --color-paper-line: #34302a;
-  --color-ink: #ece7da;
+@theme {
+  /* Palette inherited from the landing page, the design source of truth. */
+  --color-blue: #2438d6;
+  --color-blue-deep: #1b2ba8;
+  --color-paper: #f4f3ef;
+  --color-paper-line: #e4e3de;
+  --color-ink: #0a0a0a;
 
-  --color-land: #2a261f;
-  --color-land-line: #4a4537;
+  /* Map landmass: a touch tanner than paper so unconquered countries read as
+     land against the paper "ocean". */
+  --color-land: #e4e1d7;
+  --color-land-line: #cbc7ba;
+
+  --font-display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --font-sans: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'Geist Mono', 'SFMono-Regular', ui-monospace, monospace;
+}
+
+/* Dark mode — "the night run", shared verbatim with the landing page. Every
+   surface is a token, so we only re-point the tokens. The `.dark` class is set
+   on <html> by an inline script in app.html before paint (no flash) and toggled
+   at runtime by src/lib/state/theme.svelte.ts. Conquered countries glow in the
+   lifted cobalt; unconquered land is a hair above the near-black ocean. */
+:root.dark {
+  --color-blue: #5b6ef2;
+  --color-blue-deep: #4a5ce0;
+  --color-paper: #0e0e10;
+  --color-paper-line: #26262a;
+  --color-ink: #f4f3ef;
+
+  --color-land: #1a1a1d;
+  --color-land-line: #34343a;
+
+  color-scheme: dark;
 }
 
 html,
@@ -47,8 +98,8 @@ body {
   background-color: var(--color-paper);
   /* Subtle paper grain: two faint dot layers, kept light so contrast holds. */
   background-image:
-    radial-gradient(rgba(20, 17, 14, 0.025) 1px, transparent 1px),
-    radial-gradient(rgba(20, 17, 14, 0.02) 1px, transparent 1px);
+    radial-gradient(rgba(10, 10, 10, 0.025) 1px, transparent 1px),
+    radial-gradient(rgba(10, 10, 10, 0.02) 1px, transparent 1px);
   background-size:
     3px 3px,
     7px 7px;
@@ -64,8 +115,8 @@ body {
 /* In dark mode the grain dots must be light to stay faintly visible. */
 :root.dark body {
   background-image:
-    radial-gradient(rgba(236, 231, 218, 0.03) 1px, transparent 1px),
-    radial-gradient(rgba(236, 231, 218, 0.025) 1px, transparent 1px);
+    radial-gradient(rgba(244, 243, 239, 0.03) 1px, transparent 1px),
+    radial-gradient(rgba(244, 243, 239, 0.025) 1px, transparent 1px);
 }
 
 @media (prefers-reduced-motion: reduce) {
