@@ -14,7 +14,7 @@
   >
     World Map
   </span>
-  <!-- Eindhoven coordinate — echoes the landing page's wayfinding tick. -->
+  <!-- Eindhoven coordinate, echoes the landing page's wayfinding tick. -->
   <span
     class="pointer-events-auto mt-1 hidden whitespace-nowrap font-mono text-[0.7rem] uppercase tracking-[0.14em] text-ink/60 md:inline"
   >

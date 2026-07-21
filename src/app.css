@@ -68,7 +68,7 @@
   --font-mono: 'Geist Mono', 'SFMono-Regular', ui-monospace, monospace;
 }
 
-/* Dark mode — "the night run", shared verbatim with the landing page. Every
+/* Dark mode, "the night run", shared verbatim with the landing page. Every
    surface is a token, so we only re-point the tokens. The `.dark` class is set
    on <html> by an inline script in app.html before paint (no flash) and toggled
    at runtime by src/lib/state/theme.svelte.ts. Conquered countries glow in the
