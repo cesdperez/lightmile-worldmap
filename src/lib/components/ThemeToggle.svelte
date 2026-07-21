@@ -1,7 +1,16 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { theme } from '$lib/state/theme.svelte';
 
   const isDark = $derived(theme.value === 'dark');
+
+  // SSR renders the switch in its light position, but the pre-paint script in
+  // app.html may have already applied dark; hold the knob transition off until
+  // mount so a dark-mode load starts settled instead of sliding on hydration.
+  let toggleReady = $state(false);
+  onMount(() => {
+    toggleReady = true;
+  });
 </script>
 
 {#snippet sunIcon()}
@@ -41,6 +50,7 @@
 <button
   type="button"
   class="theme-toggle"
+  class:no-anim={!toggleReady}
   role="switch"
   aria-label="Dark mode"
   aria-checked={isDark}
@@ -143,6 +153,11 @@
   .theme-toggle[aria-checked='true'] .face.moon {
     opacity: 1;
     transform: rotate(0) scale(1);
+  }
+  /* Suppress the slide until hydration settles the knob in its real position. */
+  .theme-toggle.no-anim .knob,
+  .theme-toggle.no-anim .face {
+    transition: none;
   }
   @media (prefers-reduced-motion: reduce) {
     .knob,
