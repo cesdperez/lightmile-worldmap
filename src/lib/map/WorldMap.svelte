@@ -225,8 +225,8 @@
     </g>
   </svg>
 
-  <!-- Sits below the theme toggle (top-3 + safe-area inset; see +page.svelte). -->
-  <div class="absolute right-3 top-[calc(4rem+env(safe-area-inset-top))] flex flex-col gap-2">
+  <!-- Sits below the vertical theme toggle (top-3, 4rem tall; see +page.svelte). -->
+  <div class="absolute right-3 top-[calc(5.5rem+env(safe-area-inset-top))] flex flex-col gap-2">
     <button
       type="button"
       class="grid h-10 w-10 place-items-center border border-ink/15 bg-paper/90 text-xl font-bold text-ink backdrop-blur transition-colors hover:bg-paper active:bg-paper-line"
