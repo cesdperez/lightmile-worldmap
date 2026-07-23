@@ -80,7 +80,7 @@
   }
 
   function clusterLabel(cluster: Cluster) {
-    const photos = `${cluster.photoCount} photo${cluster.photoCount === 1 ? '' : 's'}`;
+    const photos = `${cluster.photoCount} moment${cluster.photoCount === 1 ? '' : 's'}`;
     if (cluster.tier === 'continent') {
       const cityCount = cluster.cities.length;
       const places = `${cityCount} ${cityCount === 1 ? 'city' : 'cities'}`;
@@ -175,7 +175,7 @@
     viewBox="0 0 {width} {height}"
     class="block h-full w-full touch-none"
     role="application"
-    aria-label="Interactive world map of Lightmile photo locations. Drag to pan, pinch or scroll to zoom."
+    aria-label="Interactive world map of Lightmile locations. Drag to pan, pinch or scroll to zoom."
   >
     <g transform={transform.toString()}>
       {#each countryPaths as country, i (i)}

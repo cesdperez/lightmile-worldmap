@@ -194,5 +194,12 @@
     "country": "DE",
     "lat": 51.2277,
     "lng": 6.7735
+  },
+  {
+    "id": "las-vegas",
+    "name": "Las Vegas",
+    "country": "US",
+    "lat": 36.1699,
+    "lng": -115.1398
   }
 ]
