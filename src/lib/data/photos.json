@@ -233,5 +233,11 @@
     "city": "dusseldorf",
     "src": "photos/dusseldorf/dusseldorf-01.jpeg",
     "author": "Xin Ying"
+  },
+  {
+    "city": "las-vegas",
+    "src": "photos/las-vegas/las-vegas-01.mp4",
+    "author": "@charon.o8",
+    "date": "2026-07-23"
   }
 ]
