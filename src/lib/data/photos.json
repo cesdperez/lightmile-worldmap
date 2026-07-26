@@ -239,5 +239,17 @@
     "src": "photos/las-vegas/las-vegas-01.mp4",
     "author": "@charon.o8",
     "date": "2026-07-23"
+  },
+  {
+    "city": "london",
+    "src": "photos/london/london-01.jpeg",
+    "author": "@femkedaemen",
+    "date": "2026-07-26"
+  },
+  {
+    "city": "london",
+    "src": "photos/london/london-02.jpeg",
+    "author": "@femkedaemen",
+    "date": "2026-07-26"
   }
 ]

@@ -201,5 +201,12 @@
     "country": "US",
     "lat": 36.1699,
     "lng": -115.1398
+  },
+  {
+    "id": "london",
+    "name": "London",
+    "country": "GB",
+    "lat": 51.5072,
+    "lng": -0.1276
   }
 ]
