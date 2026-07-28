@@ -208,5 +208,12 @@
     "country": "GB",
     "lat": 51.5072,
     "lng": -0.1276
+  },
+  {
+    "id": "puerto-escondido",
+    "name": "Puerto Escondido",
+    "country": "MX",
+    "lat": 15.8613,
+    "lng": -97.0767
   }
 ]
