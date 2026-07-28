@@ -251,5 +251,11 @@
     "src": "photos/london/london-02.jpeg",
     "author": "@femkedaemen",
     "date": "2026-07-26"
+  },
+  {
+    "city": "puerto-escondido",
+    "src": "photos/puerto-escondido/puerto-escondido-01.mp4",
+    "author": "Emmanuel",
+    "date": "2026-07-28"
   }
 ]
