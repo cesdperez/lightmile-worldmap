@@ -83,5 +83,50 @@ Keep V1 as plain static until volume actually demands more.
 
 ## Domain
 
-- Start on the free Cloudflare Pages subdomain (`<project>.pages.dev`).
-- Later: point a custom domain (e.g. `lightmilerunclub.com`) via Cloudflare DNS, free.
+Live at [worldmap.lightmile.nl](https://worldmap.lightmile.nl) since 2026-07-30. The
+Pages project `lightmile-worldmap` keeps `lightmile-worldmap.pages.dev` as its default
+subdomain; `worldmap.lightmile.nl` is a custom domain on top of it.
+
+DNS lives in the `lightmile.nl` Cloudflare zone (`8c70129690be65171df143fd8ddd4bac`),
+which belongs to the main site's repo (`cesdperez/lightmile`), not this one. The record
+is a proxied (orange cloud) `CNAME worldmap -> lightmile-worldmap.pages.dev`, matching
+how the apex and `www` point at the main site. Cloudflare issued the edge certificate
+over HTTP validation.
+
+Two things to know before touching this:
+
+- **The zone is shared.** Read `lightmile/docs/ARCHITECTURE.md` before editing DNS. The
+  zone also carries iCloud mail records that must stay DNS only (grey cloud), and DNSSEC
+  is half-enabled pending the registrar publishing the DS.
+- **The subdomain must stay proxied.** An unproxied CNAME to `pages.dev` does not get a
+  Cloudflare-issued certificate for `worldmap.lightmile.nl`.
+
+The main site links here with `target="_blank"` and `rel="noopener"`; the two deployments
+stay independent on purpose.
+
+## Security headers
+
+Mirrors the main site, and like it the posture lives in two places by necessity. Keep both
+in sync when changing it.
+
+- `svelte.config.js` emits a hash-mode `<meta>` CSP. Prerendered pages have no server to
+  set the header, so SvelteKit hashes its own hydration bootstrap and inlines the policy.
+- `static/_headers` carries what a `<meta>` CSP cannot (`frame-ancestors`,
+  `Permissions-Policy`, HSTS, `X-Frame-Options`) plus immutable cache rules for `/fonts`
+  and `/logos`.
+
+Three things this project needs that the main site does not:
+
+- **`img-src` and `media-src` allow the R2 photo origin.** Photos and videos are served
+  from the public bucket, not this origin. The origin is duplicated in `svelte.config.js`
+  as `PHOTOS_ORIGIN`; if `PHOTOS_BASE_URL` in `src/lib/config.ts` ever changes, change both
+  or all media 404s silently behind a CSP block.
+- **The pre-paint theme script is `static/theme-init.js`, not inline.** An inline script in
+  `app.html` is not covered by SvelteKit's hashing and would need `unsafe-inline`, which
+  would defeat the point of a hash-locked `script-src`.
+- **`style-src` allows `unsafe-inline`.** The route announcer, the progress bar width, and
+  the d3 zoom transform all set style attributes at runtime. `script-src` stays hash-locked.
+
+Cloudflare Web Analytics is enabled on this project, so the CSP allowlists
+`static.cloudflareinsights.com` (script) and `cloudflareinsights.com` (RUM beacon). Removing
+those breaks analytics silently.

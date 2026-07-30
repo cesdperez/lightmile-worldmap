@@ -45,15 +45,17 @@ the build** instead of shipping broken.
 
 ## Deploy (Cloudflare Pages)
 
-The site is fully static (`@sveltejs/adapter-static`). To deploy on the free tier:
+The site is fully static (`@sveltejs/adapter-static`) and lives at
+[worldmap.lightmile.nl](https://worldmap.lightmile.nl). The Cloudflare Pages project is
+`lightmile-worldmap`, linked to this repo:
 
-1. Push this repo to GitHub/GitLab.
-2. In Cloudflare Pages, create a project from the repo with:
-   - **Build command:** `npm run build`
-   - **Build output directory:** `build`
-   - (Framework preset: SvelteKit, or "None" with the settings above.)
-3. Every push auto-builds and deploys to `<project>.pages.dev`. A custom domain can be
-   added later via Cloudflare DNS (free).
+- **Build command:** `npm run build`
+- **Build output directory:** `build`
+- Every push to `main` auto-builds and deploys; other branches get preview deployments.
+
+`worldmap.lightmile.nl` is a custom domain on that project. Its DNS record lives in the
+`lightmile.nl` zone, which the main site's repo owns. See
+[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#domain) before changing anything about it.
 
 ## Docs
 
