@@ -1,0 +1,5 @@
+# This site is intentionally discoverable by search engines and AI assistants.
+User-agent: *
+Allow: /
+
+Sitemap: https://worldmap.lightmile.nl/sitemap.xml
