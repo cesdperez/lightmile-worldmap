@@ -41,7 +41,8 @@ Photos are hosted in a public Cloudflare R2 bucket (`lightmile-worldmap-photos`)
 1. Upload the compressed image to R2 (requires `wrangler login` once):
    `wrangler r2 object put lightmile-worldmap-photos/photos/<city-id>/<file> --file=<localpath> --remote --content-type=image/jpeg --cache-control="public, max-age=31536000, immutable"`
 2. If the city is new, add one entry to `src/lib/data/cities.json` (`id`, `name`, alpha-2 `country`, `lat`, `lng`).
-3. Add one entry per photo to `src/lib/data/photos.json` (`city` = city id, `src` = R2 key `photos/<city-id>/<file>`, `author`, optional `note`/`date`).
+3. Add one entry per photo to `src/lib/data/photos.json` (`city` = city id, `src` = R2 key `photos/<city-id>/<file>`, `author`, optional `note`/`date`, and `width`/`height` so the carousel can reserve the
+   box before the file loads).
 4. `npm run build` to confirm validation passes, then commit + push.
 
 `schema.ts` enforces: valid alpha-2 country code, coordinate ranges, no duplicate city ids, and that every photo references an existing city. (Note: the docs mention validating that the image `src` file exists, but `schema.ts` does not currently check this.)

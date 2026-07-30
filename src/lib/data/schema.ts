@@ -14,13 +14,21 @@ export const citySchema = z.object({
   lng: z.number().min(-180).max(180)
 });
 
-export const photoSchema = z.object({
-  city: z.string().min(1),
-  src: z.string().min(1),
-  author: z.string().min(1).optional(),
-  note: z.string().optional(),
-  date: z.string().optional()
-});
+// width/height let the carousel reserve the right box before the file loads.
+// Optional so existing entries keep validating, but must come as a pair.
+export const photoSchema = z
+  .object({
+    city: z.string().min(1),
+    src: z.string().min(1),
+    author: z.string().min(1).optional(),
+    note: z.string().optional(),
+    date: z.string().optional(),
+    width: z.number().int().positive().optional(),
+    height: z.number().int().positive().optional()
+  })
+  .refine((p) => (p.width === undefined) === (p.height === undefined), {
+    message: 'width and height must be given together'
+  });
 
 export type City = z.infer<typeof citySchema>;
 export type Photo = z.infer<typeof photoSchema>;
