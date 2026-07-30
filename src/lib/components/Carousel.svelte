@@ -15,6 +15,9 @@
   let dialogEl = $state<HTMLElement | null>(null);
   let touchStartX = 0;
 
+  // Which src has finished loading (or failed), so switching items shows the placeholder again.
+  let settledSrc = $state<string | null>(null);
+
   // Autoplay is silent and looping; skip it when the visitor asked for less motion.
   const prefersReducedMotion = browser && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -24,6 +27,15 @@
     node.muted = true;
   }
 
+  function settle(src: string) {
+    settledSrc = src;
+  }
+
+  // An image restored from cache can already be complete before the load event binds.
+  function settleIfCached(node: HTMLImageElement, src: string) {
+    if (node.complete) settle(src);
+  }
+
   // Photos across all merged cities, kept grouped by city.
   const items = $derived(
     cluster.cities.flatMap((c) => c.photos.map((photo) => ({ photo, cityName: c.name })))
@@ -31,6 +43,7 @@
   const count = $derived(items.length);
   const photo = $derived(items[index].photo);
   const cityName = $derived(items[index].cityName);
+  const isLoading = $derived(settledSrc !== photo.src);
 
   // Pagination dots grouped by city, so a merged cluster reads as distinct places.
   const cityGroups = $derived(
@@ -128,17 +141,28 @@
 
     <div
       class="relative flex min-h-0 flex-1 items-center justify-center bg-paper"
+      style:min-height={isLoading ? '45vh' : null}
       role="group"
       aria-label="Media viewer. Swipe left or right to navigate."
       ontouchstart={onTouchStart}
       ontouchend={onTouchEnd}
     >
+      {#if isLoading}
+        <div class="skeleton absolute inset-0" aria-hidden="true"></div>
+        <span class="sr-only" role="status">Loading media</span>
+      {/if}
+
       {#key photo.src}
         {#if isVideo(photo.src)}
           <!-- svelte-ignore a11y_media_has_caption -->
           <video
             src="{PHOTOS_BASE_URL}/{photo.src}"
-            class="max-h-[60vh] w-full object-contain"
+            class="max-h-[60vh] w-full object-contain transition-opacity duration-300 {isLoading
+              ? 'opacity-0'
+              : 'opacity-100'}"
+            onloadeddata={() => settle(photo.src)}
+            onloadedmetadata={() => settle(photo.src)}
+            onerror={() => settle(photo.src)}
             autoplay={!prefersReducedMotion}
             loop={!prefersReducedMotion}
             controls
@@ -155,7 +179,12 @@
             src="{PHOTOS_BASE_URL}/{photo.src}"
             alt={photo.note ?? (photo.author ? `Lightmile photo in ${cityName} by ${photo.author}` : `Lightmile photo in ${cityName}`)}
             loading="lazy"
-            class="max-h-[60vh] w-full object-contain"
+            class="max-h-[60vh] w-full object-contain transition-opacity duration-300 {isLoading
+              ? 'opacity-0'
+              : 'opacity-100'}"
+            onload={() => settle(photo.src)}
+            onerror={() => settle(photo.src)}
+            use:settleIfCached={photo.src}
           />
         {/if}
       {/key}
@@ -214,3 +243,30 @@
     </footer>
   </div>
 </div>
+
+<style>
+  .skeleton {
+    background:
+      linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-blue) 12%, transparent), transparent)
+        no-repeat,
+      var(--color-paper-line);
+    background-size: 40% 100%;
+    animation: sweep 1.2s ease-in-out infinite;
+  }
+
+  @keyframes sweep {
+    from {
+      background-position: -60% 0;
+    }
+    to {
+      background-position: 160% 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton {
+      animation: none;
+      background: var(--color-paper-line);
+    }
+  }
+</style>
