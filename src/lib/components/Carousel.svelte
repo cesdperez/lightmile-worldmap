@@ -57,6 +57,8 @@
     })()
   );
 
+  const anyNote = $derived(items.some((it) => it.photo.note));
+
   const neighbours = $derived(
     count > 1
       ? [...new Set([items[(index + 1) % count], items[(index - 1 + count) % count]])]
@@ -233,7 +235,8 @@
     </div>
 
     <footer class="min-h-0 flex-1 overflow-y-auto px-5 py-4">
-      <div class="flex flex-wrap items-center gap-x-2.5 gap-y-1">
+      <!-- Reserved height: a photo with neither author nor date would collapse the row. -->
+      <div class="meta flex flex-wrap items-center gap-x-2.5 gap-y-1">
         {#if photo.author}
           <span class="border border-ink/25 px-2 py-0.5 font-mono text-xs uppercase tracking-wide text-ink"
             >{photo.author}</span
@@ -243,8 +246,15 @@
           <span class="font-mono text-xs tabular-nums text-ink/60">{photo.date}</span>
         {/if}
       </div>
-      {#if photo.note}
-        <p class="mt-2.5 text-sm leading-relaxed text-ink/80">{photo.note}</p>
+      <!--
+        Two lines are reserved so slides with and without a note keep the frame the same
+        height; longer notes scroll rather than growing the dialog. Skipped entirely when
+        no slide in this cluster has a note, so those get no dead space.
+      -->
+      {#if anyNote}
+        <div class="note mt-2.5 overflow-y-auto text-sm leading-relaxed text-ink/80">
+          {photo.note ?? ''}
+        </div>
       {/if}
 
       {#if count > 1}
@@ -282,6 +292,17 @@
     .stage {
       aspect-ratio: 4 / 3;
     }
+  }
+
+  /* Height of the author badge, so the row holds its space when both fields are absent. */
+  .meta {
+    min-height: 1.375rem;
+  }
+
+  /* Two lines of text-sm/leading-relaxed; rem fallback for browsers without `lh`. */
+  .note {
+    height: 2.85rem;
+    height: 2lh;
   }
 
   .fade {
