@@ -246,27 +246,57 @@
 
 <style>
   .skeleton {
-    background:
-      linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-blue) 12%, transparent), transparent)
-        no-repeat,
-      var(--color-paper-line);
-    background-size: 40% 100%;
-    animation: sweep 1.2s ease-in-out infinite;
+    background: var(--color-paper-line);
+    overflow: hidden;
   }
 
-  @keyframes sweep {
+  /* Diagonal brand stripes drifting behind an indeterminate bar. */
+  .skeleton::before {
+    content: '';
+    position: absolute;
+    inset: -20% -60%;
+    background: repeating-linear-gradient(
+      -45deg,
+      color-mix(in srgb, var(--color-blue) 22%, transparent) 0 14px,
+      transparent 14px 34px
+    );
+    animation: drift 1.1s linear infinite;
+  }
+
+  .skeleton::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 35%;
+    background: var(--color-blue);
+    animation: slide 1.3s ease-in-out infinite;
+  }
+
+  @keyframes drift {
+    to {
+      transform: translateX(48px);
+    }
+  }
+
+  @keyframes slide {
     from {
-      background-position: -60% 0;
+      left: -35%;
     }
     to {
-      background-position: 160% 0;
+      left: 100%;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .skeleton {
+    .skeleton::before,
+    .skeleton::after {
       animation: none;
-      background: var(--color-paper-line);
+    }
+    .skeleton::after {
+      width: 100%;
+      opacity: 0.6;
     }
   }
 </style>
