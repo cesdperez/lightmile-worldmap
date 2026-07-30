@@ -51,6 +51,11 @@ Photos are hosted in a public Cloudflare R2 bucket (`lightmile-worldmap-photos`)
 - Svelte 5 runes (`$state`, `$derived`, `$props`, `$effect`) — not the older stores/`export let` style.
 - Tailwind CSS v4 (via `@tailwindcss/vite`). Brand colors are CSS custom properties in `src/app.css` (`--color-ink`, `--color-paper`, `--color-blue`, etc.); reference them as `var(--color-blue)` in SVG and `bg-paper`/`text-ink` utilities elsewhere. Colors/fonts are approximations pending real logo assets.
 - Static adapter is in `strict` mode — every route must be prerenderable.
+- Security headers live in two places: a hash-mode `<meta>` CSP emitted by `svelte.config.js`
+  and `static/_headers` for what meta cannot express. Keep them in sync. The R2 photo origin
+  is allowlisted in `img-src`/`media-src` and duplicated as `PHOTOS_ORIGIN` in
+  `svelte.config.js`; change it alongside `PHOTOS_BASE_URL`. Never add an inline `<script>`
+  to `app.html` — put it in `static/` (see `theme-init.js`) so `script-src` stays hash-locked.
 
 ## Docs
 

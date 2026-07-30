@@ -5,7 +5,7 @@
 Goal: a public, mobile-friendly map that shows photos, conquered countries, and
 progress. Visitors only view. Admin adds photos by committing to the repo.
 
-- [ ] SvelteKit + adapter-static project, deployed to Cloudflare Pages (`*.pages.dev`).
+- [x] SvelteKit + adapter-static project, deployed to Cloudflare Pages (live at `worldmap.lightmile.nl`).
 - [x] Brand theme: ✅ converged onto the landing's design system (shared fonts, palette, and "night run" dark mode with a sliding theme switch); see `docs/DESIGN.md`.
 - [ ] Vector world map (D3-geo + TopoJSON), pan + pinch-zoom, mobile-smooth.
 - [ ] Country fill: blue when conquered (derived from data).
@@ -30,7 +30,7 @@ progress bar toward "conquer the world". Cost to run: $0.
 
 ## V2 — more site, easier admin
 
-- [ ] Custom domain (e.g. `lightmilerunclub.com`).
+- [x] Custom domain: live at `worldmap.lightmile.nl` (2026-07-30); see `docs/ARCHITECTURE.md`.
 - [ ] "About the club" + how to join + links to Instagram/WhatsApp.
 - [ ] Conquered-places list / leaderboard of authors.
 - [ ] Move images to Cloudflare R2 / Cloudflare Images if repo size grows.
