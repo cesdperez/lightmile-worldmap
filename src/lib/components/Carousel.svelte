@@ -57,6 +57,17 @@
     })()
   );
 
+  const anyNote = $derived(items.some((it) => it.photo.note));
+
+  const neighbours = $derived(
+    count > 1
+      ? [...new Set([items[(index + 1) % count], items[(index - 1 + count) % count]])]
+          .map((it) => it.photo.src)
+          .filter((src) => !isVideo(src))
+          .map((src) => `${PHOTOS_BASE_URL}/${src}`)
+      : []
+  );
+
   function go(delta: number) {
     index = (index + delta + count) % count;
   }
@@ -139,9 +150,13 @@
       >
     </header>
 
+    <!--
+      Fixed stage: the frame never resizes between slides, media is fitted inside it.
+      Letterbox is filled with a blurred copy of the same (already cached) file so the
+      dead space reads as deliberate instead of as a gap.
+    -->
     <div
-      class="relative flex min-h-0 flex-1 items-center justify-center bg-paper"
-      style:min-height={isLoading ? '45vh' : null}
+      class="stage relative min-h-0 shrink-0 overflow-hidden bg-ink/5"
       role="group"
       aria-label="Media viewer. Swipe left or right to navigate."
       ontouchstart={onTouchStart}
@@ -153,41 +168,55 @@
       {/if}
 
       {#key photo.src}
-        {#if isVideo(photo.src)}
-          <!-- svelte-ignore a11y_media_has_caption -->
-          <video
-            src="{PHOTOS_BASE_URL}/{photo.src}"
-            class="max-h-[60vh] w-full object-contain transition-opacity duration-300 {isLoading
-              ? 'opacity-0'
-              : 'opacity-100'}"
-            onloadeddata={() => settle(photo.src)}
-            onloadedmetadata={() => settle(photo.src)}
-            onerror={() => settle(photo.src)}
-            autoplay={!prefersReducedMotion}
-            loop={!prefersReducedMotion}
-            controls
-            playsinline
-            preload="metadata"
-            aria-label={photo.note ??
-              (photo.author
-                ? `Lightmile video in ${cityName} by ${photo.author}`
-                : `Lightmile video in ${cityName}`)}
-            use:autoMute
-          ></video>
-        {:else}
-          <img
-            src="{PHOTOS_BASE_URL}/{photo.src}"
-            alt={photo.note ?? (photo.author ? `Lightmile photo in ${cityName} by ${photo.author}` : `Lightmile photo in ${cityName}`)}
-            loading="lazy"
-            class="max-h-[60vh] w-full object-contain transition-opacity duration-300 {isLoading
-              ? 'opacity-0'
-              : 'opacity-100'}"
-            onload={() => settle(photo.src)}
-            onerror={() => settle(photo.src)}
-            use:settleIfCached={photo.src}
-          />
-        {/if}
+        <div
+          class="fade absolute inset-0 transition-opacity duration-300 {isLoading
+            ? 'opacity-0'
+            : 'opacity-100'}"
+        >
+          {#if isVideo(photo.src)}
+            <!-- svelte-ignore a11y_media_has_caption -->
+            <video
+              src="{PHOTOS_BASE_URL}/{photo.src}"
+              class="relative h-full w-full object-contain"
+              onloadeddata={() => settle(photo.src)}
+              onloadedmetadata={() => settle(photo.src)}
+              onerror={() => settle(photo.src)}
+              autoplay={!prefersReducedMotion}
+              loop={!prefersReducedMotion}
+              controls
+              playsinline
+              preload="metadata"
+              aria-label={photo.note ??
+                (photo.author
+                  ? `Lightmile video in ${cityName} by ${photo.author}`
+                  : `Lightmile video in ${cityName}`)}
+              use:autoMute
+            ></video>
+          {:else}
+            <img
+              src="{PHOTOS_BASE_URL}/{photo.src}"
+              alt=""
+              aria-hidden="true"
+              class="absolute inset-0 h-full w-full scale-110 object-cover blur-2xl"
+            />
+            <img
+              src="{PHOTOS_BASE_URL}/{photo.src}"
+              alt={photo.note ?? (photo.author ? `Lightmile photo in ${cityName} by ${photo.author}` : `Lightmile photo in ${cityName}`)}
+              width={photo.width}
+              height={photo.height}
+              class="relative h-full w-full object-contain"
+              onload={() => settle(photo.src)}
+              onerror={() => settle(photo.src)}
+              use:settleIfCached={photo.src}
+            />
+          {/if}
+        </div>
       {/key}
+
+      <!-- Warm the neighbours so a swipe lands on an already-decoded file. -->
+      {#each neighbours as src (src)}
+        <img {src} alt="" aria-hidden="true" class="hidden" />
+      {/each}
 
       {#if count > 1}
         <button
@@ -205,8 +234,9 @@
       {/if}
     </div>
 
-    <footer class="px-5 py-4">
-      <div class="flex flex-wrap items-center gap-x-2.5 gap-y-1">
+    <footer class="min-h-0 flex-1 overflow-y-auto px-5 py-4">
+      <!-- Reserved height: a photo with neither author nor date would collapse the row. -->
+      <div class="meta flex flex-wrap items-center gap-x-2.5 gap-y-1">
         {#if photo.author}
           <span class="border border-ink/25 px-2 py-0.5 font-mono text-xs uppercase tracking-wide text-ink"
             >{photo.author}</span
@@ -216,8 +246,15 @@
           <span class="font-mono text-xs tabular-nums text-ink/60">{photo.date}</span>
         {/if}
       </div>
-      {#if photo.note}
-        <p class="mt-2.5 text-sm leading-relaxed text-ink/80">{photo.note}</p>
+      <!--
+        Two lines are reserved so slides with and without a note keep the frame the same
+        height; longer notes scroll rather than growing the dialog. Skipped entirely when
+        no slide in this cluster has a note, so those get no dead space.
+      -->
+      {#if anyNote}
+        <div class="note mt-2.5 overflow-y-auto text-sm leading-relaxed text-ink/80">
+          {photo.note ?? ''}
+        </div>
       {/if}
 
       {#if count > 1}
@@ -245,6 +282,39 @@
 </div>
 
 <style>
+  /* Portrait-leaning on phones (most club shots are phone photos), wider on desktop. */
+  .stage {
+    aspect-ratio: 4 / 5;
+    max-height: 60vh;
+  }
+
+  @media (min-width: 640px) {
+    .stage {
+      aspect-ratio: 4 / 3;
+    }
+  }
+
+  /* Height of the author badge, so the row holds its space when both fields are absent. */
+  .meta {
+    min-height: 1.375rem;
+  }
+
+  /* Two lines of text-sm/leading-relaxed; rem fallback for browsers without `lh`. */
+  .note {
+    height: 2.85rem;
+    height: 2lh;
+  }
+
+  .fade {
+    animation: fade-in 150ms ease-out;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+
   .skeleton {
     background: var(--color-paper-line);
     overflow: hidden;
@@ -290,6 +360,9 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .fade {
+      animation: none;
+    }
     .skeleton::before,
     .skeleton::after {
       animation: none;

@@ -97,6 +97,9 @@
   <ProgressBar {progress} cityCount={mapData.conqueredCityCount} />
 
   {#if selectedCluster}
-    <Carousel cluster={selectedCluster} onClose={() => (selectedCluster = null)} />
+    <!-- Keyed so a different cluster starts at its first photo instead of a stale index. -->
+    {#key selectedCluster.id}
+      <Carousel cluster={selectedCluster} onClose={() => (selectedCluster = null)} />
+    {/key}
   {/if}
 </main>

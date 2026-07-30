@@ -39,10 +39,18 @@ country by **ISO 3166-1 code** (so they join to the TopoJSON country shapes).
     "src": "photos/eindhoven/strijp-s-01.webp",  // R2 object key (see "Where photos live")
     "author": "@cesar",
     "note": "Logo sticker on the canal bridge",  // optional
-    "date": "2026-06-14"            // optional
+    "date": "2026-06-14",           // optional
+    "width": 1600,                  // optional, pair with height
+    "height": 2000                  // optional, pair with width
   }
 ]
 ```
+
+`width`/`height` are the image's intrinsic pixel dimensions. They are optional, but
+giving them lets the browser reserve the box before the file arrives, so the carousel
+does not shift on load. Supply both or neither; one alone fails validation. Get them
+with `identify -format '%w %h' <file>` (ImageMagick) or `sips -g pixelWidth -g
+pixelHeight <file>` on macOS.
 
 ### Derived data (computed, not stored)
 
@@ -95,7 +103,8 @@ wrangler r2 object put \
 4. In `data/cities.json`: if the city is new, add one entry (name, country code,
    lat/lng). Look up coordinates once (e.g. from any maps search).
 5. In `data/photos.json`: add one entry per photo — `city` id, `src` = the R2 key
-   `photos/<city-id>/<file>`, `author`, optional `note`/`date`.
+   `photos/<city-id>/<file>`, `author`, optional `note`/`date`, and `width`/`height`
+   from the exported file.
 6. `npm run build` to confirm validation passes, then `git commit` + `git push`.
    Cloudflare Pages auto-builds and deploys.
 
