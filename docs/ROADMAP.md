@@ -45,6 +45,25 @@ progress bar toward "conquer the world". Cost to run: $0.
 - [ ] Instagram sync.
 - [ ] Landmass-weighted "% of world conquered" metric and richer stats.
 
+## Known follow-ups (from carousel QA, 2026-07-30)
+
+Found while QA'ing the fixed-stage carousel against the deploy preview on desktop and
+iPhone. The layout itself is stable: stage size held constant across 51 slides in 21
+clusters. These are the loose ends left behind.
+
+- [ ] Backfill `width`/`height` in `photos.json`. The fields are supported and validated
+      as a pair, but no entry has them yet, so the browser cannot reserve the box before
+      a photo arrives. Until then the loading skeleton covers the gap. The originals live
+      in R2, not the repo, so this needs a download-and-measure pass.
+- [ ] Serve photos at something near display size. Several are 3000x4000 or larger, a few
+      MB each, for a stage that is at most ~510px wide. This is now the main cost of
+      opening a carousel. Feeds the unchecked "Image handling: web-optimized" item in V1
+      and the `sharp` script in V1.x.
+- [ ] Decide what to do about the blocked Cloudflare RUM beacon. Every page load logs two
+      console errors because `cloudflareinsights.com/cdn-cgi/rum` is not in the CSP.
+      Either allowlist it in `svelte.config.js` + `static/_headers`, or turn Web Analytics
+      off in the Pages project. Harmless today, but it hides real errors in the console.
+
 ## Non-goals (keep saying no in V1)
 
 - Accounts, comments, likes, RSVPs.
