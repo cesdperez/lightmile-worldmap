@@ -215,5 +215,12 @@
     "country": "MX",
     "lat": 15.8613,
     "lng": -97.0767
+  },
+  {
+    "id": "grindelwald",
+    "name": "Grindelwald",
+    "country": "CH",
+    "lat": 46.6242,
+    "lng": 8.0414
   }
 ]
