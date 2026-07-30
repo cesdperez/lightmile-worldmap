@@ -14,7 +14,9 @@ progress. Visitors only view. Admin adds photos by committing to the repo.
 - [ ] Data files (`cities.json`, `photos.json`) + build-time validation.
 - [ ] Image handling: web-optimized, lazy-loaded.
 - [ ] Seed with real Lightmile photos (Eindhoven + wherever else exists today).
-- [ ] Basic SEO/share: title, description, social preview image.
+- [x] Basic SEO/share: title, description, canonical, Open Graph and Twitter tags, a 1200x630
+      PNG social card, `robots.txt`, `sitemap.xml`, `llms.txt`, and `WebSite` JSON-LD that
+      declares this site part of `lightmile.nl`. See `docs/ARCHITECTURE.md`.
 
 ### Definition of done for V1
 

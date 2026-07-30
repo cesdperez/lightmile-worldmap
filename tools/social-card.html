@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      @font-face {
+        font-family: 'Archivo';
+        src: url('/fonts/archivo-latin.woff2') format('woff2');
+        font-weight: 100 900;
+      }
+      @font-face {
+        font-family: 'Geist Mono';
+        src: url('/fonts/geistmono-latin.woff2') format('woff2');
+        font-weight: 100 900;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1200px;
+        height: 630px;
+      }
+      body {
+        background: #f4f3ef;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 34px;
+        font-family: 'Archivo', sans-serif;
+        color: #0a0a0a;
+        position: relative;
+      }
+      .wordmark {
+        width: 620px;
+        aspect-ratio: 2115.586123 / 298.435684;
+        background: #2438d6;
+        -webkit-mask: url('/logos/lightmile.svg') no-repeat center / contain;
+        mask: url('/logos/lightmile.svg') no-repeat center / contain;
+      }
+      h1 {
+        font-size: 68px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+      p {
+        font-family: 'Geist Mono', monospace;
+        font-size: 24px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: rgba(10, 10, 10, 0.62);
+      }
+      .coord {
+        position: absolute;
+        bottom: 44px;
+        font-size: 19px;
+        letter-spacing: 0.14em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wordmark"></div>
+    <h1>World Map</h1>
+    <p>conquer the world, one run at a time</p>
+    <p class="coord">51.44&deg;N 5.48&deg;E</p>
+  </body>
+</html>

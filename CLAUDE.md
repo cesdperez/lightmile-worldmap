@@ -51,6 +51,11 @@ Photos are hosted in a public Cloudflare R2 bucket (`lightmile-worldmap-photos`)
 - Svelte 5 runes (`$state`, `$derived`, `$props`, `$effect`) — not the older stores/`export let` style.
 - Tailwind CSS v4 (via `@tailwindcss/vite`). Brand colors are CSS custom properties in `src/app.css` (`--color-ink`, `--color-paper`, `--color-blue`, etc.); reference them as `var(--color-blue)` in SVG and `bg-paper`/`text-ink` utilities elsewhere. Colors/fonts are approximations pending real logo assets.
 - Static adapter is in `strict` mode — every route must be prerenderable.
+- `lightmile.nl` is canonical for club information. `static/llms.txt` and the JSON-LD in
+  `+page.svelte` describe the map only and link out to the main site; do not copy the run
+  schedule or joining instructions here, they will drift. See `docs/ARCHITECTURE.md`.
+- The `og:image` must stay an absolute URL to a PNG. Relative paths and SVG cards both mean
+  no link preview at all. Card source: `tools/social-card.html`.
 - Security headers live in two places: a hash-mode `<meta>` CSP emitted by `svelte.config.js`
   and `static/_headers` for what meta cannot express. Keep them in sync. The R2 photo origin
   is allowlisted in `img-src`/`media-src` and duplicated as `PHOTOS_ORIGIN` in

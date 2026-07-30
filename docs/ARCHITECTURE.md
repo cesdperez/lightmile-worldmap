@@ -104,6 +104,32 @@ Two things to know before touching this:
 The main site links here with `target="_blank"` and `rel="noopener"`; the two deployments
 stay independent on purpose.
 
+## Discoverability and sharing
+
+This site is intentionally crawlable, by search engines and by AI assistants:
+`static/robots.txt`, `static/sitemap.xml`, `static/llms.txt`, plus a `WebSite` JSON-LD block
+generated in `+page.svelte` from the same constants the page renders.
+
+The rule for all of it is that **`lightmile.nl` stays canonical for club information**. This
+site owns only what the map is and how it works. `llms.txt` deliberately does not repeat the
+run schedule, meeting points, or joining instructions; it points at the main site instead, so
+there is nothing here to drift out of date. The JSON-LD says the same thing structurally via
+`isPartOf` and `publisher`, so the two domains read as one entity rather than two brands. The
+header wordmark links to `lightmile.nl`, which is also the only user-visible way back.
+
+Social previews use `static/social-card.png` (1200x630). Two constraints that are easy to
+regress, and did exist as bugs before 2026-07-30:
+
+- **The URL must be absolute.** Link-preview scrapers do not resolve relative paths.
+- **The card must be a PNG.** Facebook, WhatsApp, LinkedIn, Slack, and X all refuse to render
+  an SVG `og:image`, so an SVG card means no preview at all.
+
+The card's source is `tools/social-card.html`, which uses the real logo wordmark, the real
+Archivo and Geist Mono files from `static/fonts`, and the brand tokens from `src/app.css`. To
+regenerate after a brand change, serve the repo's `static/` over HTTP (the fonts and logo load
+by absolute path, and headless Chrome blocks `file:`), open `__card.html` from that server at
+1200x630, screenshot it, and save over `static/social-card.png`.
+
 ## Security headers
 
 Mirrors the main site, and like it the posture lives in two places by necessity. Keep both
