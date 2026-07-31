@@ -2,4 +2,66 @@
 User-agent: *
 Allow: /
 
+# The wildcard above already permits these. They are named anyway because AI
+# crawlers are blocked by default in a lot of hosting and boilerplate, and an
+# explicit Allow states the intent rather than leaving it to be inferred.
+
+# Search and answer engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# AI assistants and their browsing agents
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: MistralAI-User
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+# The map is SVG, so its city names are only readable as text here:
+# https://worldmap.lightmile.nl/llms.txt
 Sitemap: https://worldmap.lightmile.nl/sitemap.xml
