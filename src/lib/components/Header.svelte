@@ -1,10 +1,14 @@
+<script lang="ts">
+  import { CLUB_URL } from '$lib/config';
+</script>
+
 <header
   class="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-center gap-2 px-4 pb-3 pt-[max(0.75rem,env(safe-area-inset-top))]"
 >
   <!-- The wordmark is the way back to the club's main site. External domain, not a route. -->
   <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
   <a
-    href="https://lightmile.nl/"
+    href={CLUB_URL}
     aria-label="Lightmile Run Club home"
     title="Lightmile Run Club"
     class="pointer-events-auto rounded-sm transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue"

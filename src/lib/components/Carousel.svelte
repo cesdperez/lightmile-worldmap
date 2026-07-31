@@ -59,15 +59,6 @@
 
   const anyNote = $derived(items.some((it) => it.photo.note));
 
-  const neighbours = $derived(
-    count > 1
-      ? [...new Set([items[(index + 1) % count], items[(index - 1 + count) % count]])]
-          .map((it) => it.photo.src)
-          .filter((src) => !isVideo(src))
-          .map((src) => `${PHOTOS_BASE_URL}/${src}`)
-      : []
-  );
-
   function go(delta: number) {
     index = (index + delta + count) % count;
   }
@@ -212,11 +203,6 @@
           {/if}
         </div>
       {/key}
-
-      <!-- Warm the neighbours so a swipe lands on an already-decoded file. -->
-      {#each neighbours as src (src)}
-        <img {src} alt="" aria-hidden="true" class="hidden" />
-      {/each}
 
       {#if count > 1}
         <button

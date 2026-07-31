@@ -59,10 +59,6 @@ clusters. These are the loose ends left behind.
       MB each, for a stage that is at most ~510px wide. This is now the main cost of
       opening a carousel. Feeds the unchecked "Image handling: web-optimized" item in V1
       and the `sharp` script in V1.x.
-- [ ] Decide what to do about the blocked Cloudflare RUM beacon. Every page load logs two
-      console errors because `cloudflareinsights.com/cdn-cgi/rum` is not in the CSP.
-      Either allowlist it in `svelte.config.js` + `static/_headers`, or turn Web Analytics
-      off in the Pages project. Harmless today, but it hides real errors in the console.
 
 ## Non-goals (keep saying no in V1)
 

@@ -126,9 +126,9 @@ regress, and did exist as bugs before 2026-07-30:
 
 The card's source is `tools/social-card.html`, which uses the real logo wordmark, the real
 Archivo and Geist Mono files from `static/fonts`, and the brand tokens from `src/app.css`. To
-regenerate after a brand change, serve the repo's `static/` over HTTP (the fonts and logo load
-by absolute path, and headless Chrome blocks `file:`), open `__card.html` from that server at
-1200x630, screenshot it, and save over `static/social-card.png`.
+regenerate after a brand change, run `npm run dev` (the fonts and logo load by absolute path,
+and headless Chrome blocks `file:`), open `/tools/social-card.html` at 1200x630, screenshot it,
+and save over `static/social-card.png`.
 
 ## Security headers
 
