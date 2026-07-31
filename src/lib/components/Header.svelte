@@ -11,10 +11,11 @@
   >
     <!-- Ink, not cobalt, matching the landing header: blue is reserved for action, and
          the mark floats over a live map where a conquered country is itself cobalt.
-         --color-ink flips with the theme, so one class covers both grounds. -->
+         --color-ink flips with the theme, so one class covers both grounds.
+         The anchor carries the label, so the mark itself is hidden from AT; labelling
+         both makes a screen reader announce the brand twice. -->
     <span
-      role="img"
-      aria-label="Lightmile"
+      aria-hidden="true"
       class="block h-7 select-none bg-ink"
       style="aspect-ratio: 2115.586123 / 298.435684;
              -webkit-mask: url('/logos/lightmile.svg') no-repeat center / contain;
