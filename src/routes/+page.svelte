@@ -16,6 +16,11 @@
   const mapData = $derived(buildMapData(data.cities, data.photos));
   const progress = $derived(computeProgress(mapData.conqueredCountryCount, totalCountries));
   const continents = $derived(buildPlaces(mapData.cities));
+  const runners = $derived(
+    [...new Set(data.photos.flatMap((photo) => (photo.author ? [photo.author] : [])))].sort((a, b) =>
+      a.localeCompare(b)
+    )
+  );
 
   let selectedCluster = $state<Cluster | null>(null);
 
@@ -143,8 +148,7 @@
 
   <PlacesPanel
     {continents}
-    cityCount={mapData.conqueredCityCount}
-    countryCount={mapData.conqueredCountryCount}
+    {runners}
   />
 
   <ProgressBar {progress} cityCount={mapData.conqueredCityCount} />

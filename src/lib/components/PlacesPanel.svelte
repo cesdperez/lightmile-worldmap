@@ -3,11 +3,10 @@
 
   interface Props {
     continents: ContinentPlace[];
-    cityCount: number;
-    countryCount: number;
+    runners: string[];
   }
 
-  let { continents, cityCount, countryCount }: Props = $props();
+  let { continents, runners }: Props = $props();
 </script>
 
 <!--
@@ -22,45 +21,74 @@
   clear of the theme toggle and the zoom buttons, which share that edge; the max
   height keeps a long list off the progress bar instead of scrolling under it.
 -->
-<details
-  class="pointer-events-auto absolute left-0 top-14 z-10 flex max-h-[calc(100dvh-13rem)] w-full flex-col overflow-y-auto pl-4 pr-[4.5rem] sm:left-4 sm:top-16 sm:max-h-[calc(100dvh-12rem)] sm:w-80 sm:px-0"
->
-  <summary
-    class="cursor-pointer list-none border border-ink/15 bg-paper/85 px-3 py-2 font-mono text-xs uppercase tracking-wide text-ink/70 backdrop-blur transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue"
+<div class="pointer-events-none absolute left-4 top-14 z-10 flex flex-col items-start gap-2 sm:top-16">
+  <details
+    class="group pointer-events-auto flex max-h-[calc(100dvh-13rem)] w-[12.5rem] flex-col overflow-y-auto open:w-[calc(100vw-4.5rem)] sm:max-h-[calc(100dvh-12rem)] sm:open:w-80"
   >
-    <span class="font-semibold tabular-nums text-ink">{countryCount}</span>
-    {countryCount === 1 ? 'country' : 'countries'},
-    <span class="font-semibold tabular-nums text-ink">{cityCount}</span>
-    {cityCount === 1 ? 'city' : 'cities'} conquered
-  </summary>
+    <summary
+      class="flex cursor-pointer list-none items-center justify-between gap-3 border border-ink/15 bg-paper/85 px-3 py-2 font-mono text-xs uppercase tracking-wide text-ink/70 backdrop-blur transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue"
+    >
+      <span class="whitespace-nowrap font-semibold text-ink">Visited places</span>
+      <svg
+        class="size-3 shrink-0 transition-transform duration-200 group-open:rotate-180"
+        viewBox="0 0 12 12"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path d="m2.5 4.5 3.5 3.5 3.5-3.5" stroke="currentColor" stroke-width="1.5" />
+      </svg>
+    </summary>
 
-  <div class="border border-t-0 border-ink/15 bg-paper/95 p-3 backdrop-blur">
-    <h2 class="font-display text-lg font-black uppercase leading-none tracking-tight text-ink">
-      Where Lightmile has run
-    </h2>
-    <p class="mt-2 font-mono text-[0.7rem] uppercase tracking-wide text-ink/60">
-      Every city a club photo was taken in
-    </p>
+    <div class="border border-t-0 border-ink/15 bg-paper/95 p-3 backdrop-blur">
+      <h2 class="font-mono text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-blue">By continent</h2>
 
-    {#each continents as continent (continent.code)}
-      <section class="mt-4">
-        <h3 class="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-blue">
-          {continent.name}
-        </h3>
-        <ul class="mt-1.5 space-y-1">
-          {#each continent.countries as country (country.code)}
-            <li class="text-sm leading-snug text-ink">
-              <span class="font-semibold">{country.name}</span>
-              <span class="text-ink/70">
-                {country.cities.map((city) => city.name).join(', ')}
-              </span>
-            </li>
-          {/each}
-        </ul>
-      </section>
-    {/each}
-  </div>
-</details>
+      {#each continents as continent (continent.code)}
+        <section class="mt-4">
+          <h3 class="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-blue">
+            {continent.name}
+          </h3>
+          <ul class="mt-1.5 space-y-1">
+            {#each continent.countries as country (country.code)}
+              <li class="text-sm leading-snug text-ink">
+                <span class="font-semibold">{country.name}</span>
+                <span class="text-ink/70">
+                  {country.cities.map((city) => city.name).join(', ')}
+                </span>
+              </li>
+            {/each}
+          </ul>
+        </section>
+      {/each}
+    </div>
+  </details>
+
+  <details
+    class="group pointer-events-auto flex max-h-[calc(100dvh-13rem)] w-[12.5rem] flex-col overflow-y-auto open:w-[calc(100vw-4.5rem)] sm:max-h-[calc(100dvh-12rem)] sm:open:w-80"
+  >
+    <summary
+      class="flex cursor-pointer list-none items-center justify-between gap-3 border border-ink/15 bg-paper/85 px-3 py-2 font-mono text-xs uppercase tracking-wide text-ink/70 backdrop-blur transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue"
+    >
+      <span class="font-semibold text-ink">Runners</span>
+      <svg
+        class="size-3 shrink-0 transition-transform duration-200 group-open:rotate-180"
+        viewBox="0 0 12 12"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path d="m2.5 4.5 3.5 3.5 3.5-3.5" stroke="currentColor" stroke-width="1.5" />
+      </svg>
+    </summary>
+
+    <div class="border border-t-0 border-ink/15 bg-paper/95 p-3 backdrop-blur">
+      <h2 class="font-mono text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-blue">Photo contributors</h2>
+      <ul class="mt-3 space-y-1">
+        {#each runners as runner (runner)}
+          <li class="text-sm leading-snug text-ink">{runner}</li>
+        {/each}
+      </ul>
+    </div>
+  </details>
+</div>
 
 <style>
   /* Safari still paints its own disclosure triangle without this. */
