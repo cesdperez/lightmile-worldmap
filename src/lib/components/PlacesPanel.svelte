@@ -17,11 +17,11 @@
   the page. Content lives in the DOM either way.
 -->
 <!--
-  Sits below the header on the left. The right padding on narrow screens keeps it
-  clear of the theme toggle and the zoom buttons, which share that edge; the max
-  height keeps a long list off the progress bar instead of scrolling under it.
+   Sits below the header on small screens. On desktop it becomes part of the
+   header menu, beside the wordmark. The max height keeps a long list off the
+   progress bar instead of scrolling under it.
 -->
-<div class="pointer-events-none absolute left-4 top-14 z-10 flex flex-col items-start gap-2 sm:top-16">
+<div class="pointer-events-none absolute left-4 top-14 z-10 flex flex-col items-start gap-2 sm:top-16 lg:left-[28rem] lg:top-[max(0.75rem,env(safe-area-inset-top))] lg:flex-row">
   <details
     class="group pointer-events-auto flex max-h-[calc(100dvh-13rem)] w-[12.5rem] flex-col overflow-y-auto open:w-[calc(100vw-4.5rem)] sm:max-h-[calc(100dvh-12rem)] sm:open:w-80"
   >
