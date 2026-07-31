@@ -9,10 +9,13 @@
     title="Lightmile Run Club"
     class="pointer-events-auto rounded-sm transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue"
   >
+    <!-- Ink, not cobalt, matching the landing header: blue is reserved for action, and
+         the mark floats over a live map where a conquered country is itself cobalt.
+         --color-ink flips with the theme, so one class covers both grounds. -->
     <span
       role="img"
       aria-label="Lightmile"
-      class="block h-7 select-none bg-blue dark:bg-white"
+      class="block h-7 select-none bg-ink"
       style="aspect-ratio: 2115.586123 / 298.435684;
              -webkit-mask: url('/logos/lightmile.svg') no-repeat center / contain;
              mask: url('/logos/lightmile.svg') no-repeat center / contain;"
