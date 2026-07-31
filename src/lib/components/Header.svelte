@@ -16,14 +16,14 @@
          both makes a screen reader announce the brand twice. -->
     <span
       aria-hidden="true"
-      class="block h-7 select-none bg-ink"
+      class="block h-6 select-none bg-ink sm:h-7"
       style="aspect-ratio: 2115.586123 / 298.435684;
              -webkit-mask: url('/logos/lightmile.svg') no-repeat center / contain;
              mask: url('/logos/lightmile.svg') no-repeat center / contain;"
     ></span>
   </a>
   <span
-    class="pointer-events-auto mt-1 hidden whitespace-nowrap font-mono text-xs uppercase tracking-[0.14em] text-ink/70 sm:inline"
+    class="pointer-events-auto mt-1 whitespace-nowrap font-mono text-xs uppercase tracking-[0.08em] text-ink/70 sm:tracking-[0.14em]"
   >
     World Map
   </span>
