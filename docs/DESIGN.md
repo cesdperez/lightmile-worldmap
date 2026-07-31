@@ -65,7 +65,7 @@ tokens exactly.
 
 ```
 ┌───────────────────────────────┐
-│ LIGHTMILE  WORLD MAP 51.44°N…  │  ← wordmark (blue / white) + mono label & coordinate
+│ LIGHTMILE  WORLD MAP 51.44°N…  │  ← wordmark (ink, flips) + mono label & coordinate
 │                     [◐]  + −  │  ← sliding theme switch + zoom, top-right
 │         [ world map ]          │  ← fills the screen; pan + pinch-zoom
 │      blue = conquered          │     ink bullseye pins on conquered cities
@@ -77,9 +77,14 @@ tokens exactly.
 
 - **Map dominates.** The progress overlay is a slim square, hairline, translucent panel: full-width
   at the bottom on mobile, a pinned card bottom-right on desktop. No multi-page nav.
-- **Header.** The blue `LIGHTMILE` wordmark (white in dark), a Geist-Mono `WORLD MAP` label, and an
+- **Header.** The `LIGHTMILE` wordmark in `--color-ink`, a Geist-Mono `WORLD MAP` label, and an
   Eindhoven coordinate tick (`51.44°N 5.48°E`) that echoes the landing's wayfinding signature. The
   label and coordinate hide on the narrowest screens; the wordmark always stays.
+- **The wordmark is ink, not blue**, for the same two reasons as the pins. Blue is the conquered
+  fill and the action colour, so spending it on the brand dilutes both; and the mark floats over a
+  pannable map, where a cobalt wordmark drifting over a cobalt country disappears. Ink flips with
+  the theme and reads on ocean, land, and conquered fill alike. The landing header carries the same
+  mark under the same rule.
 - **Pins: an ink "bullseye"** (ink dot, paper ring, paper centre), **not** blue. It reads on both
   blue conquered fills and unconquered land, and it reserves blue for the fill (accent restraint).
   Pins flip with the theme and cluster by continent when zoomed out so dense regions stay readable.
@@ -116,8 +121,10 @@ possible later refinement; a plain count is more motivating for V1.
 
 ## Assets
 
-- **Logo:** `static/logos/lightmile.svg`, tinted via CSS mask (brand blue in light, light foreground
-  in dark).
+- **Logo:** `static/logos/lightmile.svg`, tinted via CSS mask with `--color-ink`, which flips with
+  the theme. This file is the artwork of record. The landing page carries the same mark inlined in
+  its `+page.svelte` (a prerendered header cannot afford a second request for its own brand), so
+  changing one means changing the other.
 - **Fonts:** self-hosted `archivo-*` + `geistmono-*` `woff2` under `static/fonts/`, the same files as
   the landing page. Keep them in sync when the landing updates them.
 - **Favicon / social share image:** `static/favicon.svg`, `static/og-image.svg`.
