@@ -53,8 +53,9 @@ landing's no-pill / no-shadow rule; nothing here is rounded or drop-shadowed.
 
 Shared **verbatim** with the landing page — "the night run" (see the landing's `DESIGN.md` for the
 concept and the fixed-vs-flipping token split). A `.dark` class on `<html>` is set before first
-paint by an inline script in `app.html` (no CSP here, so inline is fine) and toggled at runtime by
-`src/lib/state/theme.svelte.ts` via the shared `ThemeToggle`. State persists in
+paint by the external `static/theme-init.js` script loaded from `app.html`, which keeps the
+hash-mode CSP strict, and toggled at runtime by `src/lib/state/theme.svelte.ts` via the shared
+`ThemeToggle`. State persists in
 `localStorage['theme']` and defaults to the OS `prefers-color-scheme`; `<meta name="theme-color">`
 and `color-scheme` follow. Because every surface is a token, only `:root.dark` re-points them:
 conquered countries glow in the lifted cobalt, land sits just above the near-black ocean, and the
