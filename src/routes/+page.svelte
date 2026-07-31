@@ -2,25 +2,36 @@
   import Header from '$lib/components/Header.svelte';
   import ThemeToggle from '$lib/components/ThemeToggle.svelte';
   import ProgressBar from '$lib/components/ProgressBar.svelte';
+  import PlacesPanel from '$lib/components/PlacesPanel.svelte';
   import Carousel from '$lib/components/Carousel.svelte';
   import WorldMap from '$lib/map/WorldMap.svelte';
   import { totalCountries } from '$lib/map/world';
   import { buildMapData, computeProgress } from '$lib/state/derive';
+  import { buildPlaces } from '$lib/state/places';
+  import { CLUB_URL, SITE_URL } from '$lib/config';
   import type { Cluster } from '$lib/state/cluster';
 
   let { data } = $props();
 
   const mapData = $derived(buildMapData(data.cities, data.photos));
   const progress = $derived(computeProgress(mapData.conqueredCountryCount, totalCountries));
+  const continents = $derived(buildPlaces(mapData.cities));
 
   let selectedCluster = $state<Cluster | null>(null);
 
-  const title = 'Lightmile World Map';
-  const description =
+  const title = 'Lightmile World Map | Every City the Run Club Has Run';
+  // The counts come from the data, so the description states what the map holds
+  // today rather than a claim that ages. The full country list stays out of it:
+  // search engines cut a description around 155 characters.
+  const description = $derived(
+    `${mapData.conqueredCountryCount} countries and ${mapData.conqueredCityCount} cities lit up by Lightmile Run Club photos, from Eindhoven outwards. Tap a pin for the crew's shots from that city.`
+  );
+  /** Static twin of `description`, for the JSON-LD and link previews. */
+  const shortDescription =
     'Wherever a Lightmile photo lands, the world lights up. Browse the map, tap a city, and watch the club conquer the world.';
 
-  const siteUrl = 'https://worldmap.lightmile.nl/';
-  const clubUrl = 'https://lightmile.nl/';
+  const siteUrl = SITE_URL;
+  const clubUrl = CLUB_URL;
   const socialCard = `${siteUrl}social-card.png`;
 
   // Escaping `<` keeps the serialised JSON from breaking out of the script element.
@@ -29,12 +40,12 @@
 
   // Declares this site as part of the club's site rather than a standalone brand, so the
   // two domains are read as one entity. Generated from the same constants the page renders.
-  const structuredData = {
+  const webSite = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: title,
+    name: 'Lightmile World Map',
     url: siteUrl,
-    description,
+    description: shortDescription,
     inLanguage: 'en',
     isPartOf: {
       '@type': 'WebSite',
@@ -47,6 +58,37 @@
       url: clubUrl
     }
   };
+
+  // The place names the SVG cannot express. An assistant asked "where has this
+  // club run" can answer from this without parsing map geometry.
+  const placesList = $derived({
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Cities Lightmile Run Club has run in',
+    numberOfItems: mapData.conqueredCityCount,
+    itemListOrder: 'https://schema.org/ItemListUnordered',
+    itemListElement: continents.flatMap((continent) =>
+      continent.countries.flatMap((country) =>
+        country.cities.map((city) => ({
+          '@type': 'ListItem',
+          item: {
+            '@type': 'Place',
+            name: city.name,
+            address: {
+              '@type': 'PostalAddress',
+              addressLocality: city.name,
+              addressCountry: country.code
+            },
+            geo: {
+              '@type': 'GeoCoordinates',
+              latitude: city.lat,
+              longitude: city.lng
+            }
+          }
+        }))
+      )
+    )
+  });
 </script>
 
 <svelte:head>
@@ -59,10 +101,10 @@
        to render an SVG og:image. -->
   <meta property="og:site_name" content="Lightmile Run Club" />
   <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
+  <meta property="og:description" content={shortDescription} />
   <meta property="og:type" content="website" />
   <meta property="og:url" content={siteUrl} />
-  <meta property="og:locale" content="en" />
+  <meta property="og:locale" content="en_NL" />
   <meta property="og:image" content={socialCard} />
   <meta property="og:image:secure_url" content={socialCard} />
   <meta property="og:image:type" content="image/png" />
@@ -71,13 +113,18 @@
   <meta property="og:image:alt" content="Lightmile World Map" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
-  <meta name="twitter:description" content={description} />
+  <meta name="twitter:description" content={shortDescription} />
   <meta name="twitter:image" content={socialCard} />
+
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <!-- The place list as plain text, generated from the same data the map draws. -->
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
 
   <!-- Interpolated values are escaped by `toJsonLd`, so they cannot break out of the
        script element or drift from what visitors see. -->
   <!-- eslint-disable svelte/no-at-html-tags -->
-  {@html `<script type="application/ld+json">${toJsonLd(structuredData)}</` + `script>`}
+  {@html `<script type="application/ld+json">${toJsonLd(webSite)}</` + `script>`}
+  {@html `<script type="application/ld+json">${toJsonLd(placesList)}</` + `script>`}
   <!-- eslint-enable svelte/no-at-html-tags -->
 </svelte:head>
 
@@ -92,6 +139,12 @@
     cities={mapData.cities}
     conqueredCountryIds={mapData.conqueredCountryIds}
     onSelectCluster={(cluster) => (selectedCluster = cluster)}
+  />
+
+  <PlacesPanel
+    {continents}
+    cityCount={mapData.conqueredCityCount}
+    countryCount={mapData.conqueredCountryCount}
   />
 
   <ProgressBar {progress} cityCount={mapData.conqueredCityCount} />

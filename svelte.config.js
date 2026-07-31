@@ -20,6 +20,10 @@ const config = {
     // ./_app/... hints get resolved against whichever resource they ride on,
     // spawning recursive /_app/.../_app/... 404s in the browser.
     paths: { relative: false },
+    // The generated crawler endpoints. They are referenced from <link
+    // rel="alternate"> and robots.txt rather than from body links, so they are
+    // listed explicitly instead of relying on the prerender crawler to find them.
+    prerender: { entries: ['*', '/llms.txt', '/sitemap.xml'] },
     // Prerendered pages have no server to set a CSP header, so SvelteKit emits a
     // <meta> CSP and hashes its own inline hydration bootstrap. `frame-ancestors`
     // is meta-ignored, so it stays in static/_headers alongside the other headers.
