@@ -263,5 +263,13 @@
     "src": "photos/grindelwald/grindelwald-01.jpeg",
     "author": "@julia_timko",
     "date": "2026-07-28"
+  },
+  {
+    "city": "gullfoss",
+    "src": "photos/gullfoss/gullfoss-01.jpeg",
+    "author": "@le0_pedr0s0",
+    "date": "2026-07-31",
+    "width": 2000,
+    "height": 1500
   }
 ]
