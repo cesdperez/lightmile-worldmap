@@ -35,7 +35,12 @@ const config = {
         // serve time, so the prerendered CSP must allow it or it is silently
         // blocked. The beacon script loads from static.cloudflareinsights.com
         // and reports to cloudflareinsights.com (connect-src below).
-        'script-src': ['self', 'https://static.cloudflareinsights.com'],
+        // PostHog: the bundled SDK fetches its remote config and lazy-loads
+        // extensions from a PostHog-owned subdomain. Wildcarded rather than pinned
+        // to eu.i.posthog.com on purpose: PostHog reroutes traffic across
+        // subdomains without notice, and a pinned host fails silently, which for
+        // analytics means noticing weeks later that data stopped.
+        'script-src': ['self', 'https://static.cloudflareinsights.com', 'https://*.posthog.com'],
         // SvelteKit's route announcer, the progress bar width, and the d3 zoom
         // transform all set inline style attributes at runtime, which build-time
         // hashing cannot cover. Allow inline styles; script-src stays hash-locked.
@@ -44,7 +49,7 @@ const config = {
         'img-src': ['self', 'data:', PHOTOS_ORIGIN],
         'media-src': ['self', PHOTOS_ORIGIN],
         'font-src': ['self'],
-        'connect-src': ['self', 'https://cloudflareinsights.com'],
+        'connect-src': ['self', 'https://cloudflareinsights.com', 'https://*.posthog.com'],
         'base-uri': ['self'],
         'form-action': ['self'],
         'worker-src': ['self'],
