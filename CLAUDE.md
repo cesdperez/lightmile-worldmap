@@ -57,6 +57,15 @@ Photos are hosted in a public Cloudflare R2 bucket (`lightmile-worldmap-photos`)
   schedule or joining instructions here, they will drift. See `docs/ARCHITECTURE.md`.
 - The `og:image` must stay an absolute URL to a PNG. Relative paths and SVG cards both mean
   no link preview at all. Card source: `tools/social-card.html`.
+- Analytics: Cloudflare Web Analytics (dashboard toggle, no code) plus PostHog. `src/lib/analytics.ts`
+  initialises `posthog-js` from `+layout.svelte` in `onMount`, so nothing runs at prerender time;
+  `src/lib/analytics-target.ts` is the pure, tested guard limiting capture to the exact production
+  hostname, keeping localhost and `*.pages.dev` previews out. PostHog runs in
+  `cookieless_mode: 'always'` (no cookies or storage, hence no consent banner) with replay and
+  surveys off. One free-tier PostHog project is shared with the `lightmile` repo, so every event
+  carries `site: 'worldmap'` to tell the two apart; keep that property when adding events. The CSP
+  allowlist is `https://*.posthog.com`, not a pinned host, because PostHog ingests on
+  `eu.i.posthog.com` and serves config from `eu-assets.i.posthog.com`.
 - Security headers live in two places: a hash-mode `<meta>` CSP emitted by `svelte.config.js`
   and `static/_headers` for what meta cannot express. Keep them in sync. The R2 photo origin
   is allowlisted in `img-src`/`media-src` and duplicated as `PHOTOS_ORIGIN` in
