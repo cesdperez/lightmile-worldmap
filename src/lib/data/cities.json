@@ -229,5 +229,12 @@
     "country": "IS",
     "lat": 64.3271,
     "lng": -20.1199
+  },
+  {
+    "id": "budapest",
+    "name": "Budapest",
+    "country": "HU",
+    "lat": 47.4979,
+    "lng": 19.0402
   }
 ]

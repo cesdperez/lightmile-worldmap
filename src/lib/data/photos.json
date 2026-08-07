@@ -271,5 +271,12 @@
     "date": "2026-07-31",
     "width": 2000,
     "height": 1500
+  },
+  {
+    "city": "budapest",
+    "src": "photos/budapest/budapest-01.jpeg",
+    "author": "@_travelost",
+    "width": 1179,
+    "height": 1423
   }
 ]
