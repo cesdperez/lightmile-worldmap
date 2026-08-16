@@ -278,5 +278,37 @@
     "author": "@_travelost",
     "width": 1179,
     "height": 1423
+  },
+  {
+    "city": "edinburgh",
+    "src": "photos/edinburgh/edinburgh-01.jpeg",
+    "author": "Xin Ying",
+    "date": "2026-08-09",
+    "width": 2000,
+    "height": 1500
+  },
+  {
+    "city": "dolomites",
+    "src": "photos/dolomites/dolomites-01.jpeg",
+    "author": "@kosfietje",
+    "date": "2026-08-10",
+    "width": 1500,
+    "height": 2000
+  },
+  {
+    "city": "dolomites",
+    "src": "photos/dolomites/dolomites-02.jpeg",
+    "author": "@kosfietje",
+    "date": "2026-08-10",
+    "width": 1500,
+    "height": 2000
+  },
+  {
+    "city": "liuqiu",
+    "src": "photos/liuqiu/liuqiu-01.jpeg",
+    "author": "@julia_timko",
+    "date": "2026-08-16",
+    "width": 1500,
+    "height": 2000
   }
 ]

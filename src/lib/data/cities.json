@@ -236,5 +236,26 @@
     "country": "HU",
     "lat": 47.4979,
     "lng": 19.0402
+  },
+  {
+    "id": "edinburgh",
+    "name": "Edinburgh",
+    "country": "GB",
+    "lat": 55.9486,
+    "lng": -3.1999
+  },
+  {
+    "id": "dolomites",
+    "name": "Dolomites",
+    "country": "IT",
+    "lat": 46.4102,
+    "lng": 11.844
+  },
+  {
+    "id": "liuqiu",
+    "name": "Liuqiu Island",
+    "country": "TW",
+    "lat": 22.3411,
+    "lng": 120.3725
   }
 ]
