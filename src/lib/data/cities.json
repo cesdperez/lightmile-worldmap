@@ -257,5 +257,19 @@
     "country": "TW",
     "lat": 22.3411,
     "lng": 120.3725
+  },
+  {
+    "id": "mont-ventoux",
+    "name": "Mont Ventoux",
+    "country": "FR",
+    "lat": 44.1741,
+    "lng": 5.2786
+  },
+  {
+    "id": "vienna",
+    "name": "Vienna",
+    "country": "AT",
+    "lat": 48.2082,
+    "lng": 16.3738
   }
 ]
