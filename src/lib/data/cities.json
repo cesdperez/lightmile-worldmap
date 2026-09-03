@@ -271,5 +271,12 @@
     "country": "AT",
     "lat": 48.2082,
     "lng": 16.3738
+  },
+  {
+    "id": "veliki-vrh",
+    "name": "Veliki vrh",
+    "country": "SI",
+    "lat": 46.4307,
+    "lng": 14.3096
   }
 ]
