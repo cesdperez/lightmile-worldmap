@@ -326,5 +326,21 @@
     "date": "2026-08-28",
     "width": 1210,
     "height": 1600
+  },
+  {
+    "city": "veliki-vrh",
+    "src": "photos/veliki-vrh/veliki-vrh-01.jpeg",
+    "author": "Jasper",
+    "date": "2026-09-03",
+    "width": 480,
+    "height": 640
+  },
+  {
+    "city": "veliki-vrh",
+    "src": "photos/veliki-vrh/veliki-vrh-02.mp4",
+    "author": "Jasper",
+    "date": "2026-09-03",
+    "width": 478,
+    "height": 850
   }
 ]
