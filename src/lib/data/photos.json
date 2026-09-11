@@ -342,5 +342,13 @@
     "date": "2026-09-03",
     "width": 478,
     "height": 850
+  },
+  {
+    "city": "lisbon",
+    "src": "photos/lisbon/lisbon-01.jpeg",
+    "author": "@kosfietje",
+    "date": "2026-09-11",
+    "width": 1200,
+    "height": 1600
   }
 ]
