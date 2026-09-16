@@ -285,5 +285,19 @@
     "country": "PT",
     "lat": 38.7223,
     "lng": -9.1393
+  },
+  {
+    "id": "salzburg",
+    "name": "Salzburg",
+    "country": "AT",
+    "lat": 47.7994,
+    "lng": 13.0442
+  },
+  {
+    "id": "helsinki",
+    "name": "Helsinki",
+    "country": "FI",
+    "lat": 60.1699,
+    "lng": 24.9384
   }
 ]
