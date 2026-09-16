@@ -8,7 +8,7 @@
 
   let { progress, cityCount }: Props = $props();
 
-  const pct = $derived(Math.round(progress.fraction * 100));
+  const pct = $derived((progress.fraction * 100).toFixed(1));
   const countryLabel = $derived(progress.conquered === 1 ? 'country' : 'countries');
   const cityLabel = $derived(cityCount === 1 ? 'city' : 'cities');
 </script>
