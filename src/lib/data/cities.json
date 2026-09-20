@@ -299,5 +299,12 @@
     "country": "FI",
     "lat": 60.1699,
     "lng": 24.9384
+  },
+  {
+    "id": "copenhagen",
+    "name": "Copenhagen",
+    "country": "DK",
+    "lat": 55.6761,
+    "lng": 12.5683
   }
 ]
