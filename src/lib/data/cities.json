@@ -57,7 +57,7 @@
   },
   {
     "id": "gerold",
-    "name": "Gerold",
+    "name": "St. Gerold",
     "country": "AT",
     "lat": 47.3274,
     "lng": 10.0843
@@ -98,13 +98,6 @@
     "lng": 6.96
   },
   {
-    "id": "kap-kamenjak",
-    "name": "Kap Kamenjak",
-    "country": "HR",
-    "lat": 44.7712,
-    "lng": 13.9205
-  },
-  {
     "id": "paris",
     "name": "Paris",
     "country": "FR",
@@ -126,11 +119,11 @@
     "lng": 12.5695
   },
   {
-    "id": "haarlemmermeer",
-    "name": "Haarlemmermeer",
+    "id": "amsterdam",
+    "name": "Amsterdam",
     "country": "NL",
-    "lat": 52.3105,
-    "lng": 4.7638
+    "lat": 52.3676,
+    "lng": 4.9041
   },
   {
     "id": "utrecht",
@@ -140,11 +133,11 @@
     "lng": 5.1214
   },
   {
-    "id": "veluwe",
-    "name": "Veluwe",
+    "id": "apeldoorn",
+    "name": "Apeldoorn",
     "country": "NL",
-    "lat": 52.2,
-    "lng": 5.8
+    "lat": 52.2112,
+    "lng": 5.9699
   },
   {
     "id": "reykjavik",
@@ -224,13 +217,6 @@
     "lng": 8.0414
   },
   {
-    "id": "gullfoss",
-    "name": "Gullfoss",
-    "country": "IS",
-    "lat": 64.3271,
-    "lng": -20.1199
-  },
-  {
     "id": "budapest",
     "name": "Budapest",
     "country": "HU",
@@ -245,25 +231,25 @@
     "lng": -3.1999
   },
   {
-    "id": "dolomites",
-    "name": "Dolomites",
+    "id": "ortisei",
+    "name": "Ortisei",
     "country": "IT",
-    "lat": 46.4102,
-    "lng": 11.844
+    "lat": 46.5747,
+    "lng": 11.6725
   },
   {
     "id": "liuqiu",
-    "name": "Liuqiu Island",
+    "name": "Liuqiu",
     "country": "TW",
     "lat": 22.3411,
     "lng": 120.3725
   },
   {
-    "id": "mont-ventoux",
-    "name": "Mont Ventoux",
+    "id": "bedoin",
+    "name": "Bédoin",
     "country": "FR",
-    "lat": 44.1741,
-    "lng": 5.2786
+    "lat": 44.1245,
+    "lng": 5.1797
   },
   {
     "id": "vienna",
@@ -273,11 +259,11 @@
     "lng": 16.3738
   },
   {
-    "id": "veliki-vrh",
-    "name": "Veliki vrh",
+    "id": "trzic",
+    "name": "Tržič",
     "country": "SI",
-    "lat": 46.4307,
-    "lng": 14.3096
+    "lat": 46.3636,
+    "lng": 14.3094
   },
   {
     "id": "lisbon",
