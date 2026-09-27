@@ -306,5 +306,12 @@
     "country": "DK",
     "lat": 55.6761,
     "lng": 12.5683
+  },
+  {
+    "id": "rainbow-mountain",
+    "name": "Rainbow Mountain",
+    "country": "PE",
+    "lat": -13.8694,
+    "lng": -71.3033
   }
 ]

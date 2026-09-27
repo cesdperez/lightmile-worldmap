@@ -384,5 +384,13 @@
     "date": "2026-09-20",
     "width": 1200,
     "height": 1600
+  },
+  {
+    "city": "rainbow-mountain",
+    "src": "photos/rainbow-mountain/rainbow-mountain-01.mp4",
+    "author": "@fleurvstratum",
+    "date": "2026-09-27",
+    "width": 478,
+    "height": 850
   }
 ]
