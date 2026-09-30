@@ -299,5 +299,12 @@
     "country": "PE",
     "lat": -13.532,
     "lng": -71.9675
+  },
+  {
+    "id": "ushuaia",
+    "name": "Ushuaia",
+    "country": "AR",
+    "lat": -54.8019,
+    "lng": -68.303
   }
 ]
