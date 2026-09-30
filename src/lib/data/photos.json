@@ -402,5 +402,13 @@
     "date": "2026-09-27",
     "width": 478,
     "height": 850
+  },
+  {
+    "city": "ushuaia",
+    "src": "photos/ushuaia/ushuaia-01.jpeg",
+    "author": "@charon.o8",
+    "date": "2026-09-30",
+    "width": 1200,
+    "height": 1600
   }
 ]
