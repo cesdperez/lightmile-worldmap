@@ -410,5 +410,38 @@
     "date": "2026-09-30",
     "width": 1200,
     "height": 1600
+  },
+  {
+    "city": "posada",
+    "src": "photos/posada/posada-01.jpeg",
+    "author": "@femmms",
+    "date": "2026-10-01",
+    "width": 1200,
+    "height": 1600
+  },
+  {
+    "city": "stockholm",
+    "src": "photos/stockholm/stockholm-01.jpeg",
+    "author": "@checho289",
+    "date": "2026-10-04",
+    "width": 1075,
+    "height": 1600
+  },
+  {
+    "city": "stockholm",
+    "src": "photos/stockholm/stockholm-02.jpeg",
+    "author": "@ava_vct",
+    "date": "2026-10-04",
+    "width": 1200,
+    "height": 1600
+  },
+  {
+    "city": "osaka",
+    "src": "photos/osaka/osaka-01.jpeg",
+    "author": "@enrique_mateoo",
+    "note": "Dotonbori",
+    "date": "2026-10-04",
+    "width": 1200,
+    "height": 1600
   }
 ]

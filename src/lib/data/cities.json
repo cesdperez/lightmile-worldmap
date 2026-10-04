@@ -306,5 +306,26 @@
     "country": "AR",
     "lat": -54.8019,
     "lng": -68.303
+  },
+  {
+    "id": "posada",
+    "name": "Posada",
+    "country": "IT",
+    "lat": 40.6322,
+    "lng": 9.7194
+  },
+  {
+    "id": "stockholm",
+    "name": "Stockholm",
+    "country": "SE",
+    "lat": 59.3293,
+    "lng": 18.0686
+  },
+  {
+    "id": "osaka",
+    "name": "Osaka",
+    "country": "JP",
+    "lat": 34.6687,
+    "lng": 135.5013
   }
 ]
