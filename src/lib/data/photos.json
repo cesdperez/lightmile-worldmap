@@ -443,5 +443,22 @@
     "date": "2026-10-04",
     "width": 1200,
     "height": 1600
+  },
+  {
+    "city": "stockholm",
+    "src": "photos/stockholm/stockholm-03.jpeg",
+    "author": "@ava_vct",
+    "date": "2026-10-05",
+    "width": 1200,
+    "height": 1600
+  },
+  {
+    "city": "el-chalten",
+    "src": "photos/el-chalten/el-chalten-01.jpeg",
+    "author": "@charon.o8",
+    "note": "Laguna Torre",
+    "date": "2026-10-05",
+    "width": 900,
+    "height": 1600
   }
 ]
