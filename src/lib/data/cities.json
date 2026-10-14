@@ -334,5 +334,12 @@
     "country": "AR",
     "lat": -49.3315,
     "lng": -72.8863
+  },
+  {
+    "id": "tokyo",
+    "name": "Tokyo",
+    "country": "JP",
+    "lat": 35.6938,
+    "lng": 139.7017
   }
 ]
