@@ -460,5 +460,22 @@
     "date": "2026-10-05",
     "width": 900,
     "height": 1600
+  },
+  {
+    "city": "tokyo",
+    "src": "photos/tokyo/tokyo-01.mp4",
+    "author": "@enrique_mateoo",
+    "note": "Kabukichō, Shinjuku",
+    "date": "2026-10-13",
+    "width": 720,
+    "height": 1280
+  },
+  {
+    "city": "malaga",
+    "src": "photos/malaga/malaga-02.mp4",
+    "author": "@mitchellvlierop",
+    "date": "2026-10-14",
+    "width": 464,
+    "height": 832
   }
 ]
