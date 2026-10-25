@@ -341,5 +341,19 @@
     "country": "JP",
     "lat": 35.6938,
     "lng": 139.7017
+  },
+  {
+    "id": "etten-leur",
+    "name": "Etten-Leur",
+    "country": "NL",
+    "lat": 51.5696,
+    "lng": 4.6357
+  },
+  {
+    "id": "mexico-city",
+    "name": "Mexico City",
+    "country": "MX",
+    "lat": 19.4326,
+    "lng": -99.1332
   }
 ]

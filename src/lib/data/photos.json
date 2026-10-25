@@ -477,5 +477,22 @@
     "date": "2026-10-14",
     "width": 464,
     "height": 832
+  },
+  {
+    "city": "etten-leur",
+    "src": "photos/etten-leur/etten-leur-01.jpeg",
+    "author": "Xing",
+    "note": "Van Oers Marathon Brabant",
+    "date": "2026-10-25",
+    "width": 1500,
+    "height": 2000
+  },
+  {
+    "city": "mexico-city",
+    "src": "photos/mexico-city/mexico-city-01.mp4",
+    "author": "@Nikola",
+    "date": "2026-10-25",
+    "width": 480,
+    "height": 860
   }
 ]
