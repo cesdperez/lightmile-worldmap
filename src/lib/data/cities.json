@@ -355,5 +355,33 @@
     "country": "MX",
     "lat": 19.4326,
     "lng": -99.1332
+  },
+  {
+    "id": "warsaw",
+    "name": "Warsaw",
+    "country": "PL",
+    "lat": 52.2297,
+    "lng": 21.0122
+  },
+  {
+    "id": "cannes",
+    "name": "Cannes",
+    "country": "FR",
+    "lat": 43.5528,
+    "lng": 7.0174
+  },
+  {
+    "id": "chicago",
+    "name": "Chicago",
+    "country": "US",
+    "lat": 41.8781,
+    "lng": -87.6298
+  },
+  {
+    "id": "hanoi",
+    "name": "Hanoi",
+    "country": "VN",
+    "lat": 21.0285,
+    "lng": 105.8542
   }
 ]

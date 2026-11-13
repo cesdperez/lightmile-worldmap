@@ -494,5 +494,43 @@
     "date": "2026-10-25",
     "width": 480,
     "height": 860
+  },
+  {
+    "city": "warsaw",
+    "src": "photos/warsaw/warsaw-01.jpeg",
+    "author": "Adam",
+    "note": "Palace of Culture and Science",
+    "width": 1500,
+    "height": 2000
+  },
+  {
+    "city": "malaga",
+    "src": "photos/malaga/malaga-03.jpeg",
+    "author": "Lightmile",
+    "note": "Malaga half marathon 2026",
+    "width": 1500,
+    "height": 2000
+  },
+  {
+    "city": "cannes",
+    "src": "photos/cannes/cannes-01.jpeg",
+    "author": "Filippo",
+    "note": "Nice-Cannes marathon",
+    "width": 1125,
+    "height": 2000
+  },
+  {
+    "city": "chicago",
+    "src": "photos/chicago/chicago-01.jpeg",
+    "author": "Charon",
+    "width": 1125,
+    "height": 2000
+  },
+  {
+    "city": "hanoi",
+    "src": "photos/hanoi/hanoi-01.jpeg",
+    "author": "Fleur",
+    "width": 1500,
+    "height": 2000
   }
 ]
