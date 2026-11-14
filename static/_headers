@@ -1,8 +1,12 @@
+# The R2 photo and video origin must match PHOTOS_BASE_URL in src/lib/config.ts.
+# Inline styles are needed by the route announcer, progress bar and d3 zoom.
+# Cloudflare Web Analytics injects its script and sends beacons at serve time.
 /*
-  Content-Security-Policy: frame-ancestors 'none'
-  Permissions-Policy: camera=(), geolocation=(), microphone=(), payment=(), usb=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://pub-2baa1a0f4aa548ce8d29ebf856e5d130.r2.dev; media-src 'self' https://pub-2baa1a0f4aa548ce8d29ebf856e5d130.r2.dev; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; base-uri 'self'; form-action 'self'; worker-src 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests
+  Permissions-Policy: accelerometer=(), camera=(), display-capture=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), bluetooth=(), serial=(), hid=(), midi=(), browsing-topics=(), publickey-credentials-get=(), screen-wake-lock=(), xr-spatial-tracking=()
   Referrer-Policy: strict-origin-when-cross-origin
-  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  Cross-Origin-Opener-Policy: same-origin
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
 
@@ -10,4 +14,7 @@
   Cache-Control: public, max-age=31536000, immutable
 
 /logos/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/_app/immutable/*
   Cache-Control: public, max-age=31536000, immutable

@@ -19,9 +19,9 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@sveltejs/adapter-static": "^4",
-    "@sveltejs/kit": "^3",
-    "@sveltejs/vite-plugin-svelte": "^7",
+    "@sveltejs/adapter-static": "^4.0.1",
+    "@sveltejs/kit": "^3.2.0",
+    "@sveltejs/vite-plugin-svelte": "^7.3.1",
     "@tailwindcss/vite": "^4.3.1",
     "@testing-library/svelte": "^5.4.2",
     "@types/d3-geo": "^3.1.0",
@@ -29,7 +29,7 @@
     "@types/d3-transition": "^3.0.9",
     "@types/d3-zoom": "^3.0.8",
     "@types/geojson": "^7946.0.16",
-    "@types/node": "^26",
+    "@types/node": "^26.6.6",
     "@types/topojson-client": "^3.1.5",
     "d3-transition": "^3.0.1",
     "eslint": "^10.4.1",
@@ -47,14 +47,13 @@
     "tailwindcss": "^4.3.1",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.60.1",
-    "vite": "^8",
-    "vitest": "^5"
+    "vite": "^8.3.8",
+    "vitest": "^5.1.0"
   },
   "dependencies": {
     "d3-geo": "^3.1.1",
     "d3-selection": "^3.0.0",
     "d3-zoom": "^3.0.0",
-    "posthog-js": "^1.412.2",
     "topojson-client": "^3.1.0",
     "world-atlas": "^2.0.2",
     "zod": "^4.4.3"

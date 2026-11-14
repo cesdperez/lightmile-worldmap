@@ -132,26 +132,14 @@ and save over `static/social-card.png`.
 
 ## Security headers
 
-Mirrors the main site, and like it the posture lives in two places by necessity. Keep both
-in sync when changing it.
+`static/_headers` defines the CSP, security headers and immutable cache rules.
+`csp-script-hashes.ts` adds hashes for inline scripts in built HTML.
 
-- `svelte.config.js` emits a hash-mode `<meta>` CSP. Prerendered pages have no server to
-  set the header, so SvelteKit hashes its own hydration bootstrap and inlines the policy.
-- `static/_headers` carries what a `<meta>` CSP cannot (`frame-ancestors`,
-  `Permissions-Policy`, HSTS, `X-Frame-Options`) plus immutable cache rules for `/fonts`
-  and `/logos`.
-
-Three things this project needs that the main site does not:
-
-- **`img-src` and `media-src` allow the R2 photo origin.** Photos and videos are served
-  from the public bucket, not this origin. The origin is duplicated in `svelte.config.js`
-  as `PHOTOS_ORIGIN`; if `PHOTOS_BASE_URL` in `src/lib/config.ts` ever changes, change both
-  or all media 404s silently behind a CSP block.
-- **The pre-paint theme script is `static/theme-init.js`, not inline.** An inline script in
-  `app.html` is not covered by SvelteKit's hashing and would need `unsafe-inline`, which
-  would defeat the point of a hash-locked `script-src`.
-- **`style-src` allows `unsafe-inline`.** The route announcer, the progress bar width, and
-  the d3 zoom transform all set style attributes at runtime. `script-src` stays hash-locked.
+- **`img-src` and `media-src` allow the R2 photo origin.** Keep it in sync with
+  `PHOTOS_BASE_URL` in `src/lib/config.ts` or media will be blocked.
+- **`style-src` allows `unsafe-inline`.** The route announcer, progress bar and d3 zoom
+  set style attributes at runtime. `script-src` stays hash-locked.
+- **`static/404.html`** lets Cloudflare Pages return a real 404 for unmatched paths.
 
 Cloudflare Web Analytics is enabled on this project, so the CSP allowlists
 `static.cloudflareinsights.com` (script) and `cloudflareinsights.com` (RUM beacon). Removing

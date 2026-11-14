@@ -3,3 +3,6 @@ static/
 svelte.config.js
 CLAUDE.md
 README.md
+
+# Kept byte-identical with the copies in other portfolio repos, which use tabs.
+csp-script-hashes.ts

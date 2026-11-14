@@ -57,20 +57,12 @@ Photos are hosted in a public Cloudflare R2 bucket (`lightmile-worldmap-photos`)
   schedule or joining instructions here, they will drift. See `docs/ARCHITECTURE.md`.
 - The `og:image` must stay an absolute URL to a PNG. Relative paths and SVG cards both mean
   no link preview at all. Card source: `tools/social-card.html`.
-- Analytics: Cloudflare Web Analytics (dashboard toggle, no code) plus PostHog. `src/lib/analytics.ts`
-  initialises `posthog-js` from `+layout.svelte` in `onMount`, so nothing runs at prerender time;
-  `src/lib/analytics-target.ts` is the pure, tested guard limiting capture to the exact production
-  hostname, keeping localhost and `*.pages.dev` previews out. PostHog runs in
-  `cookieless_mode: 'always'` (no cookies or storage, hence no consent banner) with replay and
-  surveys off. One free-tier PostHog project is shared with the `lightmile` repo, so every event
-  carries `site: 'worldmap'` to tell the two apart; keep that property when adding events. The CSP
-  allowlist is `https://*.posthog.com`, not a pinned host, because PostHog ingests on
-  `eu.i.posthog.com` and serves config from `eu-assets.i.posthog.com`.
-- Security headers live in two places: a hash-mode `<meta>` CSP emitted by `svelte.config.js`
-  and `static/_headers` for what meta cannot express. Keep them in sync. The R2 photo origin
-  is allowlisted in `img-src`/`media-src` and duplicated as `PHOTOS_ORIGIN` in
-  `svelte.config.js`; change it alongside `PHOTOS_BASE_URL`. Never add an inline `<script>`
-  to `app.html` — put it in `static/` (see `theme-init.js`) so `script-src` stays hash-locked.
+- Cloudflare Web Analytics is injected at serve time by the Pages dashboard toggle.
+- Security headers and CSP live in `static/_headers`. `csp-script-hashes.ts` adds hashes for
+  inline scripts in built HTML. Keep the R2 origin in sync with `PHOTOS_BASE_URL` in
+  `src/lib/config.ts`.
+- `static/404.html` gives unmatched Cloudflare Pages URLs a real 404 instead of the SPA
+  fallback. Verify with `wrangler pages dev build`.
 
 ## Docs
 
