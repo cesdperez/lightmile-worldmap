@@ -2,6 +2,9 @@ import { z } from 'zod';
 import { isValidAlpha2 } from './countryCodes';
 import { hasContinent } from './continents';
 
+// CSP forbids eval, and Zod's capability probe otherwise reports a violation.
+z.config({ jitless: true });
+
 const citySchema = z.object({
   id: z.string().min(1),
   name: z.string().min(1),
