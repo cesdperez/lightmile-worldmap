@@ -6,7 +6,7 @@
   class="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-center gap-2 px-4 pb-3 pt-[max(0.75rem,env(safe-area-inset-top))]"
 >
   <!-- The wordmark is the way back to the club's main site. External domain, not a route. -->
-  <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
+  <!-- eslint-disable svelte/no-navigation-without-resolve -->
   <a
     href={CLUB_URL}
     aria-label="Lightmile Run Club home"
@@ -26,6 +26,7 @@
              mask: url('/logos/lightmile.svg') no-repeat center / contain;"
     ></span>
   </a>
+  <!-- eslint-enable svelte/no-navigation-without-resolve -->
   <span
     class="pointer-events-auto mt-1 whitespace-nowrap font-mono text-xs uppercase tracking-[0.08em] text-ink/70 sm:tracking-[0.14em]"
   >

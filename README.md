@@ -29,11 +29,11 @@ place. Each photo shows a small **author tag** (e.g. `@cesar`) and an optional n
 ## Develop
 
 ```bash
-npm install
-npm run dev        # local dev server
-npm run check      # type-check (svelte-check)
-npm run build      # static site -> build/
-npm run preview    # serve the production build locally
+pnpm install
+pnpm dev        # local dev server
+pnpm check      # type-check (svelte-check)
+pnpm build      # static site -> build/
+pnpm preview    # serve the production build locally
 ```
 
 The map, pins, country fills, carousel, and progress bar are all **derived from**
@@ -49,7 +49,7 @@ The site is fully static (`@sveltejs/adapter-static`) and lives at
 [worldmap.lightmile.nl](https://worldmap.lightmile.nl). The Cloudflare Pages project is
 `lightmile-worldmap`, linked to this repo:
 
-- **Build command:** `npm run build`
+- **Build command:** `pnpm build`
 - **Build output directory:** `build`
 - Every push to `main` auto-builds and deploys; other branches get preview deployments.
 

@@ -81,7 +81,7 @@ function clusterByContinent(pins: ProjectedPin[]): Cluster[] {
  * current zoom `k`. Cities from different countries never merge, so at the most
  * zoomed-out level a country collapses to a single pin at worst.
  */
-export function clusterPins(pins: ProjectedPin[], k: number, thresholdPx: number): Cluster[] {
+function clusterPins(pins: ProjectedPin[], k: number, thresholdPx: number): Cluster[] {
   const threshold = thresholdPx / k;
 
   const byCountry = new Map<string, ProjectedPin[]>();
@@ -110,7 +110,7 @@ export function clusterPins(pins: ProjectedPin[], k: number, thresholdPx: number
  * land on the wrong countries; the cap keeps every pin geographically honest,
  * accepting some residual overlap in the worst crush instead of scattering.
  */
-export function separateClusters(
+function separateClusters(
   clusters: Cluster[],
   k: number,
   separationPx: number,
@@ -153,7 +153,15 @@ export function separateClusters(
     if (!moved) break;
   }
 
-  return laid.map(({ ox: _ox, oy: _oy, ...c }) => c);
+  return laid.map(({ id, x, y, cities, photoCount, tier, name }) => ({
+    id,
+    x,
+    y,
+    cities,
+    photoCount,
+    tier,
+    name
+  }));
 }
 
 /** Pull a pin back so it never strays more than `maxShift` from its origin. */

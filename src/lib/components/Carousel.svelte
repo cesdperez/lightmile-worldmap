@@ -126,11 +126,15 @@
   >
     <header class="flex items-center justify-between gap-3 px-5 py-4">
       <div class="flex min-w-0 items-baseline gap-3">
-        <h2 class="truncate font-display text-2xl font-black uppercase leading-none tracking-tight text-ink">
+        <h2
+          class="truncate font-display text-2xl font-black uppercase leading-none tracking-tight text-ink"
+        >
           {cityName}
         </h2>
         {#if count > 1}
-          <span class="shrink-0 font-mono text-sm tabular-nums text-ink/60">{index + 1} / {count}</span>
+          <span class="shrink-0 font-mono text-sm tabular-nums text-ink/60"
+            >{index + 1} / {count}</span
+          >
         {/if}
       </div>
       <button
@@ -192,7 +196,10 @@
             />
             <img
               src="{PHOTOS_BASE_URL}/{photo.src}"
-              alt={photo.note ?? (photo.author ? `Lightmile photo in ${cityName} by ${photo.author}` : `Lightmile photo in ${cityName}`)}
+              alt={photo.note ??
+                (photo.author
+                  ? `Lightmile photo in ${cityName} by ${photo.author}`
+                  : `Lightmile photo in ${cityName}`)}
               width={photo.width}
               height={photo.height}
               class="relative h-full w-full object-contain"
@@ -224,7 +231,8 @@
       <!-- Reserved height: a photo with neither author nor date would collapse the row. -->
       <div class="meta flex flex-wrap items-center gap-x-2.5 gap-y-1">
         {#if photo.author}
-          <span class="border border-ink/25 px-2 py-0.5 font-mono text-xs uppercase tracking-wide text-ink"
+          <span
+            class="border border-ink/25 px-2 py-0.5 font-mono text-xs uppercase tracking-wide text-ink"
             >{photo.author}</span
           >
         {/if}
@@ -244,7 +252,11 @@
       {/if}
 
       {#if count > 1}
-        <div class="mt-4 flex flex-wrap justify-center gap-x-3 gap-y-2" role="tablist" aria-label="Choose item">
+        <div
+          class="mt-4 flex flex-wrap justify-center gap-x-3 gap-y-2"
+          role="tablist"
+          aria-label="Choose item"
+        >
           {#each cityGroups as group (group.name)}
             <div class="flex gap-1.5">
               {#each group.indices as i (i)}

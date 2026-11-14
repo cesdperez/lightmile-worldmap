@@ -210,11 +210,16 @@
               ? cluster.name
               : cluster.cities.map((c) => c.name).join(', ')}</title
           >
-          <circle cx={cluster.x} cy={cluster.y} r={pinHitRadius(cluster.cities.length)} fill="transparent" />
           <circle
             cx={cluster.x}
             cy={cluster.y}
-            r={r}
+            r={pinHitRadius(cluster.cities.length)}
+            fill="transparent"
+          />
+          <circle
+            cx={cluster.x}
+            cy={cluster.y}
+            {r}
             fill="var(--color-ink)"
             stroke="var(--color-paper)"
             stroke-width={pinStroke}

@@ -10,14 +10,14 @@ import { CONTINENT_NAMES, continentOf, type ContinentCode } from '$lib/data/cont
  * `ItemList` structured data.
  */
 
-export interface CityPlace {
+interface CityPlace {
   id: string;
   name: string;
   lat: number;
   lng: number;
 }
 
-export interface CountryPlace {
+interface CountryPlace {
   /** ISO 3166-1 alpha-2. */
   code: string;
   name: string;
@@ -35,7 +35,7 @@ export interface ContinentPlace {
 // keep in step with countryCodes.ts. Falls back to the code if a runtime lacks it.
 const regionNames = new Intl.DisplayNames(['en'], { type: 'region' });
 
-export function countryName(alpha2: string): string {
+function countryName(alpha2: string): string {
   const code = alpha2.toUpperCase();
   try {
     return regionNames.of(code) ?? code;
@@ -87,13 +87,11 @@ export function buildPlaces(cities: CityView[]): ContinentPlace[] {
 
   // Busiest continent first: Europe is where nearly every pin is, so it should
   // lead the panel and the llms.txt listing rather than sort alphabetically.
-  return continents.toSorted(
-    (a, b) => b.cityCount - a.cityCount || a.name.localeCompare(b.name)
-  );
+  return continents.toSorted((a, b) => b.cityCount - a.cityCount || a.name.localeCompare(b.name));
 }
 
 /** Flat, alphabetical country list. Used for the one-line summary sentence. */
-export function countryList(continents: ContinentPlace[]): CountryPlace[] {
+function countryList(continents: ContinentPlace[]): CountryPlace[] {
   return continents
     .flatMap((continent) => continent.countries)
     .toSorted((a, b) => a.name.localeCompare(b.name));

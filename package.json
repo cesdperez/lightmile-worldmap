@@ -8,9 +8,17 @@
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "test": "vitest run"
+    "test": "vitest run",
+    "prepare": "svelte-kit sync || echo '' && simple-git-hooks",
+    "lint": "prettier --check . && eslint .",
+    "format": "prettier --write .",
+    "scan": "sh scripts/require-tools.sh gitleaks trivy && gitleaks git --no-banner --redact --log-opts=HEAD && trivy fs --scanners vuln --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1 --skip-version-check --quiet .",
+    "scan:staged": "sh scripts/require-tools.sh gitleaks && gitleaks git --staged --no-banner --redact",
+    "knip": "knip",
+    "test:run": "vitest run"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@sveltejs/adapter-static": "^3.0.10",
     "@sveltejs/kit": "^2.65.2",
     "@sveltejs/vite-plugin-svelte": "^6.2.4",
@@ -20,14 +28,25 @@
     "@types/d3-selection": "^3.0.11",
     "@types/d3-transition": "^3.0.9",
     "@types/d3-zoom": "^3.0.8",
+    "@types/geojson": "^7946.0.16",
     "@types/node": "^25.9.3",
     "@types/topojson-client": "^3.1.5",
     "d3-transition": "^3.0.1",
+    "eslint": "^10.4.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-svelte": "^3.19.0",
+    "globals": "^17.6.0",
     "jsdom": "^30.0.1",
+    "knip": "^6.45.1",
+    "lint-staged": "^17.6.0",
+    "prettier": "^3.8.3",
+    "prettier-plugin-svelte": "^4.1.0",
+    "simple-git-hooks": "^2.14.0",
     "svelte": "^5.56.3",
     "svelte-check": "^4.6.0",
     "tailwindcss": "^4.3.1",
     "typescript": "^6.0.3",
+    "typescript-eslint": "^8.60.1",
     "vite": "^7.3.5",
     "vitest": "^4.1.10"
   },
@@ -39,5 +58,32 @@
     "topojson-client": "^3.1.0",
     "world-atlas": "^2.0.2",
     "zod": "^4.4.3"
+  },
+  "packageManager": "pnpm@12.18.0",
+  "engines": {
+    "node": ">=26"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": ">=26",
+      "onFail": "error"
+    },
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.18.0",
+      "onFail": "error"
+    }
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm exec lint-staged && pnpm scan:staged",
+    "pre-push": "pnpm check && pnpm test:run && pnpm scan && pnpm knip"
+  },
+  "lint-staged": {
+    "*.{js,ts,svelte}": [
+      "prettier --write",
+      "eslint"
+    ],
+    "*.{css,html,json,md,yaml,yml}": "prettier --write"
   }
 }

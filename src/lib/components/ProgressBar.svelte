@@ -16,7 +16,9 @@
 <div
   class="absolute inset-x-0 bottom-0 z-10 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 sm:inset-x-auto sm:right-4 sm:bottom-4 sm:w-80 sm:border sm:border-ink/15 sm:bg-paper/85 sm:p-4 sm:backdrop-blur"
 >
-  <div class="border border-ink/15 bg-paper/85 p-3 backdrop-blur sm:border-0 sm:bg-transparent sm:p-0">
+  <div
+    class="border border-ink/15 bg-paper/85 p-3 backdrop-blur sm:border-0 sm:bg-transparent sm:p-0"
+  >
     <div class="flex items-baseline justify-between gap-3">
       <span class="font-display text-xl font-black uppercase leading-none tracking-tight text-ink"
         >Conquer the world</span
@@ -32,7 +34,10 @@
       aria-valuemax={progress.total}
       aria-label="World conquered: {progress.conquered} of {progress.total} countries"
     >
-      <div class="h-full bg-blue transition-[width] duration-500" style="width: {progress.fraction * 100}%"></div>
+      <div
+        class="h-full bg-blue transition-[width] duration-500"
+        style="width: {progress.fraction * 100}%"
+      ></div>
     </div>
 
     <p class="mt-2.5 font-mono text-xs uppercase tracking-wide text-ink/70">

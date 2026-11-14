@@ -44,8 +44,7 @@ export function buildLlmsTxt(
         [
           `### ${continent.name}`,
           ...continent.countries.map(
-            (country) =>
-              `- ${country.name}: ${country.cities.map((city) => city.name).join(', ')}`
+            (country) => `- ${country.name}: ${country.cities.map((city) => city.name).join(', ')}`
           )
         ].join('\n')
       )

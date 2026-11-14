@@ -22,10 +22,14 @@
    header menu, beside the wordmark. The max height keeps a long list off the
    progress bar instead of scrolling under it.
 -->
-<div class="pointer-events-none absolute left-4 top-14 z-10 flex flex-col items-start gap-2 sm:top-16 lg:left-[28rem] lg:top-[max(0.75rem,env(safe-area-inset-top))] lg:flex-row">
+<div
+  class="pointer-events-none absolute left-4 top-14 z-10 flex flex-col items-start gap-2 sm:top-16 lg:left-[28rem] lg:top-[max(0.75rem,env(safe-area-inset-top))] lg:flex-row"
+>
   <Disclosure title="Visited places">
     <div class="border border-t-0 border-ink/15 bg-paper/95 p-3 backdrop-blur">
-      <h2 class="font-mono text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-blue">By continent</h2>
+      <h2 class="font-mono text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-blue">
+        By continent
+      </h2>
 
       {#each continents as continent (continent.code)}
         <section class="mt-4">
@@ -49,7 +53,9 @@
 
   <Disclosure title="Runners">
     <div class="border border-t-0 border-ink/15 bg-paper/95 p-3 backdrop-blur">
-      <h2 class="font-mono text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-blue">Photo contributors</h2>
+      <h2 class="font-mono text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-blue">
+        Photo contributors
+      </h2>
       <ul class="mt-3 space-y-1">
         {#each runners as runner (runner)}
           <li class="text-sm leading-snug text-ink">{runner}</li>

@@ -17,7 +17,10 @@ export const countries: CountryFeature[] = collection.features;
 export const totalCountries = countries.length;
 
 /** A projection fitted to the given size, plus its path generator. */
-export function buildProjection(width: number, height: number): { projection: GeoProjection; path: GeoPath } {
+export function buildProjection(
+  width: number,
+  height: number
+): { projection: GeoProjection; path: GeoPath } {
   const projection = geoNaturalEarth1().fitExtent(
     [
       [8, 8],

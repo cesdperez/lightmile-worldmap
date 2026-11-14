@@ -2,14 +2,16 @@ import { z } from 'zod';
 import { isValidAlpha2 } from './countryCodes';
 import { hasContinent } from './continents';
 
-export const citySchema = z.object({
+const citySchema = z.object({
   id: z.string().min(1),
   name: z.string().min(1),
   country: z
     .string()
     .length(2)
     .refine((c) => isValidAlpha2(c), { message: 'unknown ISO 3166-1 alpha-2 country code' })
-    .refine((c) => hasContinent(c), { message: 'country has no continent mapping (continents.ts)' }),
+    .refine((c) => hasContinent(c), {
+      message: 'country has no continent mapping (continents.ts)'
+    }),
   lat: z.number().min(-90).max(90),
   lng: z.number().min(-180).max(180)
 });
@@ -37,7 +39,10 @@ export type Photo = z.infer<typeof photoSchema>;
  * Validate the raw data collections and cross-check referential integrity.
  * Throws on any problem so the prerender build fails loudly (DATA-MODEL guardrails).
  */
-export function parseData(rawCities: unknown, rawPhotos: unknown): { cities: City[]; photos: Photo[] } {
+export function parseData(
+  rawCities: unknown,
+  rawPhotos: unknown
+): { cities: City[]; photos: Photo[] } {
   const cities = z.array(citySchema).parse(rawCities);
   const photos = z.array(photoSchema).parse(rawPhotos);
 

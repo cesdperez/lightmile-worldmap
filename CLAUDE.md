@@ -9,20 +9,20 @@ A public, read-only static site for the Lightmile Run Club: wherever a club phot
 ## Commands
 
 ```bash
-npm run dev        # local dev server (vite)
-npm run check      # type-check: svelte-kit sync && svelte-check
-npm run build      # static site -> build/  (runs prerender; bad data fails here)
-npm run preview    # serve the production build locally
+pnpm dev        # local dev server (vite)
+pnpm check      # type-check: svelte-kit sync && svelte-check
+pnpm build      # static site -> build/  (runs prerender; bad data fails here)
+pnpm preview    # serve the production build locally
 ```
 
-There is no test runner or linter configured. `npm run check` (svelte-check) is the type/correctness gate.
+There is no test runner or linter configured. `pnpm check` (svelte-check) is the type/correctness gate.
 
 ## Architecture: everything is derived from two JSON files
 
 The entire map (country fills, pins, carousels, progress bar, counters) is computed from `src/lib/data/cities.json` + `src/lib/data/photos.json`. Nothing about "conquered" state is hand-set or stored.
 
 Data flow:
-1. `src/routes/+page.ts` (`load`, runs at **prerender** time since `+layout.ts` sets `prerender = true`) imports both JSON files and calls `parseData` from `src/lib/data/schema.ts`. Invalid or inconsistent data **throws here and fails `npm run build`** — this is the intentional guardrail, not a bug.
+1. `src/routes/+page.ts` (`load`, runs at **prerender** time since `+layout.ts` sets `prerender = true`) imports both JSON files and calls `parseData` from `src/lib/data/schema.ts`. Invalid or inconsistent data **throws here and fails `pnpm build`** — this is the intentional guardrail, not a bug.
 2. `src/lib/state/derive.ts#buildMapData` turns cities + photos into the view model: a city is conquered iff it has ≥1 photo (cities with no photos are dropped, no pin); a country is conquered iff ≥1 of its cities is. `computeProgress` = conquered countries / total countries.
 3. `src/routes/+page.svelte` wires the derived data into `WorldMap`, `ProgressBar`, and `Carousel`.
 
@@ -43,7 +43,7 @@ Photos are hosted in a public Cloudflare R2 bucket (`lightmile-worldmap-photos`)
 2. If the city is new, add one entry to `src/lib/data/cities.json` (`id`, `name`, alpha-2 `country`, `lat`, `lng`).
 3. Add one entry per photo to `src/lib/data/photos.json` (`city` = city id, `src` = R2 key `photos/<city-id>/<file>`, `author`, optional `note`/`date`, and `width`/`height` so the carousel can reserve the
    box before the file loads).
-4. `npm run build` to confirm validation passes, then commit + push.
+4. `pnpm build` to confirm validation passes, then commit + push.
 
 `schema.ts` enforces: valid alpha-2 country code, coordinate ranges, no duplicate city ids, and that every photo references an existing city. (Note: the docs mention validating that the image `src` file exists, but `schema.ts` does not currently check this.)
 
