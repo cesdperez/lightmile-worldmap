@@ -2,8 +2,8 @@ import adapter from '@sveltejs/adapter-static';
 import { sveltekit } from '@sveltejs/kit/vite';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vitest/config';
-import { cspScriptHashes } from './csp-script-hashes';
-import { DEV_PORT, PREVIEW_PORT } from './scripts/ports';
+import { cspScriptHashes } from './csp-script-hashes.js';
+import { DEV_PORT, PREVIEW_PORT } from './scripts/ports.js';
 
 export default defineConfig({
   server: { port: DEV_PORT, strictPort: true },
