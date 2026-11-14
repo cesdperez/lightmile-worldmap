@@ -7,4 +7,4 @@ minimumReleaseAge: 1440
 allowBuilds:
   simple-git-hooks: false
   core-js: false
-  esbuild: true
+  esbuild: false

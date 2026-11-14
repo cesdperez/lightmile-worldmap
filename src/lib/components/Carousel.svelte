@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { browser } from '$app/environment';
+  import { browser } from '$app/env';
   import { PHOTOS_BASE_URL } from '$lib/config';
   import { isVideo } from '$lib/media';
   import type { Cluster } from '$lib/state/cluster';
