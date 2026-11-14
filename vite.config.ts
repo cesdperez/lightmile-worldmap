@@ -3,8 +3,11 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vitest/config';
 import { cspScriptHashes } from './csp-script-hashes';
+import { DEV_PORT, PREVIEW_PORT } from './scripts/ports';
 
 export default defineConfig({
+  server: { port: DEV_PORT, strictPort: true },
+  preview: { port: PREVIEW_PORT, strictPort: true },
   plugins: [
     tailwindcss(),
     sveltekit({
@@ -33,7 +36,7 @@ export default defineConfig({
   },
   test: {
     environment: 'jsdom',
-    include: ['src/**/*.test.ts'],
+    include: ['src/**/*.test.ts', 'scripts/**/*.test.ts'],
     setupFiles: ['src/test/setup.ts']
   }
 });
