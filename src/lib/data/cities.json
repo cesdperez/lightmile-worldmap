@@ -383,5 +383,19 @@
     "country": "VN",
     "lat": 21.0285,
     "lng": 105.8542
+  },
+  {
+    "id": "torres-del-paine",
+    "name": "Torres del Paine",
+    "country": "CL",
+    "lat": -51.0158,
+    "lng": -73.0386
+  },
+  {
+    "id": "foz-do-iguacu",
+    "name": "Foz do Iguaçu",
+    "country": "BR",
+    "lat": -25.6953,
+    "lng": -54.4367
   }
 ]
