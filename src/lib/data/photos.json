@@ -522,7 +522,7 @@
   {
     "city": "chicago",
     "src": "photos/chicago/chicago-01.jpeg",
-    "author": "Charon",
+    "author": "@charon.o8",
     "width": 1125,
     "height": 2000
   },
@@ -536,7 +536,7 @@
   {
     "city": "puerto-natales",
     "src": "photos/puerto-natales/puerto-natales-01.jpeg",
-    "author": "Charon",
+    "author": "@charon.o8",
     "note": "Torres del Paine, Campamento Italiano",
     "date": "2026-11-13",
     "width": 1125,
@@ -545,7 +545,7 @@
   {
     "city": "foz-do-iguacu",
     "src": "photos/foz-do-iguacu/foz-do-iguacu-01.jpeg",
-    "author": "Charon",
+    "author": "@charon.o8",
     "note": "Iguaçu Falls, Brazilian side",
     "date": "2026-11-13",
     "width": 1500,
