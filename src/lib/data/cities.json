@@ -385,17 +385,17 @@
     "lng": 105.8542
   },
   {
-    "id": "torres-del-paine",
-    "name": "Torres del Paine",
+    "id": "puerto-natales",
+    "name": "Puerto Natales",
     "country": "CL",
-    "lat": -51.0158,
-    "lng": -73.0386
+    "lat": -51.7236,
+    "lng": -72.4875
   },
   {
     "id": "foz-do-iguacu",
     "name": "Foz do Iguaçu",
     "country": "BR",
-    "lat": -25.6953,
-    "lng": -54.4367
+    "lat": -25.5163,
+    "lng": -54.5854
   }
 ]
