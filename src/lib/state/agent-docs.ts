@@ -1,4 +1,4 @@
-import { CLUB_URL, SITE_URL } from '$lib/config';
+import { CLUB_URL, SITE_URL } from '#lib/config.js';
 import { countrySentence, type ContinentPlace } from './places';
 
 /**

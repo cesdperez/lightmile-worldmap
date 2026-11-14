@@ -3,8 +3,8 @@
   import 'd3-transition';
   import { zoom, zoomIdentity, type ZoomBehavior, type ZoomTransform } from 'd3-zoom';
   import { countries, buildProjection } from './world';
-  import type { CityView } from '$lib/state/derive';
-  import { buildClusters, type Cluster } from '$lib/state/cluster';
+  import type { CityView } from '#lib/state/derive.js';
+  import { buildClusters, type Cluster } from '#lib/state/cluster.js';
 
   interface Props {
     cities: CityView[];

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Progress } from '$lib/state/derive';
+  import type { Progress } from '#lib/state/derive.js';
 
   interface Props {
     progress: Progress;

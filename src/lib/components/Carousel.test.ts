@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/svelte';
 import { describe, expect, it } from 'vitest';
 import Carousel from './Carousel.svelte';
-import type { Cluster } from '$lib/state/cluster';
+import type { Cluster } from '#lib/state/cluster.js';
 
 const cluster: Cluster = {
   id: 'eindhoven',

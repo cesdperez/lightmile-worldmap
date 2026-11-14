@@ -1,9 +1,9 @@
-import { parseData } from '$lib/data/schema';
-import rawCities from '$lib/data/cities.json';
-import rawPhotos from '$lib/data/photos.json';
-import { buildMapData } from '$lib/state/derive';
-import { buildPlaces } from '$lib/state/places';
-import { buildLlmsTxt } from '$lib/state/agent-docs';
+import { parseData } from '#lib/data/schema.js';
+import rawCities from '#lib/data/cities.json';
+import rawPhotos from '#lib/data/photos.json';
+import { buildMapData } from '#lib/state/derive.js';
+import { buildPlaces } from '#lib/state/places.js';
+import { buildLlmsTxt } from '#lib/state/agent-docs.js';
 import type { RequestHandler } from './$types';
 
 export const prerender = true;

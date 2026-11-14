@@ -1,5 +1,5 @@
 import type { CityView } from './derive';
-import { CONTINENT_NAMES, continentOf, type ContinentCode } from '$lib/data/continents';
+import { CONTINENT_NAMES, continentOf, type ContinentCode } from '#lib/data/continents.js';
 
 /**
  * The conquered places as a readable hierarchy: continent -> country -> city.

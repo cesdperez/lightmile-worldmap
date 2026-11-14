@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CLUB_URL } from '$lib/config';
+  import { CLUB_URL } from '#lib/config.js';
 </script>
 
 <header

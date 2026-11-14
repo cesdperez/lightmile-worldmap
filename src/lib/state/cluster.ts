@@ -1,5 +1,5 @@
 import type { CityView } from './derive';
-import { continentOf, CONTINENT_NAMES } from '$lib/data/continents';
+import { continentOf, CONTINENT_NAMES } from '#lib/data/continents.js';
 
 export interface ProjectedPin {
   city: CityView;

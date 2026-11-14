@@ -1,5 +1,5 @@
-import type { City, Photo } from '$lib/data/schema';
-import { alpha2ToNumeric } from '$lib/data/countryCodes';
+import type { City, Photo } from '#lib/data/schema.js';
+import { alpha2ToNumeric } from '#lib/data/countryCodes.js';
 
 export interface CityView extends City {
   numeric: string;

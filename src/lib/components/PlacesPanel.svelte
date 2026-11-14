@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Disclosure from '$lib/components/Disclosure.svelte';
-  import type { ContinentPlace } from '$lib/state/places';
+  import Disclosure from '#lib/components/Disclosure.svelte';
+  import type { ContinentPlace } from '#lib/state/places.js';
 
   interface Props {
     continents: ContinentPlace[];

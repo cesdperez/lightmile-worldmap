@@ -1,15 +1,15 @@
 <script lang="ts">
-  import Header from '$lib/components/Header.svelte';
-  import ThemeToggle from '$lib/components/ThemeToggle.svelte';
-  import ProgressBar from '$lib/components/ProgressBar.svelte';
-  import PlacesPanel from '$lib/components/PlacesPanel.svelte';
-  import Carousel from '$lib/components/Carousel.svelte';
-  import WorldMap from '$lib/map/WorldMap.svelte';
-  import { totalCountries } from '$lib/map/world';
-  import { buildMapData, computeProgress } from '$lib/state/derive';
-  import { buildPlaces } from '$lib/state/places';
-  import { CLUB_URL, SITE_URL } from '$lib/config';
-  import type { Cluster } from '$lib/state/cluster';
+  import Header from '#lib/components/Header.svelte';
+  import ThemeToggle from '#lib/components/ThemeToggle.svelte';
+  import ProgressBar from '#lib/components/ProgressBar.svelte';
+  import PlacesPanel from '#lib/components/PlacesPanel.svelte';
+  import Carousel from '#lib/components/Carousel.svelte';
+  import WorldMap from '#lib/map/WorldMap.svelte';
+  import { totalCountries } from '#lib/map/world.js';
+  import { buildMapData, computeProgress } from '#lib/state/derive.js';
+  import { buildPlaces } from '#lib/state/places.js';
+  import { CLUB_URL, SITE_URL } from '#lib/config.js';
+  import type { Cluster } from '#lib/state/cluster.js';
 
   let { data } = $props();
 

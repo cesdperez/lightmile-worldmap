@@ -1,4 +1,4 @@
-import { buildSitemap } from '$lib/state/agent-docs';
+import { buildSitemap } from '#lib/state/agent-docs.js';
 import type { RequestHandler } from './$types';
 
 export const prerender = true;
