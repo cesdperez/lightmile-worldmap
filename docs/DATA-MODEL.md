@@ -105,7 +105,7 @@ wrangler r2 object put \
 5. In `data/photos.json`: add one entry per photo — `city` id, `src` = the R2 key
    `photos/<city-id>/<file>`, `author`, optional `note`/`date`, and `width`/`height`
    from the exported file.
-6. `npm run build` to confirm validation passes, then `git commit` + `git push`.
+6. `pnpm build` to confirm validation passes, then `git commit` + `git push`.
    Cloudflare Pages auto-builds and deploys.
 
 That's it. New countries turn blue automatically; pins, carousels, counters, and the
