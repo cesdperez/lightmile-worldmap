@@ -205,11 +205,11 @@
             }
           }}
         >
-          <title
-            >{cluster.tier === 'continent'
+          <title>
+            {cluster.tier === 'continent'
               ? cluster.name
-              : cluster.cities.map((c) => c.name).join(', ')}</title
-          >
+              : cluster.cities.map((c) => c.name).join(', ')}
+          </title>
           <circle
             cx={cluster.x}
             cy={cluster.y}
@@ -238,13 +238,17 @@
       type="button"
       class="grid h-10 w-10 place-items-center border border-ink/15 bg-paper/90 text-xl font-bold text-ink backdrop-blur transition-colors hover:bg-paper active:bg-paper-line"
       aria-label="Zoom in"
-      onclick={() => zoomBy(1.4)}>+</button
+      onclick={() => zoomBy(1.4)}
     >
+      +
+    </button>
     <button
       type="button"
       class="grid h-10 w-10 place-items-center border border-ink/15 bg-paper/90 text-xl font-bold text-ink backdrop-blur transition-colors hover:bg-paper active:bg-paper-line"
       aria-label="Zoom out"
-      onclick={() => zoomBy(1 / 1.4)}>−</button
+      onclick={() => zoomBy(1 / 1.4)}
     >
+      −
+    </button>
   </div>
 </div>

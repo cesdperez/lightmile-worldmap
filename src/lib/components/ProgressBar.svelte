@@ -20,9 +20,9 @@
     class="border border-ink/15 bg-paper/85 p-3 backdrop-blur sm:border-0 sm:bg-transparent sm:p-0"
   >
     <div class="flex items-baseline justify-between gap-3">
-      <span class="font-display text-xl font-black uppercase leading-none tracking-tight text-ink"
-        >Conquer the world</span
-      >
+      <span class="font-display text-xl font-black uppercase leading-none tracking-tight text-ink">
+        Conquer the world
+      </span>
       <span class="font-mono text-sm font-semibold tabular-nums text-blue">{pct}%</span>
     </div>
 

@@ -132,17 +132,19 @@
           {cityName}
         </h2>
         {#if count > 1}
-          <span class="shrink-0 font-mono text-sm tabular-nums text-ink/60"
-            >{index + 1} / {count}</span
-          >
+          <span class="shrink-0 font-mono text-sm tabular-nums text-ink/60">
+            {index + 1} / {count}
+          </span>
         {/if}
       </div>
       <button
         type="button"
         class="-mr-1.5 grid h-9 w-9 shrink-0 place-items-center text-2xl leading-none text-ink/60 transition-colors hover:bg-paper-line hover:text-ink"
         aria-label="Close"
-        onclick={onClose}>×</button
+        onclick={onClose}
       >
+        ×
+      </button>
     </header>
 
     <!--
@@ -216,14 +218,18 @@
           type="button"
           class="absolute left-3 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center border border-ink/15 bg-paper/80 text-xl text-ink backdrop-blur-sm transition-colors hover:bg-paper"
           aria-label="Previous"
-          onclick={() => go(-1)}>‹</button
+          onclick={() => go(-1)}
         >
+          ‹
+        </button>
         <button
           type="button"
           class="absolute right-3 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center border border-ink/15 bg-paper/80 text-xl text-ink backdrop-blur-sm transition-colors hover:bg-paper"
           aria-label="Next"
-          onclick={() => go(1)}>›</button
+          onclick={() => go(1)}
         >
+          ›
+        </button>
       {/if}
     </div>
 
@@ -233,8 +239,9 @@
         {#if photo.author}
           <span
             class="border border-ink/25 px-2 py-0.5 font-mono text-xs uppercase tracking-wide text-ink"
-            >{photo.author}</span
           >
+            {photo.author}
+          </span>
         {/if}
         {#if photo.date}
           <span class="font-mono text-xs tabular-nums text-ink/60">{photo.date}</span>
