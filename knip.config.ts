@@ -1,6 +1,7 @@
 import type { KnipConfig } from 'knip';
 
 export default {
+  entry: ['functions/index.ts'],
   ignore: ['static/theme-init.js'],
   // Installed with brew, not npm.
   ignoreBinaries: ['gitleaks', 'trivy'],

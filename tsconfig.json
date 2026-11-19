@@ -11,5 +11,5 @@
     "strict": true,
     "moduleResolution": "bundler"
   },
-  "include": ["src", "vite.config.ts", "csp-script-hashes.ts"]
+  "include": ["src", "functions", "vite.config.ts", "csp-script-hashes.ts"]
 }
